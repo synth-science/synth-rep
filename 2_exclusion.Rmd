@@ -1,0 +1,307 @@
+---
+title: "SurveyBot3000 exclusions related to data quality"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    number_sections: true
+    toc: true
+    toc_depth: 3
+    toc_float: true
+    self_contained: true
+---
+
+```{r setup, message = FALSE}
+knitr::opts_chunk$set(
+	message = FALSE,
+	warning = TRUE,
+	include = TRUE,
+	error = TRUE,
+	fig.width = 8,
+	fig.height = 4
+)
+```
+# set up
+
+```{r}
+library(tidyverse)
+library(haven)
+library(labelled)
+library(readr)
+
+# windowsFonts(Times = windowsFont("Times New Roman"))
+ggplot2::theme_set(ggplot2::theme_bw())
+
+options(scipen = 999,
+        digits = 2)
+```
+
+## import data 
+```{r}
+sb <- read_rds("data/processed/sosci_labelled.rds")
+
+nationalities <- sb$Nationality
+nationalities <- nationalities[!nationalities %in% c("CONSENT_REVOKED","DATA_EXPIRED")]
+table(nationalities)
+prop.table(table(nationalities))
+table(sb$`Country of residence`)
+
+table(sb$SD05)
+table(sb$SD06)
+```
+
+## Prolific experience
+```{r}
+median(sb$`Total approvals`, na.rm = T)
+qplot(sb$`Total approvals`) + scale_x_sqrt(breaks = c(0, 20, 100, 500, 1000, 2500, 5000, 10000))
+sum(sb$`Total approvals` == 0, na.rm = T)
+sum(sb$`Total approvals` < 20, na.rm = T)
+sum(sb$`Total approvals` < 20, na.rm = T)/nrow(sb)*100
+```
+
+
+## preprocess 
+### filter to those who have main questionnaire data to avoid duplicates in the survey data when merging with approved prolific ids
+
+```{r}
+main_qs <- c("AAID", "PANAS", "PAQ", "PSS", "NEPS", "ULS", "FCV", "DAQ", "CESD", "HEXACO", "OCIR", "PTQ", "RAAS", "KSA", "SAS", "MFQ", "CQ")
+
+
+sb_complete_cases_main_qs <- sb %>%
+  filter(if_all(starts_with(main_qs), ~ !is.na(.x)))
+
+sb_main <- sb_complete_cases_main_qs %>% 
+	select(-ends_with("_R"))
+
+sb_items_only <- sb_complete_cases_main_qs %>% 
+	select(starts_with(main_qs))
+
+sb_main$`Submission id`[str_length(sb_main$`Submission id`) < 20]
+nrow(sb_main)
+```
+
+`r nrow(sb_main)` have full main questionnaire data
+
+
+# PR cleaning a la pre-reg
+> We will follow Goldammer et al.(2020) and Yentes (2020) recommendations for identifying and excluding participants exhibiting problematic response patterns (e.g., careless responding). 
+> Accordingly, participants will be excluded if any of the following thresholds are exceeded: 
+> 
+> a) longstring (≥ .40 SD above mean),  
+> b) multivariate outlier statistic using Mahalanobis distance (≥ .50 SD above mean), 
+> c) psychometric synonyms (r < .60), 
+> d) psychometric antonyms (r ≥ -.40), 
+> e) even-odd-index (≥ .20 SD above mean).
+
+
+```{r}
+library(careless)
+```
+
+## inverted items
+```{r}
+inv_items <- rio::import("https://docs.google.com/spreadsheets/d/16QcRLP5BUn1Cmtr0e_XRdjr1Wg-EHSMSGmgZO1M3tNM/edit?gid=0#gid=0", which = 2) %>% select(item = id, reversed)
+
+inv_items <- inv_items %>%
+  filter(reversed) %>%
+  pull(item) %>%
+  intersect(names(sb_main))
+
+# Reverse code items based on "reversed" column in "inv_items"
+sb_main_inverted <- sb_main %>%
+  mutate(across(c(all_of(inv_items), ULS8_03, ULS8_06), ~ 7 + 1 - as.numeric(.)))
+
+# data.frame(sb_main$AAID_01, sb_main$AAID_01)
+```
+
+
+
+## longstring
+calculating them based on main questionnaires only (excluding work related ones for consistency)
+```{r}
+sb_longstring <- sb_main %>% 
+  mutate(longstring = longstring(sb_main %>% select(starts_with(main_qs))),
+         longstring_mean = mean(longstring),
+         longstring_sd = sd(longstring),
+         longstring_outlier = if_else(longstring >= longstring_mean + .4 * longstring_sd, T, F)) %>% 
+  relocate(c("longstring", "longstring_outlier"), .after = "Submission id")
+
+ggplot(sb_longstring, aes(longstring)) + geom_histogram()
+sum(sb_longstring$longstring_outlier)
+```
+
+ouch
+
+## Mahalanobis
+```{r}
+sb_mahal <- sb_longstring %>% 
+  mutate(mahal_dist = mahad(sb_main %>% select(starts_with(main_qs))),
+  			 mahal_flagged = mahad(sb_main %>% select(starts_with(main_qs)), flag = TRUE, confidence = .95)$flagged,
+         mahal_dist_mean = mean(mahal_dist),
+         mahal_dist_sd = sd(mahal_dist),
+         mahal_dist_outlier_.5 = if_else(mahal_dist >= mahal_dist_mean + .5 * mahal_dist_sd, T, F),
+  			 mahal_dist_outlier_1.5 = if_else(mahal_dist >= mahal_dist_mean + 1.5 * mahal_dist_sd, T, F))
+
+sum(sb_mahal$mahal_dist_outlier_.5)
+sum(sb_mahal$mahal_dist_outlier_1.5)
+sum(sb_mahal$mahal_flagged)
+```
+
+
+
+
+## psychometric synonym
+.22 instead of .6 as cut off
+```{r}
+cors <- psychsyn_critval(sb_main %>% select(starts_with(main_qs)))
+cors
+```
+
+k=`r sum(cors$cor > .60, na.rm = TRUE)` psychometric synonyms found.
+
+```{r, fig.width=6, fig.height=6}
+# sb_psychsyn <- sb_mahal %>% 
+#   mutate(psychsyn = psychsyn(sb_main %>% select(id, starts_with(main_qs))),
+#          psychsyn_mean = mean(psychsyn, na.rm = T),
+#          psychsyn_sd = sd(psychsyn, na.rm = T),
+#          psychsyn_outlier = if_else(psychsyn < psychsyn_mean - .5 * psychsyn_sd, T, F)) %>% 
+#   relocate(c("psychsyn", "psychsyn_outlier"), .after = "id") 
+# 
+# sum(sb_psychsyn$psychsyn_outlier, na.rm = T)
+
+sb_psychsyn <- sb_mahal %>% 
+  mutate(psychsyn = psychsyn(sb_main %>% select(starts_with(main_qs))),
+         psychsyn_mean = mean(psychsyn, na.rm = T),
+         psychsyn_sd = sd(psychsyn, na.rm = T),
+         psychsyn_outlier = if_else(psychsyn < .22, T, F)) %>% 
+  relocate(c("psychsyn", "psychsyn_outlier"), .after = "Submission id") 
+
+sum(sb_psychsyn$psychsyn_outlier, na.rm = T)
+```
+
+
+
+two NAs (probably those with extreme longstring and so no within person variance)
+
+## psychometric antonyms
+-.03 instead of -.4 as cut off
+```{r}
+cors <- psychsyn_critval(sb_main %>% select(starts_with(main_qs)), anto = TRUE)
+cors
+sum(cors$cor < -.40, na.rm = TRUE)
+```
+
+k=`r sum(cors$cor < -.40, na.rm = TRUE)` psychometric antonyms found.
+
+
+```{r, fig.width=6, fig.height=6}
+sb_psychant <- sb_psychsyn %>% 
+  mutate(psychant = psychant(sb_main %>% select(starts_with(main_qs)), critval = -.4),
+         psychant_mean = mean(psychant, na.rm = T),
+         psychant_sd = sd(psychant, na.rm = T),
+         psychant_outlier = if_else(psychant > -.03, T, F)) %>% 
+  relocate(c("psychant", "psychant_outlier"), .after = "Submission id") 
+
+sum(sb_psychant$psychant_outlier, na.rm = T)
+```
+
+## even-odd
+```{r}
+sb_even_odd <- sb_psychant %>% 
+  mutate(even_odd = evenodd(sb_main %>% select(`Submission id`, starts_with(main_qs)),factors = c(6, 8, 10, 14, 10, 8, 7, 18, 20, 30, 18, 15, 11, 09, 09, 11, 16)),
+         even_odd_mean = mean(even_odd, na.rm = T),
+         even_odd_sd = sd(even_odd, na.rm = T),
+         even_odd_outlier = if_else(even_odd >= even_odd_mean + .2 * even_odd_sd, T, F)) %>% 
+  relocate(c("even_odd", "even_odd_outlier"), .after = "Submission id") 
+
+sb_even_odd %>% select(even_odd_mean, even_odd_sd) %>% distinct()
+qplot(sb_even_odd$even_odd)
+sort(sb_even_odd$even_odd) %>% tail()
+sum(sb_even_odd$even_odd_outlier, na.rm = T)
+```
+
+## Time spent on page 5
+```{r}
+sb_even_odd$time_per_item <- sb_complete_cases_main_qs$TIME005 / (rowSums(!is.na(sb_items_only))-1)
+qplot(sb_even_odd$time_per_item)
+sum(sb_even_odd$time_per_item < 2)
+
+sb_even_odd <- sb_even_odd %>% 
+	mutate(
+		too_quick_outlier = time_per_item < 2
+	)
+```
+
+
+## Seriousness check
+```{r}
+sb_even_odd <- sb_even_odd %>% 
+	mutate(
+		not_serious = if_else(ZY02 == "No, my responses should not be used.",
+				 											TRUE, FALSE, FALSE)) 
+```
+
+
+## exclude if any of the conditions is met
+```{r}
+library(UpSetR)
+
+sb_even_odd$longstring_extreme_outlier <- sb_even_odd$longstring > 100
+
+criteria <- sb_even_odd %>% 
+	select(longstring_outlier,longstring_extreme_outlier, mahal_dist_outlier_.5, mahal_flagged, psychsyn_outlier, psychant_outlier, even_odd_outlier) %>% 
+	  as.data.frame() %>% 
+	mutate_all(~ if_else(is.na(.), 1, . + 0))
+
+upset(criteria, ncol(criteria), 40, show.numbers = "yes", order.by = "freq",
+      main.bar.color = "#6E8691",
+      matrix.color = "#6E8691",
+      sets.bar.color = "#53AC9B")
+
+# preregistered
+sb_even_odd %>% 
+  filter(if_any(c(longstring_outlier, mahal_dist_outlier_.5, psychsyn_outlier, psychant_outlier, even_odd_outlier), ~ . == TRUE)) %>% nrow()
+
+# as above without longstring
+sb_even_odd %>% 
+  filter(if_any(c(mahal_dist_outlier_.5, psychsyn_outlier, psychant_outlier, even_odd_outlier), ~ . == TRUE)) %>% nrow()
+
+# with the mahal flagging as in the careless package
+sb_even_odd %>% 
+  filter(!psychsyn_outlier, !psychant_outlier, !mahal_flagged, even_odd < -.45, time_per_item >= 2) %>% nrow()
+
+sb_even_odd %>% 
+  filter(!psychsyn_outlier, !psychant_outlier, !mahal_flagged, !(even_odd_outlier & mahal_dist_outlier_.5)) %>% nrow()
+
+sb_even_odd %>% 
+  filter(!psychsyn_outlier, !psychant_outlier, !mahal_flagged, !even_odd_outlier) %>% nrow()
+```
+
+294/465 are excluded 
+
+## New criteria
+```{r}
+sb_even_odd <- sb_even_odd %>% 
+	mutate(even_odd_outlier = even_odd >= -.45) %>% 
+	mutate(included = !mahal_flagged & !psychsyn_outlier & !psychant_outlier & !even_odd_outlier &
+				 !not_serious  & !too_quick_outlier) 
+
+criteria <- sb_even_odd %>% 
+	select(mahal_flagged, psychsyn_outlier, psychant_outlier, even_odd_outlier,
+				 not_serious, too_quick_outlier, included) %>% 
+	  as.data.frame() %>% 
+	mutate_all(~ if_else(is.na(.), 1, . + 0))
+cor(criteria)
+psych::alpha(criteria %>% select(-included))
+
+upset(criteria, ncol(criteria), 40, show.numbers = "yes", order.by = "freq",
+      main.bar.color = "#6E8691",
+      matrix.color = "#6E8691",
+      sets.bar.color = "#53AC9B")
+
+```
+
+## Save processed data
+```{r}
+saveRDS(sb_even_odd, file = "data/processed/sosci_labelled_with_exclusion_criteria.rds")
+```
+

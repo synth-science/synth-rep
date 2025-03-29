@@ -1,0 +1,42 @@
+---
+title: "Codebook"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_depth: 4
+    toc_float: true
+    code_folding: 'hide'
+    self_contained: true
+---
+
+```{r setup}
+knitr::opts_chunk$set(
+  warning = TRUE, # show warnings during codebook generation
+  message = TRUE, # show messages during codebook generation
+  error = TRUE, # do not interrupt codebook generation in case of errors,
+                # usually better for debugging
+  echo = TRUE  # show R code
+)
+ggplot2::theme_set(ggplot2::theme_bw())
+
+```
+
+Now, we're preparing our data for the codebook.
+
+```{r prepare_codebook}
+library(tidyverse)
+library(codebook)
+ds <- readRDS("data/processed/sosci_labelled.rds")
+
+# don't show the reversed items twice
+keep_vars <- setdiff(names(ds), str_sub(names(ds)[str_detect(names(ds), "_R$")], 1, -3))
+ds <- ds %>% select(all_of(keep_vars))
+```
+
+
+Create codebook
+
+```{r codebook}
+codebook(ds)
+```

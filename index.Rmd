@@ -1,0 +1,19 @@
+---
+title: "SurveyBot3000 Validation Study"
+author: "Ruben Arslan"
+date: "2024-11-04"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+## Table of contents
+
+1. [Data cleaning](1_data_clean.html)
+2. [Exclusion/attention checks](2_exclusion.html)
+3. [Codebook](3_codebook.html)
+3. [Anonymisation](4_anonymisation.html)

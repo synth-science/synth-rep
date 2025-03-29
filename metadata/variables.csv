@@ -1,0 +1,3595 @@
+variable,attribute,value,index
+CASE,class,avector,1
+CASE,class,numeric,2
+SERIAL,comment,Serial number (if provided),1
+SERIAL,class,avector,1
+SERIAL,class,character,2
+REF,comment,Reference (if provided in link),1
+REF,class,avector,1
+REF,class,character,2
+QUESTNNR,comment,Questionnaire that has been used in the interview,1
+QUESTNNR,class,avector,1
+QUESTNNR,class,character,2
+MODE,levels,interview,1
+MODE,class,factor,1
+MODE,comment,Interview mode,1
+STARTED,class,POSIXct,1
+STARTED,class,POSIXt,2
+STARTED,comment,Time the interview has started (Europe/Berlin),1
+AAID_01,1,strongly disagree,1
+AAID_01,2,disagree,1
+AAID_01,3,slightly disagree,1
+AAID_01,4,neither agree nor disagree,1
+AAID_01,5,slightly agree,1
+AAID_01,6,agree,1
+AAID_01,7,strongly agree,1
+AAID_01,comment,Attitudes Toward AI in Defense Scale: The use of AI in Defense could be used to spy on us,1
+AAID_01,class,avector,1
+AAID_01,class,numeric,2
+AAID_05,1,strongly disagree,1
+AAID_05,2,disagree,1
+AAID_05,3,slightly disagree,1
+AAID_05,4,neither agree nor disagree,1
+AAID_05,5,slightly agree,1
+AAID_05,6,agree,1
+AAID_05,7,strongly agree,1
+AAID_05,comment,Attitudes Toward AI in Defense Scale: The use of AI in Defense could be used unethically by those in power,1
+AAID_05,class,avector,1
+AAID_05,class,numeric,2
+AAID_07,1,strongly disagree,1
+AAID_07,2,disagree,1
+AAID_07,3,slightly disagree,1
+AAID_07,4,neither agree nor disagree,1
+AAID_07,5,slightly agree,1
+AAID_07,6,agree,1
+AAID_07,7,strongly agree,1
+AAID_07,comment,Attitudes Toward AI in Defense Scale: The use of AI in Defense could be used to maintain peace,1
+AAID_07,class,avector,1
+AAID_07,class,numeric,2
+AAID_09,1,strongly disagree,1
+AAID_09,2,disagree,1
+AAID_09,3,slightly disagree,1
+AAID_09,4,neither agree nor disagree,1
+AAID_09,5,slightly agree,1
+AAID_09,6,agree,1
+AAID_09,7,strongly agree,1
+AAID_09,comment,Attitudes Toward AI in Defense Scale: The use of AI in Defense could lead to unforeseen consequences,1
+AAID_09,class,avector,1
+AAID_09,class,numeric,2
+AAID_12,1,strongly disagree,1
+AAID_12,2,disagree,1
+AAID_12,3,slightly disagree,1
+AAID_12,4,neither agree nor disagree,1
+AAID_12,5,slightly agree,1
+AAID_12,6,agree,1
+AAID_12,7,strongly agree,1
+AAID_12,comment,Attitudes Toward AI in Defense Scale: The use of AI in Defense could save lives,1
+AAID_12,class,avector,1
+AAID_12,class,numeric,2
+AAID_14,1,strongly disagree,1
+AAID_14,2,disagree,1
+AAID_14,3,slightly disagree,1
+AAID_14,4,neither agree nor disagree,1
+AAID_14,5,slightly agree,1
+AAID_14,6,agree,1
+AAID_14,7,strongly agree,1
+AAID_14,comment,Attitudes Toward AI in Defense Scale: The use of AI in Defense could protect critical national infrastructure,1
+AAID_14,class,avector,1
+AAID_14,class,numeric,2
+PANAS_09,1,never,1
+PANAS_09,2,rarely,1
+PANAS_09,3,occasionally,1
+PANAS_09,4,sometimes,1
+PANAS_09,5,often,1
+PANAS_09,6,very often,1
+PANAS_09,7,most of the time,1
+PANAS_09,comment,"Positive and Negative Affect Schedule: During the last two weeks, I have felt enthusiastic",1
+PANAS_09,class,avector,1
+PANAS_09,class,numeric,2
+PANAS_14,1,never,1
+PANAS_14,2,rarely,1
+PANAS_14,3,occasionally,1
+PANAS_14,4,sometimes,1
+PANAS_14,5,often,1
+PANAS_14,6,very often,1
+PANAS_14,7,most of the time,1
+PANAS_14,comment,"Positive and Negative Affect Schedule: During the last two weeks, I have felt inspired",1
+PANAS_14,class,avector,1
+PANAS_14,class,numeric,2
+PANAS_10,1,never,1
+PANAS_10,2,rarely,1
+PANAS_10,3,occasionally,1
+PANAS_10,4,sometimes,1
+PANAS_10,5,often,1
+PANAS_10,6,very often,1
+PANAS_10,7,most of the time,1
+PANAS_10,comment,"Positive and Negative Affect Schedule: During the last two weeks, I have felt proud",1
+PANAS_10,class,avector,1
+PANAS_10,class,numeric,2
+PANAS_05,1,never,1
+PANAS_05,2,rarely,1
+PANAS_05,3,occasionally,1
+PANAS_05,4,sometimes,1
+PANAS_05,5,often,1
+PANAS_05,6,very often,1
+PANAS_05,7,most of the time,1
+PANAS_05,comment,"Positive and Negative Affect Schedule: During the last two weeks, I have felt strong",1
+PANAS_05,class,avector,1
+PANAS_05,class,numeric,2
+PANAS_08,1,never,1
+PANAS_08,2,rarely,1
+PANAS_08,3,occasionally,1
+PANAS_08,4,sometimes,1
+PANAS_08,5,often,1
+PANAS_08,6,very often,1
+PANAS_08,7,most of the time,1
+PANAS_08,comment,"Positive and Negative Affect Schedule: During the last two weeks, I have felt hostile",1
+PANAS_08,class,avector,1
+PANAS_08,class,numeric,2
+PANAS_06,1,never,1
+PANAS_06,2,rarely,1
+PANAS_06,3,occasionally,1
+PANAS_06,4,sometimes,1
+PANAS_06,5,often,1
+PANAS_06,6,very often,1
+PANAS_06,7,most of the time,1
+PANAS_06,comment,"Positive and Negative Affect Schedule: During the last two weeks, I have felt guilty",1
+PANAS_06,class,avector,1
+PANAS_06,class,numeric,2
+PANAS_04,1,never,1
+PANAS_04,2,rarely,1
+PANAS_04,3,occasionally,1
+PANAS_04,4,sometimes,1
+PANAS_04,5,often,1
+PANAS_04,6,very often,1
+PANAS_04,7,most of the time,1
+PANAS_04,comment,"Positive and Negative Affect Schedule: During the last two weeks, I have felt upset",1
+PANAS_04,class,avector,1
+PANAS_04,class,numeric,2
+PANAS_18,1,never,1
+PANAS_18,2,rarely,1
+PANAS_18,3,occasionally,1
+PANAS_18,4,sometimes,1
+PANAS_18,5,often,1
+PANAS_18,6,very often,1
+PANAS_18,7,most of the time,1
+PANAS_18,comment,"Positive and Negative Affect Schedule: During the last two weeks, I have felt jittery",1
+PANAS_18,class,avector,1
+PANAS_18,class,numeric,2
+OLBI_07,1,strongly disagree,1
+OLBI_07,2,disagree,1
+OLBI_07,3,slightly disagree,1
+OLBI_07,4,neither agree nor disagree,1
+OLBI_07,5,slightly agree,1
+OLBI_07,6,agree,1
+OLBI_07,7,strongly agree,1
+OLBI_07,comment,Oldenburg Burnout Inventory: I ﬁnd my work to be a positive challenge.,1
+OLBI_07,class,avector,1
+OLBI_07,class,numeric,2
+OLBI_08,1,strongly disagree,1
+OLBI_08,2,disagree,1
+OLBI_08,3,slightly disagree,1
+OLBI_08,4,neither agree nor disagree,1
+OLBI_08,5,slightly agree,1
+OLBI_08,6,agree,1
+OLBI_08,7,strongly agree,1
+OLBI_08,comment,"Oldenburg Burnout Inventory: During my work, I often feel emotionally drained.",1
+OLBI_08,class,avector,1
+OLBI_08,class,numeric,2
+OLBI_09,1,strongly disagree,1
+OLBI_09,2,disagree,1
+OLBI_09,3,slightly disagree,1
+OLBI_09,4,neither agree nor disagree,1
+OLBI_09,5,slightly agree,1
+OLBI_09,6,agree,1
+OLBI_09,7,strongly agree,1
+OLBI_09,comment,"Oldenburg Burnout Inventory: Over time, one can become disconnected from this type of work.",1
+OLBI_09,class,avector,1
+OLBI_09,class,numeric,2
+OLBI_10,1,strongly disagree,1
+OLBI_10,2,disagree,1
+OLBI_10,3,slightly disagree,1
+OLBI_10,4,neither agree nor disagree,1
+OLBI_10,5,slightly agree,1
+OLBI_10,6,agree,1
+OLBI_10,7,strongly agree,1
+OLBI_10,comment,"Oldenburg Burnout Inventory: After working, I have enough energy for my leisure activities.",1
+OLBI_10,class,avector,1
+OLBI_10,class,numeric,2
+OLBI_11,1,strongly disagree,1
+OLBI_11,2,disagree,1
+OLBI_11,3,slightly disagree,1
+OLBI_11,4,neither agree nor disagree,1
+OLBI_11,5,slightly agree,1
+OLBI_11,6,agree,1
+OLBI_11,7,strongly agree,1
+OLBI_11,comment,Oldenburg Burnout Inventory: Sometimes I feel sickened by my work tasks.,1
+OLBI_11,class,avector,1
+OLBI_11,class,numeric,2
+OLBI_12,1,strongly disagree,1
+OLBI_12,2,disagree,1
+OLBI_12,3,slightly disagree,1
+OLBI_12,4,neither agree nor disagree,1
+OLBI_12,5,slightly agree,1
+OLBI_12,6,agree,1
+OLBI_12,7,strongly agree,1
+OLBI_12,comment,"Oldenburg Burnout Inventory: After my work, I usually feel worn out and weary.",1
+OLBI_12,class,avector,1
+OLBI_12,class,numeric,2
+OLBI_15,1,strongly disagree,1
+OLBI_15,2,disagree,1
+OLBI_15,3,slightly disagree,1
+OLBI_15,4,neither agree nor disagree,1
+OLBI_15,5,slightly agree,1
+OLBI_15,6,agree,1
+OLBI_15,7,strongly agree,1
+OLBI_15,comment,Oldenburg Burnout Inventory: I feel more and more engaged in my work.,1
+OLBI_15,class,avector,1
+OLBI_15,class,numeric,2
+OLBI_16,1,strongly disagree,1
+OLBI_16,2,disagree,1
+OLBI_16,3,slightly disagree,1
+OLBI_16,4,neither agree nor disagree,1
+OLBI_16,5,slightly agree,1
+OLBI_16,6,agree,1
+OLBI_16,7,strongly agree,1
+OLBI_16,comment,"Oldenburg Burnout Inventory: When I work, I usually feel energized.",1
+OLBI_16,class,avector,1
+OLBI_16,class,numeric,2
+UWES9_01,1,strongly disagree,1
+UWES9_01,2,disagree,1
+UWES9_01,3,slightly disagree,1
+UWES9_01,4,neither agree nor disagree,1
+UWES9_01,5,slightly agree,1
+UWES9_01,6,agree,1
+UWES9_01,7,strongly agree,1
+UWES9_01,comment,"Utrecht Work Engagement Scale: At my work, I feel bursting with energy.",1
+UWES9_01,class,avector,1
+UWES9_01,class,numeric,2
+UWES9_02,1,strongly disagree,1
+UWES9_02,2,disagree,1
+UWES9_02,3,slightly disagree,1
+UWES9_02,4,neither agree nor disagree,1
+UWES9_02,5,slightly agree,1
+UWES9_02,6,agree,1
+UWES9_02,7,strongly agree,1
+UWES9_02,comment,"Utrecht Work Engagement Scale: At my job, I feel strong and vigorous.",1
+UWES9_02,class,avector,1
+UWES9_02,class,numeric,2
+UWES9_03,1,strongly disagree,1
+UWES9_03,2,disagree,1
+UWES9_03,3,slightly disagree,1
+UWES9_03,4,neither agree nor disagree,1
+UWES9_03,5,slightly agree,1
+UWES9_03,6,agree,1
+UWES9_03,7,strongly agree,1
+UWES9_03,comment,Utrecht Work Engagement Scale: I am enthusiastic about my job.,1
+UWES9_03,class,avector,1
+UWES9_03,class,numeric,2
+UWES9_04,1,strongly disagree,1
+UWES9_04,2,disagree,1
+UWES9_04,3,slightly disagree,1
+UWES9_04,4,neither agree nor disagree,1
+UWES9_04,5,slightly agree,1
+UWES9_04,6,agree,1
+UWES9_04,7,strongly agree,1
+UWES9_04,comment,Utrecht Work Engagement Scale: My job inspires me.,1
+UWES9_04,class,avector,1
+UWES9_04,class,numeric,2
+UWES9_05,1,strongly disagree,1
+UWES9_05,2,disagree,1
+UWES9_05,3,slightly disagree,1
+UWES9_05,4,neither agree nor disagree,1
+UWES9_05,5,slightly agree,1
+UWES9_05,6,agree,1
+UWES9_05,7,strongly agree,1
+UWES9_05,comment,"Utrecht Work Engagement Scale: When I get up in the morning, I feel like going to work.",1
+UWES9_05,class,avector,1
+UWES9_05,class,numeric,2
+UWES9_06,1,strongly disagree,1
+UWES9_06,2,disagree,1
+UWES9_06,3,slightly disagree,1
+UWES9_06,4,neither agree nor disagree,1
+UWES9_06,5,slightly agree,1
+UWES9_06,6,agree,1
+UWES9_06,7,strongly agree,1
+UWES9_06,comment,Utrecht Work Engagement Scale: I feel happy when I am working intensely.,1
+UWES9_06,class,avector,1
+UWES9_06,class,numeric,2
+UWES9_07,1,strongly disagree,1
+UWES9_07,2,disagree,1
+UWES9_07,3,slightly disagree,1
+UWES9_07,4,neither agree nor disagree,1
+UWES9_07,5,slightly agree,1
+UWES9_07,6,agree,1
+UWES9_07,7,strongly agree,1
+UWES9_07,comment,Utrecht Work Engagement Scale: I am proud of the work that I do.,1
+UWES9_07,class,avector,1
+UWES9_07,class,numeric,2
+UWES9_08,1,strongly disagree,1
+UWES9_08,2,disagree,1
+UWES9_08,3,slightly disagree,1
+UWES9_08,4,neither agree nor disagree,1
+UWES9_08,5,slightly agree,1
+UWES9_08,6,agree,1
+UWES9_08,7,strongly agree,1
+UWES9_08,comment,Utrecht Work Engagement Scale: I am immersed in my work.,1
+UWES9_08,class,avector,1
+UWES9_08,class,numeric,2
+UWES9_09,1,strongly disagree,1
+UWES9_09,2,disagree,1
+UWES9_09,3,slightly disagree,1
+UWES9_09,4,neither agree nor disagree,1
+UWES9_09,5,slightly agree,1
+UWES9_09,6,agree,1
+UWES9_09,7,strongly agree,1
+UWES9_09,comment,Utrecht Work Engagement Scale: I get carried away when I am working.,1
+UWES9_09,class,avector,1
+UWES9_09,class,numeric,2
+PAQ_08,1,strongly disagree,1
+PAQ_08,2,disagree,1
+PAQ_08,3,slightly disagree,1
+PAQ_08,4,neither agree nor disagree,1
+PAQ_08,5,slightly agree,1
+PAQ_08,6,agree,1
+PAQ_08,7,strongly agree,1
+PAQ_08,comment,"Perth Alexithymia Questionnaire: When I'm feeling bad, I can't make sense of those feelings.",1
+PAQ_08,class,avector,1
+PAQ_08,class,numeric,2
+PAQ_20,1,strongly disagree,1
+PAQ_20,2,disagree,1
+PAQ_20,3,slightly disagree,1
+PAQ_20,4,neither agree nor disagree,1
+PAQ_20,5,slightly agree,1
+PAQ_20,6,agree,1
+PAQ_20,7,strongly agree,1
+PAQ_20,comment,"Perth Alexithymia Questionnaire: When I'm feeling bad, I'm puzzled by those feelings.",1
+PAQ_20,class,avector,1
+PAQ_20,class,numeric,2
+PAQ_05,1,strongly disagree,1
+PAQ_05,2,disagree,1
+PAQ_05,3,slightly disagree,1
+PAQ_05,4,neither agree nor disagree,1
+PAQ_05,5,slightly agree,1
+PAQ_05,6,agree,1
+PAQ_05,7,strongly agree,1
+PAQ_05,comment,"Perth Alexithymia Questionnaire: When I'm feeling good, I can't tell whether I'm happy, excited, or amused.",1
+PAQ_05,class,avector,1
+PAQ_05,class,numeric,2
+PAQ_17,1,strongly disagree,1
+PAQ_17,2,disagree,1
+PAQ_17,3,slightly disagree,1
+PAQ_17,4,neither agree nor disagree,1
+PAQ_17,5,slightly agree,1
+PAQ_17,6,agree,1
+PAQ_17,7,strongly agree,1
+PAQ_17,comment,"Perth Alexithymia Questionnaire: When I'm feeling good, I get confused about what emotion it is.",1
+PAQ_17,class,avector,1
+PAQ_17,class,numeric,2
+PAQ_13,1,strongly disagree,1
+PAQ_13,2,disagree,1
+PAQ_13,3,slightly disagree,1
+PAQ_13,4,neither agree nor disagree,1
+PAQ_13,5,slightly agree,1
+PAQ_13,6,agree,1
+PAQ_13,7,strongly agree,1
+PAQ_13,comment,"Perth Alexithymia Questionnaire: When something bad happens, it's hard for me to put into words how I'm feeling.",1
+PAQ_13,class,avector,1
+PAQ_13,class,numeric,2
+PAQ_07,1,strongly disagree,1
+PAQ_07,2,disagree,1
+PAQ_07,3,slightly disagree,1
+PAQ_07,4,neither agree nor disagree,1
+PAQ_07,5,slightly agree,1
+PAQ_07,6,agree,1
+PAQ_07,7,strongly agree,1
+PAQ_07,comment,"Perth Alexithymia Questionnaire: When I'm feeling bad, I can't talk about those feelings in much depth or detail.",1
+PAQ_07,class,avector,1
+PAQ_07,class,numeric,2
+PAQ_10,1,strongly disagree,1
+PAQ_10,2,disagree,1
+PAQ_10,3,slightly disagree,1
+PAQ_10,4,neither agree nor disagree,1
+PAQ_10,5,slightly agree,1
+PAQ_10,6,agree,1
+PAQ_10,7,strongly agree,1
+PAQ_10,comment,"Perth Alexithymia Questionnaire: When I'm feeling good, I can't talk about those feelings in much depth or detail.",1
+PAQ_10,class,avector,1
+PAQ_10,class,numeric,2
+PAQ_16,1,strongly disagree,1
+PAQ_16,2,disagree,1
+PAQ_16,3,slightly disagree,1
+PAQ_16,4,neither agree nor disagree,1
+PAQ_16,5,slightly agree,1
+PAQ_16,6,agree,1
+PAQ_16,7,strongly agree,1
+PAQ_16,comment,"Perth Alexithymia Questionnaire: When something good happens, it's hard for me to put into words how I'm feeling.",1
+PAQ_16,class,avector,1
+PAQ_16,class,numeric,2
+PAQ_03,1,strongly disagree,1
+PAQ_03,2,disagree,1
+PAQ_03,3,slightly disagree,1
+PAQ_03,4,neither agree nor disagree,1
+PAQ_03,5,slightly agree,1
+PAQ_03,6,agree,1
+PAQ_03,7,strongly agree,1
+PAQ_03,comment,Perth Alexithymia Questionnaire: I tend to ignore how I feel.,1
+PAQ_03,class,avector,1
+PAQ_03,class,numeric,2
+PAQ_15,1,strongly disagree,1
+PAQ_15,2,disagree,1
+PAQ_15,3,slightly disagree,1
+PAQ_15,4,neither agree nor disagree,1
+PAQ_15,5,slightly agree,1
+PAQ_15,6,agree,1
+PAQ_15,7,strongly agree,1
+PAQ_15,comment,"Perth Alexithymia Questionnaire: I prefer to focus on things I can actually see or touch, rather than my emotions.",1
+PAQ_15,class,avector,1
+PAQ_15,class,numeric,2
+IFI_01,1,strongly disagree,1
+IFI_01,2,disagree,1
+IFI_01,3,slightly disagree,1
+IFI_01,4,neither agree nor disagree,1
+IFI_01,5,slightly agree,1
+IFI_01,6,agree,1
+IFI_01,7,strongly agree,1
+IFI_01,comment,Perth Alexithymia Questionnaire: I have never cried.,1
+IFI_01,class,avector,1
+IFI_01,class,numeric,2
+PSS_01,1,never,1
+PSS_01,2,rarely,1
+PSS_01,3,occasionally,1
+PSS_01,4,sometimes,1
+PSS_01,5,often,1
+PSS_01,6,very often,1
+PSS_01,7,most of the time,1
+PSS_01,comment,"Perceived Stress Scale: In the last month, how often have you been upset because of something that happened unexpectedly?",1
+PSS_01,class,avector,1
+PSS_01,class,numeric,2
+PSS_02,1,never,1
+PSS_02,2,rarely,1
+PSS_02,3,occasionally,1
+PSS_02,4,sometimes,1
+PSS_02,5,often,1
+PSS_02,6,very often,1
+PSS_02,7,most of the time,1
+PSS_02,comment,"Perceived Stress Scale: In the last month, how often have you felt that you were unable to control the important things in your life?",1
+PSS_02,class,avector,1
+PSS_02,class,numeric,2
+PSS_03,1,never,1
+PSS_03,2,rarely,1
+PSS_03,3,occasionally,1
+PSS_03,4,sometimes,1
+PSS_03,5,often,1
+PSS_03,6,very often,1
+PSS_03,7,most of the time,1
+PSS_03,comment,"Perceived Stress Scale: In the last month, how often have you felt nervous and ""stressed""?",1
+PSS_03,class,avector,1
+PSS_03,class,numeric,2
+PSS_04,1,never,1
+PSS_04,2,rarely,1
+PSS_04,3,occasionally,1
+PSS_04,4,sometimes,1
+PSS_04,5,often,1
+PSS_04,6,very often,1
+PSS_04,7,most of the time,1
+PSS_04,comment,"Perceived Stress Scale: In the last month, how often have you dealt successfully with irritating life hassles?",1
+PSS_04,class,avector,1
+PSS_04,class,numeric,2
+PSS_05,1,never,1
+PSS_05,2,rarely,1
+PSS_05,3,occasionally,1
+PSS_05,4,sometimes,1
+PSS_05,5,often,1
+PSS_05,6,very often,1
+PSS_05,7,most of the time,1
+PSS_05,comment,"Perceived Stress Scale: In the last month, how often have you felt that you were effectively coping with important changes that were occurring in your life?",1
+PSS_05,class,avector,1
+PSS_05,class,numeric,2
+PSS_06,1,never,1
+PSS_06,2,rarely,1
+PSS_06,3,occasionally,1
+PSS_06,4,sometimes,1
+PSS_06,5,often,1
+PSS_06,6,very often,1
+PSS_06,7,most of the time,1
+PSS_06,comment,"Perceived Stress Scale: In the last month, how often have you felt confident about your ability to handle your personal problems?",1
+PSS_06,class,avector,1
+PSS_06,class,numeric,2
+PSS_07,1,never,1
+PSS_07,2,rarely,1
+PSS_07,3,occasionally,1
+PSS_07,4,sometimes,1
+PSS_07,5,often,1
+PSS_07,6,very often,1
+PSS_07,7,most of the time,1
+PSS_07,comment,"Perceived Stress Scale: In the last month, how often have you felt that things were going your way?",1
+PSS_07,class,avector,1
+PSS_07,class,numeric,2
+PSS_08,1,never,1
+PSS_08,2,rarely,1
+PSS_08,3,occasionally,1
+PSS_08,4,sometimes,1
+PSS_08,5,often,1
+PSS_08,6,very often,1
+PSS_08,7,most of the time,1
+PSS_08,comment,"Perceived Stress Scale: In the last month, how often have you found that you could not cope with all the things that you had to do?",1
+PSS_08,class,avector,1
+PSS_08,class,numeric,2
+PSS_09,1,never,1
+PSS_09,2,rarely,1
+PSS_09,3,occasionally,1
+PSS_09,4,sometimes,1
+PSS_09,5,often,1
+PSS_09,6,very often,1
+PSS_09,7,most of the time,1
+PSS_09,comment,"Perceived Stress Scale: In the last month, how often have you been able to control irritations in your life?",1
+PSS_09,class,avector,1
+PSS_09,class,numeric,2
+PSS_10,1,never,1
+PSS_10,2,rarely,1
+PSS_10,3,occasionally,1
+PSS_10,4,sometimes,1
+PSS_10,5,often,1
+PSS_10,6,very often,1
+PSS_10,7,most of the time,1
+PSS_10,comment,"Perceived Stress Scale: In the last month, how often have you felt that you were on top of things?",1
+PSS_10,class,avector,1
+PSS_10,class,numeric,2
+PSS_11,1,never,1
+PSS_11,2,rarely,1
+PSS_11,3,occasionally,1
+PSS_11,4,sometimes,1
+PSS_11,5,often,1
+PSS_11,6,very often,1
+PSS_11,7,most of the time,1
+PSS_11,comment,"Perceived Stress Scale: In the last month, how often have you been angered because of things that happened that were outside of your control?",1
+PSS_11,class,avector,1
+PSS_11,class,numeric,2
+PSS_12,1,never,1
+PSS_12,2,rarely,1
+PSS_12,3,occasionally,1
+PSS_12,4,sometimes,1
+PSS_12,5,often,1
+PSS_12,6,very often,1
+PSS_12,7,most of the time,1
+PSS_12,comment,"Perceived Stress Scale: In the last month, how often have you found yourself thinking about things that you have to accomplish?",1
+PSS_12,class,avector,1
+PSS_12,class,numeric,2
+PSS_13,1,never,1
+PSS_13,2,rarely,1
+PSS_13,3,occasionally,1
+PSS_13,4,sometimes,1
+PSS_13,5,often,1
+PSS_13,6,very often,1
+PSS_13,7,most of the time,1
+PSS_13,comment,"Perceived Stress Scale: In the last month, how often have you been able to control the way you spend your time?",1
+PSS_13,class,avector,1
+PSS_13,class,numeric,2
+PSS_14,1,never,1
+PSS_14,2,rarely,1
+PSS_14,3,occasionally,1
+PSS_14,4,sometimes,1
+PSS_14,5,often,1
+PSS_14,6,very often,1
+PSS_14,7,most of the time,1
+PSS_14,comment,"Perceived Stress Scale: In the last month, how often have you felt difficulties were piling up so high that you could not overcome them?",1
+PSS_14,class,avector,1
+PSS_14,class,numeric,2
+NEPS_01,1,strongly disagree,1
+NEPS_01,2,disagree,1
+NEPS_01,3,slightly disagree,1
+NEPS_01,4,neither agree nor disagree,1
+NEPS_01,5,slightly agree,1
+NEPS_01,6,agree,1
+NEPS_01,7,strongly agree,1
+NEPS_01,comment,New Ecological Paradigm Scale: We are approaching the limit of the number of people the earth can support,1
+NEPS_01,class,avector,1
+NEPS_01,class,numeric,2
+NEPS_04,1,strongly disagree,1
+NEPS_04,2,disagree,1
+NEPS_04,3,slightly disagree,1
+NEPS_04,4,neither agree nor disagree,1
+NEPS_04,5,slightly agree,1
+NEPS_04,6,agree,1
+NEPS_04,7,strongly agree,1
+NEPS_04,comment,New Ecological Paradigm Scale: Human ingenuity will insure that we do NOT make the earth unlivable,1
+NEPS_04,class,avector,1
+NEPS_04,class,numeric,2
+NEPS_05,1,strongly disagree,1
+NEPS_05,2,disagree,1
+NEPS_05,3,slightly disagree,1
+NEPS_05,4,neither agree nor disagree,1
+NEPS_05,5,slightly agree,1
+NEPS_05,6,agree,1
+NEPS_05,7,strongly agree,1
+NEPS_05,comment,New Ecological Paradigm Scale: Humans are severely abusing the environment,1
+NEPS_05,class,avector,1
+NEPS_05,class,numeric,2
+NEPS_06,1,strongly disagree,1
+NEPS_06,2,disagree,1
+NEPS_06,3,slightly disagree,1
+NEPS_06,4,neither agree nor disagree,1
+NEPS_06,5,slightly agree,1
+NEPS_06,6,agree,1
+NEPS_06,7,strongly agree,1
+NEPS_06,comment,New Ecological Paradigm Scale: The earth has plenty of natural resources if we just learn how to develop them,1
+NEPS_06,class,avector,1
+NEPS_06,class,numeric,2
+NEPS_07,1,strongly disagree,1
+NEPS_07,2,disagree,1
+NEPS_07,3,slightly disagree,1
+NEPS_07,4,neither agree nor disagree,1
+NEPS_07,5,slightly agree,1
+NEPS_07,6,agree,1
+NEPS_07,7,strongly agree,1
+NEPS_07,comment,New Ecological Paradigm Scale: Plants and animals have as much right as humans to exist,1
+NEPS_07,class,avector,1
+NEPS_07,class,numeric,2
+NEPS_08,1,strongly disagree,1
+NEPS_08,2,disagree,1
+NEPS_08,3,slightly disagree,1
+NEPS_08,4,neither agree nor disagree,1
+NEPS_08,5,slightly agree,1
+NEPS_08,6,agree,1
+NEPS_08,7,strongly agree,1
+NEPS_08,comment,New Ecological Paradigm Scale: The balance of nature is strong enough to cope with the impacts of modern industrial nations,1
+NEPS_08,class,avector,1
+NEPS_08,class,numeric,2
+NEPS_09,1,strongly disagree,1
+NEPS_09,2,disagree,1
+NEPS_09,3,slightly disagree,1
+NEPS_09,4,neither agree nor disagree,1
+NEPS_09,5,slightly agree,1
+NEPS_09,6,agree,1
+NEPS_09,7,strongly agree,1
+NEPS_09,comment,New Ecological Paradigm Scale: Despite our special abilities humans are still subject to the laws of nature,1
+NEPS_09,class,avector,1
+NEPS_09,class,numeric,2
+NEPS_10,1,strongly disagree,1
+NEPS_10,2,disagree,1
+NEPS_10,3,slightly disagree,1
+NEPS_10,4,neither agree nor disagree,1
+NEPS_10,5,slightly agree,1
+NEPS_10,6,agree,1
+NEPS_10,7,strongly agree,1
+NEPS_10,comment,"New Ecological Paradigm Scale: The so-called ""ecological crisis"" facing humankind has been greatly exaggerated",1
+NEPS_10,class,avector,1
+NEPS_10,class,numeric,2
+NEPS_12,1,strongly disagree,1
+NEPS_12,2,disagree,1
+NEPS_12,3,slightly disagree,1
+NEPS_12,4,neither agree nor disagree,1
+NEPS_12,5,slightly agree,1
+NEPS_12,6,agree,1
+NEPS_12,7,strongly agree,1
+NEPS_12,comment,New Ecological Paradigm Scale: Humans were meant to rule over the rest of nature,1
+NEPS_12,class,avector,1
+NEPS_12,class,numeric,2
+NEPS_13,1,strongly disagree,1
+NEPS_13,2,disagree,1
+NEPS_13,3,slightly disagree,1
+NEPS_13,4,neither agree nor disagree,1
+NEPS_13,5,slightly agree,1
+NEPS_13,6,agree,1
+NEPS_13,7,strongly agree,1
+NEPS_13,comment,New Ecological Paradigm Scale: The balance of nature is very delicate and easily upset,1
+NEPS_13,class,avector,1
+NEPS_13,class,numeric,2
+HSQ_02,1,strongly disagree,1
+HSQ_02,2,disagree,1
+HSQ_02,3,slightly disagree,1
+HSQ_02,4,neither agree nor disagree,1
+HSQ_02,5,slightly agree,1
+HSQ_02,6,agree,1
+HSQ_02,7,strongly agree,1
+HSQ_02,comment,"Humor Styles Questionnaire: If I am feeling depressed, I can usually cheer myself up with humor.",1
+HSQ_02,class,avector,1
+HSQ_02,class,numeric,2
+HSQ_03,1,strongly disagree,1
+HSQ_03,2,disagree,1
+HSQ_03,3,slightly disagree,1
+HSQ_03,4,neither agree nor disagree,1
+HSQ_03,5,slightly agree,1
+HSQ_03,6,agree,1
+HSQ_03,7,strongly agree,1
+HSQ_03,comment,"Humor Styles Questionnaire: If someone makes a mistake, I will often tease them about it.",1
+HSQ_03,class,avector,1
+HSQ_03,class,numeric,2
+HSQ_04,1,strongly disagree,1
+HSQ_04,2,disagree,1
+HSQ_04,3,slightly disagree,1
+HSQ_04,4,neither agree nor disagree,1
+HSQ_04,5,slightly agree,1
+HSQ_04,6,agree,1
+HSQ_04,7,strongly agree,1
+HSQ_04,comment,Humor Styles Questionnaire: I let people laugh at me or make fun at my expense more than I should.,1
+HSQ_04,class,avector,1
+HSQ_04,class,numeric,2
+HSQ_06,1,strongly disagree,1
+HSQ_06,2,disagree,1
+HSQ_06,3,slightly disagree,1
+HSQ_06,4,neither agree nor disagree,1
+HSQ_06,5,slightly agree,1
+HSQ_06,6,agree,1
+HSQ_06,7,strongly agree,1
+HSQ_06,comment,"Humor Styles Questionnaire: Even when I’m by myself, I’m often amused by the absurdities of life.",1
+HSQ_06,class,avector,1
+HSQ_06,class,numeric,2
+HSQ_07,1,strongly disagree,1
+HSQ_07,2,disagree,1
+HSQ_07,3,slightly disagree,1
+HSQ_07,4,neither agree nor disagree,1
+HSQ_07,5,slightly agree,1
+HSQ_07,6,agree,1
+HSQ_07,7,strongly agree,1
+HSQ_07,comment,Humor Styles Questionnaire: People are never offended or hurt by my sense of humor.,1
+HSQ_07,class,avector,1
+HSQ_07,class,numeric,2
+HSQ_08,1,strongly disagree,1
+HSQ_08,2,disagree,1
+HSQ_08,3,slightly disagree,1
+HSQ_08,4,neither agree nor disagree,1
+HSQ_08,5,slightly agree,1
+HSQ_08,6,agree,1
+HSQ_08,7,strongly agree,1
+HSQ_08,comment,Humor Styles Questionnaire: I will often get carried away in putting myself down if it makes my family or friends laugh.,1
+HSQ_08,class,avector,1
+HSQ_08,class,numeric,2
+HSQ_09,1,strongly disagree,1
+HSQ_09,2,disagree,1
+HSQ_09,3,slightly disagree,1
+HSQ_09,4,neither agree nor disagree,1
+HSQ_09,5,slightly agree,1
+HSQ_09,6,agree,1
+HSQ_09,7,strongly agree,1
+HSQ_09,comment,Humor Styles Questionnaire: I rarely make other people laugh by telling funny stories about myself.,1
+HSQ_09,class,avector,1
+HSQ_09,class,numeric,2
+HSQ_16,1,strongly disagree,1
+HSQ_16,2,disagree,1
+HSQ_16,3,slightly disagree,1
+HSQ_16,4,neither agree nor disagree,1
+HSQ_16,5,slightly agree,1
+HSQ_16,6,agree,1
+HSQ_16,7,strongly agree,1
+HSQ_16,comment,Humor Styles Questionnaire: I don’t often say funny things to put myself down.,1
+HSQ_16,class,avector,1
+HSQ_16,class,numeric,2
+HSQ_21,1,strongly disagree,1
+HSQ_21,2,disagree,1
+HSQ_21,3,slightly disagree,1
+HSQ_21,4,neither agree nor disagree,1
+HSQ_21,5,slightly agree,1
+HSQ_21,6,agree,1
+HSQ_21,7,strongly agree,1
+HSQ_21,comment,Humor Styles Questionnaire: I enjoy making people laugh.,1
+HSQ_21,class,avector,1
+HSQ_21,class,numeric,2
+HSQ_22,1,strongly disagree,1
+HSQ_22,2,disagree,1
+HSQ_22,3,slightly disagree,1
+HSQ_22,4,neither agree nor disagree,1
+HSQ_22,5,slightly agree,1
+HSQ_22,6,agree,1
+HSQ_22,7,strongly agree,1
+HSQ_22,comment,"Humor Styles Questionnaire: If I am feeling sad or upset, I usually lose my sense of humor.",1
+HSQ_22,class,avector,1
+HSQ_22,class,numeric,2
+HSQ_23,1,strongly disagree,1
+HSQ_23,2,disagree,1
+HSQ_23,3,slightly disagree,1
+HSQ_23,4,neither agree nor disagree,1
+HSQ_23,5,slightly agree,1
+HSQ_23,6,agree,1
+HSQ_23,7,strongly agree,1
+HSQ_23,comment,Humor Styles Questionnaire: I never participate in laughing at others even if all my friends are doing it.,1
+HSQ_23,class,avector,1
+HSQ_23,class,numeric,2
+HSQ_29,1,strongly disagree,1
+HSQ_29,2,disagree,1
+HSQ_29,3,slightly disagree,1
+HSQ_29,4,neither agree nor disagree,1
+HSQ_29,5,slightly agree,1
+HSQ_29,6,agree,1
+HSQ_29,7,strongly agree,1
+HSQ_29,comment,Humor Styles Questionnaire: I usually can't think of witty things to say when I'm with other people.,1
+HSQ_29,class,avector,1
+HSQ_29,class,numeric,2
+ULS8_01,1,strongly disagree,1
+ULS8_01,2,disagree,1
+ULS8_01,3,slightly disagree,1
+ULS8_01,4,neither agree nor disagree,1
+ULS8_01,5,slightly agree,1
+ULS8_01,6,agree,1
+ULS8_01,7,strongly agree,1
+ULS8_01,comment,UCLA Loneliness Scale: I lack companionship.,1
+ULS8_01,class,avector,1
+ULS8_01,class,numeric,2
+ULS8_02,1,strongly disagree,1
+ULS8_02,2,disagree,1
+ULS8_02,3,slightly disagree,1
+ULS8_02,4,neither agree nor disagree,1
+ULS8_02,5,slightly agree,1
+ULS8_02,6,agree,1
+ULS8_02,7,strongly agree,1
+ULS8_02,comment,UCLA Loneliness Scale: There is no one I can turn to.,1
+ULS8_02,class,avector,1
+ULS8_02,class,numeric,2
+ULS8_03,1,strongly disagree,1
+ULS8_03,2,disagree,1
+ULS8_03,3,slightly disagree,1
+ULS8_03,4,neither agree nor disagree,1
+ULS8_03,5,slightly agree,1
+ULS8_03,6,agree,1
+ULS8_03,7,strongly agree,1
+ULS8_03,comment,UCLA Loneliness Scale: I am an outgoing person.,1
+ULS8_03,class,avector,1
+ULS8_03,class,numeric,2
+ULS8_04,1,strongly disagree,1
+ULS8_04,2,disagree,1
+ULS8_04,3,slightly disagree,1
+ULS8_04,4,neither agree nor disagree,1
+ULS8_04,5,slightly agree,1
+ULS8_04,6,agree,1
+ULS8_04,7,strongly agree,1
+ULS8_04,comment,UCLA Loneliness Scale: I feel left out.,1
+ULS8_04,class,avector,1
+ULS8_04,class,numeric,2
+ULS8_05,1,strongly disagree,1
+ULS8_05,2,disagree,1
+ULS8_05,3,slightly disagree,1
+ULS8_05,4,neither agree nor disagree,1
+ULS8_05,5,slightly agree,1
+ULS8_05,6,agree,1
+ULS8_05,7,strongly agree,1
+ULS8_05,comment,UCLA Loneliness Scale: I feel isolated from others.,1
+ULS8_05,class,avector,1
+ULS8_05,class,numeric,2
+ULS8_06,1,strongly disagree,1
+ULS8_06,2,disagree,1
+ULS8_06,3,slightly disagree,1
+ULS8_06,4,neither agree nor disagree,1
+ULS8_06,5,slightly agree,1
+ULS8_06,6,agree,1
+ULS8_06,7,strongly agree,1
+ULS8_06,comment,UCLA Loneliness Scale: I can find companionship when I want it.,1
+ULS8_06,class,avector,1
+ULS8_06,class,numeric,2
+ULS8_07,1,strongly disagree,1
+ULS8_07,2,disagree,1
+ULS8_07,3,slightly disagree,1
+ULS8_07,4,neither agree nor disagree,1
+ULS8_07,5,slightly agree,1
+ULS8_07,6,agree,1
+ULS8_07,7,strongly agree,1
+ULS8_07,comment,UCLA Loneliness Scale: I am unhappy being so withdrawn.,1
+ULS8_07,class,avector,1
+ULS8_07,class,numeric,2
+ULS8_08,1,strongly disagree,1
+ULS8_08,2,disagree,1
+ULS8_08,3,slightly disagree,1
+ULS8_08,4,neither agree nor disagree,1
+ULS8_08,5,slightly agree,1
+ULS8_08,6,agree,1
+ULS8_08,7,strongly agree,1
+ULS8_08,comment,UCLA Loneliness Scale: People are around me but not with me.,1
+ULS8_08,class,avector,1
+ULS8_08,class,numeric,2
+ACH_01,1,strongly disagree,1
+ACH_01,2,disagree,1
+ACH_01,3,slightly disagree,1
+ACH_01,4,neither agree nor disagree,1
+ACH_01,5,slightly agree,1
+ACH_01,6,agree,1
+ACH_01,7,strongly agree,1
+ACH_01,comment,"UCLA Loneliness Scale: To ensure data quality, please choose strongly disagree for this item",1
+ACH_01,class,avector,1
+ACH_01,class,numeric,2
+NGSE_01,1,strongly disagree,1
+NGSE_01,2,disagree,1
+NGSE_01,3,slightly disagree,1
+NGSE_01,4,neither agree nor disagree,1
+NGSE_01,5,slightly agree,1
+NGSE_01,6,agree,1
+NGSE_01,7,strongly agree,1
+NGSE_01,comment,General Self-Efficacy Scale: I will be able to achieve most of the goals that I have set for myself.,1
+NGSE_01,class,avector,1
+NGSE_01,class,numeric,2
+NGSE_02,1,strongly disagree,1
+NGSE_02,2,disagree,1
+NGSE_02,3,slightly disagree,1
+NGSE_02,4,neither agree nor disagree,1
+NGSE_02,5,slightly agree,1
+NGSE_02,6,agree,1
+NGSE_02,7,strongly agree,1
+NGSE_02,comment,"General Self-Efficacy Scale: When facing difficult tasks, I am certain that I will accomplish them.",1
+NGSE_02,class,avector,1
+NGSE_02,class,numeric,2
+NGSE_03,1,strongly disagree,1
+NGSE_03,2,disagree,1
+NGSE_03,3,slightly disagree,1
+NGSE_03,4,neither agree nor disagree,1
+NGSE_03,5,slightly agree,1
+NGSE_03,6,agree,1
+NGSE_03,7,strongly agree,1
+NGSE_03,comment,"General Self-Efficacy Scale: In general, I think that I can obtain outcomes that are important to me.",1
+NGSE_03,class,avector,1
+NGSE_03,class,numeric,2
+NGSE_04,1,strongly disagree,1
+NGSE_04,2,disagree,1
+NGSE_04,3,slightly disagree,1
+NGSE_04,4,neither agree nor disagree,1
+NGSE_04,5,slightly agree,1
+NGSE_04,6,agree,1
+NGSE_04,7,strongly agree,1
+NGSE_04,comment,General Self-Efficacy Scale: I believe I can succeed at most any endeavor to which I set my mind.,1
+NGSE_04,class,avector,1
+NGSE_04,class,numeric,2
+NGSE_05,1,strongly disagree,1
+NGSE_05,2,disagree,1
+NGSE_05,3,slightly disagree,1
+NGSE_05,4,neither agree nor disagree,1
+NGSE_05,5,slightly agree,1
+NGSE_05,6,agree,1
+NGSE_05,7,strongly agree,1
+NGSE_05,comment,General Self-Efficacy Scale: I will be able to successfully overcome many challenges.,1
+NGSE_05,class,avector,1
+NGSE_05,class,numeric,2
+NGSE_06,1,strongly disagree,1
+NGSE_06,2,disagree,1
+NGSE_06,3,slightly disagree,1
+NGSE_06,4,neither agree nor disagree,1
+NGSE_06,5,slightly agree,1
+NGSE_06,6,agree,1
+NGSE_06,7,strongly agree,1
+NGSE_06,comment,General Self-Efficacy Scale: I am confident that I can perform effectively on many different tasks.,1
+NGSE_06,class,avector,1
+NGSE_06,class,numeric,2
+NGSE_07,1,strongly disagree,1
+NGSE_07,2,disagree,1
+NGSE_07,3,slightly disagree,1
+NGSE_07,4,neither agree nor disagree,1
+NGSE_07,5,slightly agree,1
+NGSE_07,6,agree,1
+NGSE_07,7,strongly agree,1
+NGSE_07,comment,"General Self-Efficacy Scale: Compared to other people, I can do most tasks very well.",1
+NGSE_07,class,avector,1
+NGSE_07,class,numeric,2
+NGSE_08,1,strongly disagree,1
+NGSE_08,2,disagree,1
+NGSE_08,3,slightly disagree,1
+NGSE_08,4,neither agree nor disagree,1
+NGSE_08,5,slightly agree,1
+NGSE_08,6,agree,1
+NGSE_08,7,strongly agree,1
+NGSE_08,comment,"General Self-Efficacy Scale: Even when things are tough, I can perform quite well.",1
+NGSE_08,class,avector,1
+NGSE_08,class,numeric,2
+ATB_03,1,strongly disagree,1
+ATB_03,2,disagree,1
+ATB_03,3,slightly disagree,1
+ATB_03,4,neither agree nor disagree,1
+ATB_03,5,slightly agree,1
+ATB_03,6,agree,1
+ATB_03,7,strongly agree,1
+ATB_03,comment,General Self-Efficacy Scale: I've discovered a way to turn broccoli into gold.,1
+ATB_03,class,avector,1
+ATB_03,class,numeric,2
+FCV19S_01,1,strongly disagree,1
+FCV19S_01,2,disagree,1
+FCV19S_01,3,slightly disagree,1
+FCV19S_01,4,neither agree nor disagree,1
+FCV19S_01,5,slightly agree,1
+FCV19S_01,6,agree,1
+FCV19S_01,7,strongly agree,1
+FCV19S_01,comment,Fear of COVID-19 Scale: I am most afraid of coronavirus-19,1
+FCV19S_01,class,avector,1
+FCV19S_01,class,numeric,2
+FCV19S_02,1,strongly disagree,1
+FCV19S_02,2,disagree,1
+FCV19S_02,3,slightly disagree,1
+FCV19S_02,4,neither agree nor disagree,1
+FCV19S_02,5,slightly agree,1
+FCV19S_02,6,agree,1
+FCV19S_02,7,strongly agree,1
+FCV19S_02,comment,Fear of COVID-19 Scale: It makes me uncomfortable to think about coronavirus-19.,1
+FCV19S_02,class,avector,1
+FCV19S_02,class,numeric,2
+FCV19S_03,1,strongly disagree,1
+FCV19S_03,2,disagree,1
+FCV19S_03,3,slightly disagree,1
+FCV19S_03,4,neither agree nor disagree,1
+FCV19S_03,5,slightly agree,1
+FCV19S_03,6,agree,1
+FCV19S_03,7,strongly agree,1
+FCV19S_03,comment,Fear of COVID-19 Scale: My hands become clammy when I think about coronavirus-19.,1
+FCV19S_03,class,avector,1
+FCV19S_03,class,numeric,2
+FCV19S_04,1,strongly disagree,1
+FCV19S_04,2,disagree,1
+FCV19S_04,3,slightly disagree,1
+FCV19S_04,4,neither agree nor disagree,1
+FCV19S_04,5,slightly agree,1
+FCV19S_04,6,agree,1
+FCV19S_04,7,strongly agree,1
+FCV19S_04,comment,Fear of COVID-19 Scale: I am afraid of losing my life because of coronavirus-19.,1
+FCV19S_04,class,avector,1
+FCV19S_04,class,numeric,2
+FCV19S_05,1,strongly disagree,1
+FCV19S_05,2,disagree,1
+FCV19S_05,3,slightly disagree,1
+FCV19S_05,4,neither agree nor disagree,1
+FCV19S_05,5,slightly agree,1
+FCV19S_05,6,agree,1
+FCV19S_05,7,strongly agree,1
+FCV19S_05,comment,"Fear of COVID-19 Scale: When watching news and stories about coronavirus-19 on social media, I become nervous or anxious.",1
+FCV19S_05,class,avector,1
+FCV19S_05,class,numeric,2
+FCV19S_06,1,strongly disagree,1
+FCV19S_06,2,disagree,1
+FCV19S_06,3,slightly disagree,1
+FCV19S_06,4,neither agree nor disagree,1
+FCV19S_06,5,slightly agree,1
+FCV19S_06,6,agree,1
+FCV19S_06,7,strongly agree,1
+FCV19S_06,comment,Fear of COVID-19 Scale: I cannot sleep because I’m worrying about getting coronavirus-19.,1
+FCV19S_06,class,avector,1
+FCV19S_06,class,numeric,2
+FCV19S_07,1,strongly disagree,1
+FCV19S_07,2,disagree,1
+FCV19S_07,3,slightly disagree,1
+FCV19S_07,4,neither agree nor disagree,1
+FCV19S_07,5,slightly agree,1
+FCV19S_07,6,agree,1
+FCV19S_07,7,strongly agree,1
+FCV19S_07,comment,Fear of COVID-19 Scale: My heart races or palpitates when I think about getting coronavirus-19.,1
+FCV19S_07,class,avector,1
+FCV19S_07,class,numeric,2
+DAQ_05,1,strongly disagree,1
+DAQ_05,2,disagree,1
+DAQ_05,3,slightly disagree,1
+DAQ_05,4,neither agree nor disagree,1
+DAQ_05,5,slightly agree,1
+DAQ_05,6,agree,1
+DAQ_05,7,strongly agree,1
+DAQ_05,comment,Disgust Avoidance Questionnaire: I try to avoid activities that could make me feel disgusted.,1
+DAQ_05,class,avector,1
+DAQ_05,class,numeric,2
+DAQ_07,1,strongly disagree,1
+DAQ_07,2,disagree,1
+DAQ_07,3,slightly disagree,1
+DAQ_07,4,neither agree nor disagree,1
+DAQ_07,5,slightly agree,1
+DAQ_07,6,agree,1
+DAQ_07,7,strongly agree,1
+DAQ_07,comment,Disgust Avoidance Questionnaire: I avoid actions that remind me of repulsive things.,1
+DAQ_07,class,avector,1
+DAQ_07,class,numeric,2
+DAQ_09,1,strongly disagree,1
+DAQ_09,2,disagree,1
+DAQ_09,3,slightly disagree,1
+DAQ_09,4,neither agree nor disagree,1
+DAQ_09,5,slightly agree,1
+DAQ_09,6,agree,1
+DAQ_09,7,strongly agree,1
+DAQ_09,comment,Disgust Avoidance Questionnaire: I try hard to avoid situations that might bring up feelings of repulsion in me.,1
+DAQ_09,class,avector,1
+DAQ_09,class,numeric,2
+DAQ_11,1,strongly disagree,1
+DAQ_11,2,disagree,1
+DAQ_11,3,slightly disagree,1
+DAQ_11,4,neither agree nor disagree,1
+DAQ_11,5,slightly agree,1
+DAQ_11,6,agree,1
+DAQ_11,7,strongly agree,1
+DAQ_11,comment,Disgust Avoidance Questionnaire: I avoid certain situations that make me pay attention to disgusting things.,1
+DAQ_11,class,avector,1
+DAQ_11,class,numeric,2
+DAQ_15,1,strongly disagree,1
+DAQ_15,2,disagree,1
+DAQ_15,3,slightly disagree,1
+DAQ_15,4,neither agree nor disagree,1
+DAQ_15,5,slightly agree,1
+DAQ_15,6,agree,1
+DAQ_15,7,strongly agree,1
+DAQ_15,comment,Disgust Avoidance Questionnaire: I avoid objects that can trigger feelings of disgust.,1
+DAQ_15,class,avector,1
+DAQ_15,class,numeric,2
+DAQ_19,1,strongly disagree,1
+DAQ_19,2,disagree,1
+DAQ_19,3,slightly disagree,1
+DAQ_19,4,neither agree nor disagree,1
+DAQ_19,5,slightly agree,1
+DAQ_19,6,agree,1
+DAQ_19,7,strongly agree,1
+DAQ_19,comment,Disgust Avoidance Questionnaire: I try not to think about gross situations.,1
+DAQ_19,class,avector,1
+DAQ_19,class,numeric,2
+DAQ_21,1,strongly disagree,1
+DAQ_21,2,disagree,1
+DAQ_21,3,slightly disagree,1
+DAQ_21,4,neither agree nor disagree,1
+DAQ_21,5,slightly agree,1
+DAQ_21,6,agree,1
+DAQ_21,7,strongly agree,1
+DAQ_21,comment,Disgust Avoidance Questionnaire: I try hard to avoid thinking about a repulsive past situation.,1
+DAQ_21,class,avector,1
+DAQ_21,class,numeric,2
+DAQ_23,1,strongly disagree,1
+DAQ_23,2,disagree,1
+DAQ_23,3,slightly disagree,1
+DAQ_23,4,neither agree nor disagree,1
+DAQ_23,5,slightly agree,1
+DAQ_23,6,agree,1
+DAQ_23,7,strongly agree,1
+DAQ_23,comment,Disgust Avoidance Questionnaire: I distract myself to avoid thinking about things that disgust me.,1
+DAQ_23,class,avector,1
+DAQ_23,class,numeric,2
+DAQ_25,1,strongly disagree,1
+DAQ_25,2,disagree,1
+DAQ_25,3,slightly disagree,1
+DAQ_25,4,neither agree nor disagree,1
+DAQ_25,5,slightly agree,1
+DAQ_25,6,agree,1
+DAQ_25,7,strongly agree,1
+DAQ_25,comment,"Disgust Avoidance Questionnaire: To avoid thinking about things that revolt me, I force myself to think about something else.",1
+DAQ_25,class,avector,1
+DAQ_25,class,numeric,2
+DAQ_02,1,strongly disagree,1
+DAQ_02,2,disagree,1
+DAQ_02,3,slightly disagree,1
+DAQ_02,4,neither agree nor disagree,1
+DAQ_02,5,slightly agree,1
+DAQ_02,6,agree,1
+DAQ_02,7,strongly agree,1
+DAQ_02,comment,Disgust Avoidance Questionnaire: I am quick to stop any activity that makes me feel disgusted.,1
+DAQ_02,class,avector,1
+DAQ_02,class,numeric,2
+DAQ_06,1,strongly disagree,1
+DAQ_06,2,disagree,1
+DAQ_06,3,slightly disagree,1
+DAQ_06,4,neither agree nor disagree,1
+DAQ_06,5,slightly agree,1
+DAQ_06,6,agree,1
+DAQ_06,7,strongly agree,1
+DAQ_06,comment,"Disgust Avoidance Questionnaire: If I start feeling strong disgust, I prefer to leave the situation.",1
+DAQ_06,class,avector,1
+DAQ_06,class,numeric,2
+DAQ_08,1,strongly disagree,1
+DAQ_08,2,disagree,1
+DAQ_08,3,slightly disagree,1
+DAQ_08,4,neither agree nor disagree,1
+DAQ_08,5,slightly agree,1
+DAQ_08,6,agree,1
+DAQ_08,7,strongly agree,1
+DAQ_08,comment,"Disgust Avoidance Questionnaire: If I am in a situation in which I feel revolted, I leave the situation immediately.",1
+DAQ_08,class,avector,1
+DAQ_08,class,numeric,2
+DAQ_10,1,strongly disagree,1
+DAQ_10,2,disagree,1
+DAQ_10,3,slightly disagree,1
+DAQ_10,4,neither agree nor disagree,1
+DAQ_10,5,slightly agree,1
+DAQ_10,6,agree,1
+DAQ_10,7,strongly agree,1
+DAQ_10,comment,Disgust Avoidance Questionnaire: I am quick to leave any situation that makes me feel disgusted.,1
+DAQ_10,class,avector,1
+DAQ_10,class,numeric,2
+DAQ_12,1,strongly disagree,1
+DAQ_12,2,disagree,1
+DAQ_12,3,slightly disagree,1
+DAQ_12,4,neither agree nor disagree,1
+DAQ_12,5,slightly agree,1
+DAQ_12,6,agree,1
+DAQ_12,7,strongly agree,1
+DAQ_12,comment,"Disgust Avoidance Questionnaire: When I think about something gross, I push those thoughts out of my mind.",1
+DAQ_12,class,avector,1
+DAQ_12,class,numeric,2
+DAQ_14,1,strongly disagree,1
+DAQ_14,2,disagree,1
+DAQ_14,3,slightly disagree,1
+DAQ_14,4,neither agree nor disagree,1
+DAQ_14,5,slightly agree,1
+DAQ_14,6,agree,1
+DAQ_14,7,strongly agree,1
+DAQ_14,comment,"Disgust Avoidance Questionnaire: When thoughts about repulsive things come up, I try very hard to stop thinking about them.",1
+DAQ_14,class,avector,1
+DAQ_14,class,numeric,2
+DAQ_16,1,strongly disagree,1
+DAQ_16,2,disagree,1
+DAQ_16,3,slightly disagree,1
+DAQ_16,4,neither agree nor disagree,1
+DAQ_16,5,slightly agree,1
+DAQ_16,6,agree,1
+DAQ_16,7,strongly agree,1
+DAQ_16,comment,"Disgust Avoidance Questionnaire: If thoughts about disgusting things cross my mind, I try to push them away as much as possible.",1
+DAQ_16,class,avector,1
+DAQ_16,class,numeric,2
+DAQ_24,1,strongly disagree,1
+DAQ_24,2,disagree,1
+DAQ_24,3,slightly disagree,1
+DAQ_24,4,neither agree nor disagree,1
+DAQ_24,5,slightly agree,1
+DAQ_24,6,agree,1
+DAQ_24,7,strongly agree,1
+DAQ_24,comment,"Disgust Avoidance Questionnaire: When thoughts about revolting things come up, I try to fill my head with something else.",1
+DAQ_24,class,avector,1
+DAQ_24,class,numeric,2
+ACH_02,1,strongly disagree,1
+ACH_02,2,disagree,1
+ACH_02,3,slightly disagree,1
+ACH_02,4,neither agree nor disagree,1
+ACH_02,5,slightly agree,1
+ACH_02,6,agree,1
+ACH_02,7,strongly agree,1
+ACH_02,comment,"Disgust Avoidance Questionnaire: To ensure data quality, please choose strongly agree for this item",1
+ACH_02,class,avector,1
+ACH_02,class,numeric,2
+WGS_01,1,strongly disagree,1
+WGS_01,2,disagree,1
+WGS_01,3,slightly disagree,1
+WGS_01,4,neither agree nor disagree,1
+WGS_01,5,slightly agree,1
+WGS_01,6,agree,1
+WGS_01,7,strongly agree,1
+WGS_01,comment,"Work Gratitude Scale: Right now, I have so much at work to be thankful for.",1
+WGS_01,class,avector,1
+WGS_01,class,numeric,2
+WGS_02,1,strongly disagree,1
+WGS_02,2,disagree,1
+WGS_02,3,slightly disagree,1
+WGS_02,4,neither agree nor disagree,1
+WGS_02,5,slightly agree,1
+WGS_02,6,agree,1
+WGS_02,7,strongly agree,1
+WGS_02,comment,"Work Gratitude Scale: At this present time, if I had to list everything that I felt grateful for at work, it would be a very long list.",1
+WGS_02,class,avector,1
+WGS_02,class,numeric,2
+WGS_03,1,strongly disagree,1
+WGS_03,2,disagree,1
+WGS_03,3,slightly disagree,1
+WGS_03,4,neither agree nor disagree,1
+WGS_03,5,slightly agree,1
+WGS_03,6,agree,1
+WGS_03,7,strongly agree,1
+WGS_03,comment,"Work Gratitude Scale: At the present time, life has been good to me at work.",1
+WGS_03,class,avector,1
+WGS_03,class,numeric,2
+WGS_04,1,strongly disagree,1
+WGS_04,2,disagree,1
+WGS_04,3,slightly disagree,1
+WGS_04,4,neither agree nor disagree,1
+WGS_04,5,slightly agree,1
+WGS_04,6,agree,1
+WGS_04,7,strongly agree,1
+WGS_04,comment,"Work Gratitude Scale: Currently, I couldn’t have gotten where I am today at work without the help of many people.",1
+WGS_04,class,avector,1
+WGS_04,class,numeric,2
+WGS_05,1,strongly disagree,1
+WGS_05,2,disagree,1
+WGS_05,3,slightly disagree,1
+WGS_05,4,neither agree nor disagree,1
+WGS_05,5,slightly agree,1
+WGS_05,6,agree,1
+WGS_05,7,strongly agree,1
+WGS_05,comment,"Work Gratitude Scale: Although I think it’s important to feel good about my current work accomplishments, I think that it’s also important to remember how others have contributed to my accomplishments.",1
+WGS_05,class,avector,1
+WGS_05,class,numeric,2
+WGS_06,1,strongly disagree,1
+WGS_06,2,disagree,1
+WGS_06,3,slightly disagree,1
+WGS_06,4,neither agree nor disagree,1
+WGS_06,5,slightly agree,1
+WGS_06,6,agree,1
+WGS_06,7,strongly agree,1
+WGS_06,comment,"Work Gratitude Scale: Although I’m basically in control of my work at the present time, I can’t help but think about all those who have supported me and helped me along the way.",1
+WGS_06,class,avector,1
+WGS_06,class,numeric,2
+WGS_07,1,strongly disagree,1
+WGS_07,2,disagree,1
+WGS_07,3,slightly disagree,1
+WGS_07,4,neither agree nor disagree,1
+WGS_07,5,slightly agree,1
+WGS_07,6,agree,1
+WGS_07,7,strongly agree,1
+WGS_07,comment,"Work Gratitude Scale: Right now, I feel deeply appreciative for the things others have done for me at work.",1
+WGS_07,class,avector,1
+WGS_07,class,numeric,2
+WGS_08,1,strongly disagree,1
+WGS_08,2,disagree,1
+WGS_08,3,slightly disagree,1
+WGS_08,4,neither agree nor disagree,1
+WGS_08,5,slightly agree,1
+WGS_08,6,agree,1
+WGS_08,7,strongly agree,1
+WGS_08,comment,"Work Gratitude Scale: Currently, I think that it’s important to ""Stop and smell the roses"" as it pertains to my work.",1
+WGS_08,class,avector,1
+WGS_08,class,numeric,2
+WGS_09,1,strongly disagree,1
+WGS_09,2,disagree,1
+WGS_09,3,slightly disagree,1
+WGS_09,4,neither agree nor disagree,1
+WGS_09,5,slightly agree,1
+WGS_09,6,agree,1
+WGS_09,7,strongly agree,1
+WGS_09,comment,"Work Gratitude Scale: Currently, I believe that it’s important to pause often to ""count my blessings"" at work.",1
+WGS_09,class,avector,1
+WGS_09,class,numeric,2
+WGS_10,1,strongly disagree,1
+WGS_10,2,disagree,1
+WGS_10,3,slightly disagree,1
+WGS_10,4,neither agree nor disagree,1
+WGS_10,5,slightly agree,1
+WGS_10,6,agree,1
+WGS_10,7,strongly agree,1
+WGS_10,comment,"Work Gratitude Scale: Right now, I think it’s important to enjoy the simple things that pertain to my work.",1
+WGS_10,class,avector,1
+WGS_10,class,numeric,2
+CESD_01,1,never,1
+CESD_01,2,rarely,1
+CESD_01,3,occasionally,1
+CESD_01,4,sometimes,1
+CESD_01,5,often,1
+CESD_01,6,very often,1
+CESD_01,7,most of the time,1
+CESD_01,comment,Center for Epidemiological Studies Depression Scale: I was bothered by things that usually don’t bother me.,1
+CESD_01,class,avector,1
+CESD_01,class,numeric,2
+CESD_02,1,never,1
+CESD_02,2,rarely,1
+CESD_02,3,occasionally,1
+CESD_02,4,sometimes,1
+CESD_02,5,often,1
+CESD_02,6,very often,1
+CESD_02,7,most of the time,1
+CESD_02,comment,Center for Epidemiological Studies Depression Scale: I did not feel like eating; my appetite was poor.,1
+CESD_02,class,avector,1
+CESD_02,class,numeric,2
+CESD_03,1,never,1
+CESD_03,2,rarely,1
+CESD_03,3,occasionally,1
+CESD_03,4,sometimes,1
+CESD_03,5,often,1
+CESD_03,6,very often,1
+CESD_03,7,most of the time,1
+CESD_03,comment,Center for Epidemiological Studies Depression Scale: I felt that I could not shake off the blues even with help from my family or friends.,1
+CESD_03,class,avector,1
+CESD_03,class,numeric,2
+CESD_04,1,never,1
+CESD_04,2,rarely,1
+CESD_04,3,occasionally,1
+CESD_04,4,sometimes,1
+CESD_04,5,often,1
+CESD_04,6,very often,1
+CESD_04,7,most of the time,1
+CESD_04,comment,Center for Epidemiological Studies Depression Scale: I felt that I was just as good as other people.,1
+CESD_04,class,avector,1
+CESD_04,class,numeric,2
+CESD_05,1,never,1
+CESD_05,2,rarely,1
+CESD_05,3,occasionally,1
+CESD_05,4,sometimes,1
+CESD_05,5,often,1
+CESD_05,6,very often,1
+CESD_05,7,most of the time,1
+CESD_05,comment,Center for Epidemiological Studies Depression Scale: I had trouble keeping my mind on what I was doing.,1
+CESD_05,class,avector,1
+CESD_05,class,numeric,2
+CESD_06,1,never,1
+CESD_06,2,rarely,1
+CESD_06,3,occasionally,1
+CESD_06,4,sometimes,1
+CESD_06,5,often,1
+CESD_06,6,very often,1
+CESD_06,7,most of the time,1
+CESD_06,comment,Center for Epidemiological Studies Depression Scale: I felt depressed.,1
+CESD_06,class,avector,1
+CESD_06,class,numeric,2
+CESD_07,1,never,1
+CESD_07,2,rarely,1
+CESD_07,3,occasionally,1
+CESD_07,4,sometimes,1
+CESD_07,5,often,1
+CESD_07,6,very often,1
+CESD_07,7,most of the time,1
+CESD_07,comment,Center for Epidemiological Studies Depression Scale: I felt that everything I did was an effort.,1
+CESD_07,class,avector,1
+CESD_07,class,numeric,2
+CESD_08,1,never,1
+CESD_08,2,rarely,1
+CESD_08,3,occasionally,1
+CESD_08,4,sometimes,1
+CESD_08,5,often,1
+CESD_08,6,very often,1
+CESD_08,7,most of the time,1
+CESD_08,comment,Center for Epidemiological Studies Depression Scale: I felt hopeful about the future.,1
+CESD_08,class,avector,1
+CESD_08,class,numeric,2
+CESD_09,1,never,1
+CESD_09,2,rarely,1
+CESD_09,3,occasionally,1
+CESD_09,4,sometimes,1
+CESD_09,5,often,1
+CESD_09,6,very often,1
+CESD_09,7,most of the time,1
+CESD_09,comment,Center for Epidemiological Studies Depression Scale: I thought my life had been a failure.,1
+CESD_09,class,avector,1
+CESD_09,class,numeric,2
+CESD_10,1,never,1
+CESD_10,2,rarely,1
+CESD_10,3,occasionally,1
+CESD_10,4,sometimes,1
+CESD_10,5,often,1
+CESD_10,6,very often,1
+CESD_10,7,most of the time,1
+CESD_10,comment,Center for Epidemiological Studies Depression Scale: I felt fearful.,1
+CESD_10,class,avector,1
+CESD_10,class,numeric,2
+CESD_11,1,never,1
+CESD_11,2,rarely,1
+CESD_11,3,occasionally,1
+CESD_11,4,sometimes,1
+CESD_11,5,often,1
+CESD_11,6,very often,1
+CESD_11,7,most of the time,1
+CESD_11,comment,Center for Epidemiological Studies Depression Scale: My sleep was restless.,1
+CESD_11,class,avector,1
+CESD_11,class,numeric,2
+CESD_12,1,never,1
+CESD_12,2,rarely,1
+CESD_12,3,occasionally,1
+CESD_12,4,sometimes,1
+CESD_12,5,often,1
+CESD_12,6,very often,1
+CESD_12,7,most of the time,1
+CESD_12,comment,Center for Epidemiological Studies Depression Scale: I was happy.,1
+CESD_12,class,avector,1
+CESD_12,class,numeric,2
+CESD_13,1,never,1
+CESD_13,2,rarely,1
+CESD_13,3,occasionally,1
+CESD_13,4,sometimes,1
+CESD_13,5,often,1
+CESD_13,6,very often,1
+CESD_13,7,most of the time,1
+CESD_13,comment,Center for Epidemiological Studies Depression Scale: I talked less than usual.,1
+CESD_13,class,avector,1
+CESD_13,class,numeric,2
+CESD_14,1,never,1
+CESD_14,2,rarely,1
+CESD_14,3,occasionally,1
+CESD_14,4,sometimes,1
+CESD_14,5,often,1
+CESD_14,6,very often,1
+CESD_14,7,most of the time,1
+CESD_14,comment,Center for Epidemiological Studies Depression Scale: I felt lonely.,1
+CESD_14,class,avector,1
+CESD_14,class,numeric,2
+CESD_15,1,never,1
+CESD_15,2,rarely,1
+CESD_15,3,occasionally,1
+CESD_15,4,sometimes,1
+CESD_15,5,often,1
+CESD_15,6,very often,1
+CESD_15,7,most of the time,1
+CESD_15,comment,Center for Epidemiological Studies Depression Scale: People were unfriendly.,1
+CESD_15,class,avector,1
+CESD_15,class,numeric,2
+CESD_16,1,never,1
+CESD_16,2,rarely,1
+CESD_16,3,occasionally,1
+CESD_16,4,sometimes,1
+CESD_16,5,often,1
+CESD_16,6,very often,1
+CESD_16,7,most of the time,1
+CESD_16,comment,Center for Epidemiological Studies Depression Scale: I enjoyed life.,1
+CESD_16,class,avector,1
+CESD_16,class,numeric,2
+CESD_17,1,never,1
+CESD_17,2,rarely,1
+CESD_17,3,occasionally,1
+CESD_17,4,sometimes,1
+CESD_17,5,often,1
+CESD_17,6,very often,1
+CESD_17,7,most of the time,1
+CESD_17,comment,Center for Epidemiological Studies Depression Scale: I had crying spells.,1
+CESD_17,class,avector,1
+CESD_17,class,numeric,2
+CESD_18,1,never,1
+CESD_18,2,rarely,1
+CESD_18,3,occasionally,1
+CESD_18,4,sometimes,1
+CESD_18,5,often,1
+CESD_18,6,very often,1
+CESD_18,7,most of the time,1
+CESD_18,comment,Center for Epidemiological Studies Depression Scale: I felt sad.,1
+CESD_18,class,avector,1
+CESD_18,class,numeric,2
+CESD_19,1,never,1
+CESD_19,2,rarely,1
+CESD_19,3,occasionally,1
+CESD_19,4,sometimes,1
+CESD_19,5,often,1
+CESD_19,6,very often,1
+CESD_19,7,most of the time,1
+CESD_19,comment,Center for Epidemiological Studies Depression Scale: I felt that people dislike me.,1
+CESD_19,class,avector,1
+CESD_19,class,numeric,2
+CESD_20,1,never,1
+CESD_20,2,rarely,1
+CESD_20,3,occasionally,1
+CESD_20,4,sometimes,1
+CESD_20,5,often,1
+CESD_20,6,very often,1
+CESD_20,7,most of the time,1
+CESD_20,comment,"Center for Epidemiological Studies Depression Scale: I could not get ""going"".",1
+CESD_20,class,avector,1
+CESD_20,class,numeric,2
+HEXACO_01,1,strongly disagree,1
+HEXACO_01,2,disagree,1
+HEXACO_01,3,slightly disagree,1
+HEXACO_01,4,neither agree nor disagree,1
+HEXACO_01,5,slightly agree,1
+HEXACO_01,6,agree,1
+HEXACO_01,7,strongly agree,1
+HEXACO_01,comment,"HEXACO-60: I rarely hold a grudge, even against people who have badly wronged me.",1
+HEXACO_01,class,avector,1
+HEXACO_01,class,numeric,2
+HEXACO_02,1,strongly disagree,1
+HEXACO_02,2,disagree,1
+HEXACO_02,3,slightly disagree,1
+HEXACO_02,4,neither agree nor disagree,1
+HEXACO_02,5,slightly agree,1
+HEXACO_02,6,agree,1
+HEXACO_02,7,strongly agree,1
+HEXACO_02,comment,"HEXACO-60: I wouldn't use flattery to get a raise or promotion at work, even if I thought it would succeed.",1
+HEXACO_02,class,avector,1
+HEXACO_02,class,numeric,2
+HEXACO_03,1,strongly disagree,1
+HEXACO_03,2,disagree,1
+HEXACO_03,3,slightly disagree,1
+HEXACO_03,4,neither agree nor disagree,1
+HEXACO_03,5,slightly agree,1
+HEXACO_03,6,agree,1
+HEXACO_03,7,strongly agree,1
+HEXACO_03,comment,HEXACO-60: People sometimes tell me that I am too critical of others.,1
+HEXACO_03,class,avector,1
+HEXACO_03,class,numeric,2
+HEXACO_04,1,strongly disagree,1
+HEXACO_04,2,disagree,1
+HEXACO_04,3,slightly disagree,1
+HEXACO_04,4,neither agree nor disagree,1
+HEXACO_04,5,slightly agree,1
+HEXACO_04,6,agree,1
+HEXACO_04,7,strongly agree,1
+HEXACO_04,comment,"HEXACO-60: If I knew that I could never get caught, I would be willing to steal a million dollars.",1
+HEXACO_04,class,avector,1
+HEXACO_04,class,numeric,2
+HEXACO_05,1,strongly disagree,1
+HEXACO_05,2,disagree,1
+HEXACO_05,3,slightly disagree,1
+HEXACO_05,4,neither agree nor disagree,1
+HEXACO_05,5,slightly agree,1
+HEXACO_05,6,agree,1
+HEXACO_05,7,strongly agree,1
+HEXACO_05,comment,HEXACO-60: People sometimes tell me that I'm too stubborn.,1
+HEXACO_05,class,avector,1
+HEXACO_05,class,numeric,2
+HEXACO_06,1,strongly disagree,1
+HEXACO_06,2,disagree,1
+HEXACO_06,3,slightly disagree,1
+HEXACO_06,4,neither agree nor disagree,1
+HEXACO_06,5,slightly agree,1
+HEXACO_06,6,agree,1
+HEXACO_06,7,strongly agree,1
+HEXACO_06,comment,HEXACO-60: Having a lot of money is not especially important to me.,1
+HEXACO_06,class,avector,1
+HEXACO_06,class,numeric,2
+HEXACO_07,1,strongly disagree,1
+HEXACO_07,2,disagree,1
+HEXACO_07,3,slightly disagree,1
+HEXACO_07,4,neither agree nor disagree,1
+HEXACO_07,5,slightly agree,1
+HEXACO_07,6,agree,1
+HEXACO_07,7,strongly agree,1
+HEXACO_07,comment,HEXACO-60: People think of me as someone who has a quick temper.,1
+HEXACO_07,class,avector,1
+HEXACO_07,class,numeric,2
+HEXACO_08,1,strongly disagree,1
+HEXACO_08,2,disagree,1
+HEXACO_08,3,slightly disagree,1
+HEXACO_08,4,neither agree nor disagree,1
+HEXACO_08,5,slightly agree,1
+HEXACO_08,6,agree,1
+HEXACO_08,7,strongly agree,1
+HEXACO_08,comment,HEXACO-60: I think that I am entitled to more respect than the average person is.,1
+HEXACO_08,class,avector,1
+HEXACO_08,class,numeric,2
+HEXACO_09,1,strongly disagree,1
+HEXACO_09,2,disagree,1
+HEXACO_09,3,slightly disagree,1
+HEXACO_09,4,neither agree nor disagree,1
+HEXACO_09,5,slightly agree,1
+HEXACO_09,6,agree,1
+HEXACO_09,7,strongly agree,1
+HEXACO_09,comment,HEXACO-60: My attitude toward people who have treated me badly is “forgive and forget”.,1
+HEXACO_09,class,avector,1
+HEXACO_09,class,numeric,2
+HEXACO_10,1,strongly disagree,1
+HEXACO_10,2,disagree,1
+HEXACO_10,3,slightly disagree,1
+HEXACO_10,4,neither agree nor disagree,1
+HEXACO_10,5,slightly agree,1
+HEXACO_10,6,agree,1
+HEXACO_10,7,strongly agree,1
+HEXACO_10,comment,"HEXACO-60: If I want something from someone, I will laugh at that person's worst jokes.",1
+HEXACO_10,class,avector,1
+HEXACO_10,class,numeric,2
+HEXACO_11,1,strongly disagree,1
+HEXACO_11,2,disagree,1
+HEXACO_11,3,slightly disagree,1
+HEXACO_11,4,neither agree nor disagree,1
+HEXACO_11,5,slightly agree,1
+HEXACO_11,6,agree,1
+HEXACO_11,7,strongly agree,1
+HEXACO_11,comment,HEXACO-60: I tend to be lenient in judging other people.,1
+HEXACO_11,class,avector,1
+HEXACO_11,class,numeric,2
+HEXACO_12,1,strongly disagree,1
+HEXACO_12,2,disagree,1
+HEXACO_12,3,slightly disagree,1
+HEXACO_12,4,neither agree nor disagree,1
+HEXACO_12,5,slightly agree,1
+HEXACO_12,6,agree,1
+HEXACO_12,7,strongly agree,1
+HEXACO_12,comment,"HEXACO-60: I would never accept a bribe, even if it were very large.",1
+HEXACO_12,class,avector,1
+HEXACO_12,class,numeric,2
+HEXACO_13,1,strongly disagree,1
+HEXACO_13,2,disagree,1
+HEXACO_13,3,slightly disagree,1
+HEXACO_13,4,neither agree nor disagree,1
+HEXACO_13,5,slightly agree,1
+HEXACO_13,6,agree,1
+HEXACO_13,7,strongly agree,1
+HEXACO_13,comment,HEXACO-60: I am usually quite flexible in my opinions when people disagree with me.,1
+HEXACO_13,class,avector,1
+HEXACO_13,class,numeric,2
+HEXACO_14,1,strongly disagree,1
+HEXACO_14,2,disagree,1
+HEXACO_14,3,slightly disagree,1
+HEXACO_14,4,neither agree nor disagree,1
+HEXACO_14,5,slightly agree,1
+HEXACO_14,6,agree,1
+HEXACO_14,7,strongly agree,1
+HEXACO_14,comment,HEXACO-60: I would get a lot of pleasure from owning expensive luxury goods.,1
+HEXACO_14,class,avector,1
+HEXACO_14,class,numeric,2
+HEXACO_15,1,strongly disagree,1
+HEXACO_15,2,disagree,1
+HEXACO_15,3,slightly disagree,1
+HEXACO_15,4,neither agree nor disagree,1
+HEXACO_15,5,slightly agree,1
+HEXACO_15,6,agree,1
+HEXACO_15,7,strongly agree,1
+HEXACO_15,comment,HEXACO-60: Most people tend to get angry more quickly than I do.,1
+HEXACO_15,class,avector,1
+HEXACO_15,class,numeric,2
+HEXACO_16,1,strongly disagree,1
+HEXACO_16,2,disagree,1
+HEXACO_16,3,slightly disagree,1
+HEXACO_16,4,neither agree nor disagree,1
+HEXACO_16,5,slightly agree,1
+HEXACO_16,6,agree,1
+HEXACO_16,7,strongly agree,1
+HEXACO_16,comment,HEXACO-60: I want people to know that I am an important person of high status.,1
+HEXACO_16,class,avector,1
+HEXACO_16,class,numeric,2
+HEXACO_17,1,strongly disagree,1
+HEXACO_17,2,disagree,1
+HEXACO_17,3,slightly disagree,1
+HEXACO_17,4,neither agree nor disagree,1
+HEXACO_17,5,slightly agree,1
+HEXACO_17,6,agree,1
+HEXACO_17,7,strongly agree,1
+HEXACO_17,comment,"HEXACO-60: Even when people make a lot of mistakes, I rarely say anything negative.",1
+HEXACO_17,class,avector,1
+HEXACO_17,class,numeric,2
+HEXACO_18,1,strongly disagree,1
+HEXACO_18,2,disagree,1
+HEXACO_18,3,slightly disagree,1
+HEXACO_18,4,neither agree nor disagree,1
+HEXACO_18,5,slightly agree,1
+HEXACO_18,6,agree,1
+HEXACO_18,7,strongly agree,1
+HEXACO_18,comment,HEXACO-60: I wouldn't pretend to like someone just to get that person to do favors for me.,1
+HEXACO_18,class,avector,1
+HEXACO_18,class,numeric,2
+HEXACO_19,1,strongly disagree,1
+HEXACO_19,2,disagree,1
+HEXACO_19,3,slightly disagree,1
+HEXACO_19,4,neither agree nor disagree,1
+HEXACO_19,5,slightly agree,1
+HEXACO_19,6,agree,1
+HEXACO_19,7,strongly agree,1
+HEXACO_19,comment,"HEXACO-60: When people tell me that I'm wrong, my first reaction is to argue with them.",1
+HEXACO_19,class,avector,1
+HEXACO_19,class,numeric,2
+HEXACO_20,1,strongly disagree,1
+HEXACO_20,2,disagree,1
+HEXACO_20,3,slightly disagree,1
+HEXACO_20,4,neither agree nor disagree,1
+HEXACO_20,5,slightly agree,1
+HEXACO_20,6,agree,1
+HEXACO_20,7,strongly agree,1
+HEXACO_20,comment,"HEXACO-60: I'd be tempted to use counterfeit money, if I were sure I could get away with it.",1
+HEXACO_20,class,avector,1
+HEXACO_20,class,numeric,2
+HEXACO_21,1,strongly disagree,1
+HEXACO_21,2,disagree,1
+HEXACO_21,3,slightly disagree,1
+HEXACO_21,4,neither agree nor disagree,1
+HEXACO_21,5,slightly agree,1
+HEXACO_21,6,agree,1
+HEXACO_21,7,strongly agree,1
+HEXACO_21,comment,"HEXACO-60: I plan ahead and organize things, to avoid scrambling at the last minute.",1
+HEXACO_21,class,avector,1
+HEXACO_21,class,numeric,2
+HEXACO_22,1,strongly disagree,1
+HEXACO_22,2,disagree,1
+HEXACO_22,3,slightly disagree,1
+HEXACO_22,4,neither agree nor disagree,1
+HEXACO_22,5,slightly agree,1
+HEXACO_22,6,agree,1
+HEXACO_22,7,strongly agree,1
+HEXACO_22,comment,HEXACO-60: I often push myself very hard when trying to achieve a goal.,1
+HEXACO_22,class,avector,1
+HEXACO_22,class,numeric,2
+HEXACO_23,1,strongly disagree,1
+HEXACO_23,2,disagree,1
+HEXACO_23,3,slightly disagree,1
+HEXACO_23,4,neither agree nor disagree,1
+HEXACO_23,5,slightly agree,1
+HEXACO_23,6,agree,1
+HEXACO_23,7,strongly agree,1
+HEXACO_23,comment,"HEXACO-60: When working on something, I don't pay much attention to small details.",1
+HEXACO_23,class,avector,1
+HEXACO_23,class,numeric,2
+HEXACO_24,1,strongly disagree,1
+HEXACO_24,2,disagree,1
+HEXACO_24,3,slightly disagree,1
+HEXACO_24,4,neither agree nor disagree,1
+HEXACO_24,5,slightly agree,1
+HEXACO_24,6,agree,1
+HEXACO_24,7,strongly agree,1
+HEXACO_24,comment,HEXACO-60: I make decisions based on the feeling of the moment rather than on careful thought.,1
+HEXACO_24,class,avector,1
+HEXACO_24,class,numeric,2
+HEXACO_25,1,strongly disagree,1
+HEXACO_25,2,disagree,1
+HEXACO_25,3,slightly disagree,1
+HEXACO_25,4,neither agree nor disagree,1
+HEXACO_25,5,slightly agree,1
+HEXACO_25,6,agree,1
+HEXACO_25,7,strongly agree,1
+HEXACO_25,comment,"HEXACO-60: When working, I sometimes have difficulties due to being disorganized.",1
+HEXACO_25,class,avector,1
+HEXACO_25,class,numeric,2
+HEXACO_26,1,strongly disagree,1
+HEXACO_26,2,disagree,1
+HEXACO_26,3,slightly disagree,1
+HEXACO_26,4,neither agree nor disagree,1
+HEXACO_26,5,slightly agree,1
+HEXACO_26,6,agree,1
+HEXACO_26,7,strongly agree,1
+HEXACO_26,comment,HEXACO-60: I do only the minimum amount of work needed to get by.,1
+HEXACO_26,class,avector,1
+HEXACO_26,class,numeric,2
+HEXACO_27,1,strongly disagree,1
+HEXACO_27,2,disagree,1
+HEXACO_27,3,slightly disagree,1
+HEXACO_27,4,neither agree nor disagree,1
+HEXACO_27,5,slightly agree,1
+HEXACO_27,6,agree,1
+HEXACO_27,7,strongly agree,1
+HEXACO_27,comment,"HEXACO-60: I always try to be accurate in my work, even at the expense of time.",1
+HEXACO_27,class,avector,1
+HEXACO_27,class,numeric,2
+HEXACO_28,1,strongly disagree,1
+HEXACO_28,2,disagree,1
+HEXACO_28,3,slightly disagree,1
+HEXACO_28,4,neither agree nor disagree,1
+HEXACO_28,5,slightly agree,1
+HEXACO_28,6,agree,1
+HEXACO_28,7,strongly agree,1
+HEXACO_28,comment,HEXACO-60: I make a lot of mistakes because I don’t think before I act.,1
+HEXACO_28,class,avector,1
+HEXACO_28,class,numeric,2
+HEXACO_29,1,strongly disagree,1
+HEXACO_29,2,disagree,1
+HEXACO_29,3,slightly disagree,1
+HEXACO_29,4,neither agree nor disagree,1
+HEXACO_29,5,slightly agree,1
+HEXACO_29,6,agree,1
+HEXACO_29,7,strongly agree,1
+HEXACO_29,comment,HEXACO-60: People often call me a perfectionist.,1
+HEXACO_29,class,avector,1
+HEXACO_29,class,numeric,2
+HEXACO_30,1,strongly disagree,1
+HEXACO_30,2,disagree,1
+HEXACO_30,3,slightly disagree,1
+HEXACO_30,4,neither agree nor disagree,1
+HEXACO_30,5,slightly agree,1
+HEXACO_30,6,agree,1
+HEXACO_30,7,strongly agree,1
+HEXACO_30,comment,"HEXACO-60: I prefer to do whatever comes to mind, rather than stick to a plan.",1
+HEXACO_30,class,avector,1
+HEXACO_30,class,numeric,2
+IFI_02,1,strongly disagree,1
+IFI_02,2,disagree,1
+IFI_02,3,slightly disagree,1
+IFI_02,4,neither agree nor disagree,1
+IFI_02,5,slightly agree,1
+IFI_02,6,agree,1
+IFI_02,7,strongly agree,1
+IFI_02,comment,HEXACO-60: I can speak 30 languages fluently.,1
+IFI_02,class,avector,1
+IFI_02,class,numeric,2
+OCIR_01,1,strongly disagree,1
+OCIR_01,2,disagree,1
+OCIR_01,3,slightly disagree,1
+OCIR_01,4,neither agree nor disagree,1
+OCIR_01,5,slightly agree,1
+OCIR_01,6,agree,1
+OCIR_01,7,strongly agree,1
+OCIR_01,comment,Obsessive–Compulsive Inventory: I have saved up so many things that they get in the way.,1
+OCIR_01,class,avector,1
+OCIR_01,class,numeric,2
+OCIR_02,1,strongly disagree,1
+OCIR_02,2,disagree,1
+OCIR_02,3,slightly disagree,1
+OCIR_02,4,neither agree nor disagree,1
+OCIR_02,5,slightly agree,1
+OCIR_02,6,agree,1
+OCIR_02,7,strongly agree,1
+OCIR_02,comment,Obsessive–Compulsive Inventory: I check things more often than necessary.,1
+OCIR_02,class,avector,1
+OCIR_02,class,numeric,2
+OCIR_03,1,strongly disagree,1
+OCIR_03,2,disagree,1
+OCIR_03,3,slightly disagree,1
+OCIR_03,4,neither agree nor disagree,1
+OCIR_03,5,slightly agree,1
+OCIR_03,6,agree,1
+OCIR_03,7,strongly agree,1
+OCIR_03,comment,Obsessive–Compulsive Inventory: I get upset if objects are not arranged properly.,1
+OCIR_03,class,avector,1
+OCIR_03,class,numeric,2
+OCIR_04,1,strongly disagree,1
+OCIR_04,2,disagree,1
+OCIR_04,3,slightly disagree,1
+OCIR_04,4,neither agree nor disagree,1
+OCIR_04,5,slightly agree,1
+OCIR_04,6,agree,1
+OCIR_04,7,strongly agree,1
+OCIR_04,comment,Obsessive–Compulsive Inventory: I feel compelled to count while I am doing things.,1
+OCIR_04,class,avector,1
+OCIR_04,class,numeric,2
+OCIR_05,1,strongly disagree,1
+OCIR_05,2,disagree,1
+OCIR_05,3,slightly disagree,1
+OCIR_05,4,neither agree nor disagree,1
+OCIR_05,5,slightly agree,1
+OCIR_05,6,agree,1
+OCIR_05,7,strongly agree,1
+OCIR_05,comment,Obsessive–Compulsive Inventory: I find it difficult to touch an object when I know it has been touched by strangers or certain people.,1
+OCIR_05,class,avector,1
+OCIR_05,class,numeric,2
+OCIR_06,1,strongly disagree,1
+OCIR_06,2,disagree,1
+OCIR_06,3,slightly disagree,1
+OCIR_06,4,neither agree nor disagree,1
+OCIR_06,5,slightly agree,1
+OCIR_06,6,agree,1
+OCIR_06,7,strongly agree,1
+OCIR_06,comment,Obsessive–Compulsive Inventory: I find it difficult to control my own thoughts.,1
+OCIR_06,class,avector,1
+OCIR_06,class,numeric,2
+OCIR_07,1,strongly disagree,1
+OCIR_07,2,disagree,1
+OCIR_07,3,slightly disagree,1
+OCIR_07,4,neither agree nor disagree,1
+OCIR_07,5,slightly agree,1
+OCIR_07,6,agree,1
+OCIR_07,7,strongly agree,1
+OCIR_07,comment,Obsessive–Compulsive Inventory: I collect things I don’t need.,1
+OCIR_07,class,avector,1
+OCIR_07,class,numeric,2
+OCIR_08,1,strongly disagree,1
+OCIR_08,2,disagree,1
+OCIR_08,3,slightly disagree,1
+OCIR_08,4,neither agree nor disagree,1
+OCIR_08,5,slightly agree,1
+OCIR_08,6,agree,1
+OCIR_08,7,strongly agree,1
+OCIR_08,comment,"Obsessive–Compulsive Inventory: I repeatedly check doors, windows, drawers, etc.",1
+OCIR_08,class,avector,1
+OCIR_08,class,numeric,2
+OCIR_09,1,strongly disagree,1
+OCIR_09,2,disagree,1
+OCIR_09,3,slightly disagree,1
+OCIR_09,4,neither agree nor disagree,1
+OCIR_09,5,slightly agree,1
+OCIR_09,6,agree,1
+OCIR_09,7,strongly agree,1
+OCIR_09,comment,Obsessive–Compulsive Inventory: I get upset if others change the way I have arranged things.,1
+OCIR_09,class,avector,1
+OCIR_09,class,numeric,2
+OCIR_10,1,strongly disagree,1
+OCIR_10,2,disagree,1
+OCIR_10,3,slightly disagree,1
+OCIR_10,4,neither agree nor disagree,1
+OCIR_10,5,slightly agree,1
+OCIR_10,6,agree,1
+OCIR_10,7,strongly agree,1
+OCIR_10,comment,Obsessive–Compulsive Inventory: I feel I have to repeat certain numbers.,1
+OCIR_10,class,avector,1
+OCIR_10,class,numeric,2
+OCIR_11,1,strongly disagree,1
+OCIR_11,2,disagree,1
+OCIR_11,3,slightly disagree,1
+OCIR_11,4,neither agree nor disagree,1
+OCIR_11,5,slightly agree,1
+OCIR_11,6,agree,1
+OCIR_11,7,strongly agree,1
+OCIR_11,comment,Obsessive–Compulsive Inventory: I sometimes have to wash or clean myself simply because I feel contaminated.,1
+OCIR_11,class,avector,1
+OCIR_11,class,numeric,2
+OCIR_12,1,strongly disagree,1
+OCIR_12,2,disagree,1
+OCIR_12,3,slightly disagree,1
+OCIR_12,4,neither agree nor disagree,1
+OCIR_12,5,slightly agree,1
+OCIR_12,6,agree,1
+OCIR_12,7,strongly agree,1
+OCIR_12,comment,Obsessive–Compulsive Inventory: I am upset by unpleasant thoughts that come into my mind against my will.,1
+OCIR_12,class,avector,1
+OCIR_12,class,numeric,2
+OCIR_13,1,strongly disagree,1
+OCIR_13,2,disagree,1
+OCIR_13,3,slightly disagree,1
+OCIR_13,4,neither agree nor disagree,1
+OCIR_13,5,slightly agree,1
+OCIR_13,6,agree,1
+OCIR_13,7,strongly agree,1
+OCIR_13,comment,Obsessive–Compulsive Inventory: I avoid throwing things away because I am afraid I might need them later.,1
+OCIR_13,class,avector,1
+OCIR_13,class,numeric,2
+OCIR_14,1,strongly disagree,1
+OCIR_14,2,disagree,1
+OCIR_14,3,slightly disagree,1
+OCIR_14,4,neither agree nor disagree,1
+OCIR_14,5,slightly agree,1
+OCIR_14,6,agree,1
+OCIR_14,7,strongly agree,1
+OCIR_14,comment,Obsessive–Compulsive Inventory: I repeatedly check gas and water taps and light switches after turning them off.,1
+OCIR_14,class,avector,1
+OCIR_14,class,numeric,2
+OCIR_15,1,strongly disagree,1
+OCIR_15,2,disagree,1
+OCIR_15,3,slightly disagree,1
+OCIR_15,4,neither agree nor disagree,1
+OCIR_15,5,slightly agree,1
+OCIR_15,6,agree,1
+OCIR_15,7,strongly agree,1
+OCIR_15,comment,Obsessive–Compulsive Inventory: I need things to be arranged in a particular order.,1
+OCIR_15,class,avector,1
+OCIR_15,class,numeric,2
+OCIR_16,1,strongly disagree,1
+OCIR_16,2,disagree,1
+OCIR_16,3,slightly disagree,1
+OCIR_16,4,neither agree nor disagree,1
+OCIR_16,5,slightly agree,1
+OCIR_16,6,agree,1
+OCIR_16,7,strongly agree,1
+OCIR_16,comment,Obsessive–Compulsive Inventory: I feel that there are good and bad numbers.,1
+OCIR_16,class,avector,1
+OCIR_16,class,numeric,2
+OCIR_17,1,strongly disagree,1
+OCIR_17,2,disagree,1
+OCIR_17,3,slightly disagree,1
+OCIR_17,4,neither agree nor disagree,1
+OCIR_17,5,slightly agree,1
+OCIR_17,6,agree,1
+OCIR_17,7,strongly agree,1
+OCIR_17,comment,Obsessive–Compulsive Inventory: I wash my hands more often and longer than necessary.,1
+OCIR_17,class,avector,1
+OCIR_17,class,numeric,2
+OCIR_18,1,strongly disagree,1
+OCIR_18,2,disagree,1
+OCIR_18,3,slightly disagree,1
+OCIR_18,4,neither agree nor disagree,1
+OCIR_18,5,slightly agree,1
+OCIR_18,6,agree,1
+OCIR_18,7,strongly agree,1
+OCIR_18,comment,Obsessive–Compulsive Inventory: I frequently get nasty thoughts and have difficulty in getting rid of them.,1
+OCIR_18,class,avector,1
+OCIR_18,class,numeric,2
+PTQ_01,1,strongly disagree,1
+PTQ_01,2,disagree,1
+PTQ_01,3,slightly disagree,1
+PTQ_01,4,neither agree nor disagree,1
+PTQ_01,5,slightly agree,1
+PTQ_01,6,agree,1
+PTQ_01,7,strongly agree,1
+PTQ_01,comment,Perseverative Thinking Questionnaire: The same thoughts keep going through my mind again and again.,1
+PTQ_01,class,avector,1
+PTQ_01,class,numeric,2
+PTQ_02,1,strongly disagree,1
+PTQ_02,2,disagree,1
+PTQ_02,3,slightly disagree,1
+PTQ_02,4,neither agree nor disagree,1
+PTQ_02,5,slightly agree,1
+PTQ_02,6,agree,1
+PTQ_02,7,strongly agree,1
+PTQ_02,comment,Perseverative Thinking Questionnaire: Thoughts intrude into my mind.,1
+PTQ_02,class,avector,1
+PTQ_02,class,numeric,2
+PTQ_03,1,strongly disagree,1
+PTQ_03,2,disagree,1
+PTQ_03,3,slightly disagree,1
+PTQ_03,4,neither agree nor disagree,1
+PTQ_03,5,slightly agree,1
+PTQ_03,6,agree,1
+PTQ_03,7,strongly agree,1
+PTQ_03,comment,Perseverative Thinking Questionnaire: I can’t stop dwelling on negative experiences or problems.,1
+PTQ_03,class,avector,1
+PTQ_03,class,numeric,2
+PTQ_04,1,strongly disagree,1
+PTQ_04,2,disagree,1
+PTQ_04,3,slightly disagree,1
+PTQ_04,4,neither agree nor disagree,1
+PTQ_04,5,slightly agree,1
+PTQ_04,6,agree,1
+PTQ_04,7,strongly agree,1
+PTQ_04,comment,Perseverative Thinking Questionnaire: I think about many problems without solving any of them.,1
+PTQ_04,class,avector,1
+PTQ_04,class,numeric,2
+PTQ_05,1,strongly disagree,1
+PTQ_05,2,disagree,1
+PTQ_05,3,slightly disagree,1
+PTQ_05,4,neither agree nor disagree,1
+PTQ_05,5,slightly agree,1
+PTQ_05,6,agree,1
+PTQ_05,7,strongly agree,1
+PTQ_05,comment,Perseverative Thinking Questionnaire: I can’t do anything else while thinking about my problems.,1
+PTQ_05,class,avector,1
+PTQ_05,class,numeric,2
+PTQ_06,1,strongly disagree,1
+PTQ_06,2,disagree,1
+PTQ_06,3,slightly disagree,1
+PTQ_06,4,neither agree nor disagree,1
+PTQ_06,5,slightly agree,1
+PTQ_06,6,agree,1
+PTQ_06,7,strongly agree,1
+PTQ_06,comment,Perseverative Thinking Questionnaire: My thoughts repeat themselves.,1
+PTQ_06,class,avector,1
+PTQ_06,class,numeric,2
+PTQ_07,1,strongly disagree,1
+PTQ_07,2,disagree,1
+PTQ_07,3,slightly disagree,1
+PTQ_07,4,neither agree nor disagree,1
+PTQ_07,5,slightly agree,1
+PTQ_07,6,agree,1
+PTQ_07,7,strongly agree,1
+PTQ_07,comment,Perseverative Thinking Questionnaire: Thoughts come to my mind without me wanting them to.,1
+PTQ_07,class,avector,1
+PTQ_07,class,numeric,2
+PTQ_08,1,strongly disagree,1
+PTQ_08,2,disagree,1
+PTQ_08,3,slightly disagree,1
+PTQ_08,4,neither agree nor disagree,1
+PTQ_08,5,slightly agree,1
+PTQ_08,6,agree,1
+PTQ_08,7,strongly agree,1
+PTQ_08,comment,Perseverative Thinking Questionnaire: I get stuck on certain issues and can’t move on.,1
+PTQ_08,class,avector,1
+PTQ_08,class,numeric,2
+PTQ_09,1,strongly disagree,1
+PTQ_09,2,disagree,1
+PTQ_09,3,slightly disagree,1
+PTQ_09,4,neither agree nor disagree,1
+PTQ_09,5,slightly agree,1
+PTQ_09,6,agree,1
+PTQ_09,7,strongly agree,1
+PTQ_09,comment,Perseverative Thinking Questionnaire: I keep asking myself questions without finding an answer.,1
+PTQ_09,class,avector,1
+PTQ_09,class,numeric,2
+PTQ_10,1,strongly disagree,1
+PTQ_10,2,disagree,1
+PTQ_10,3,slightly disagree,1
+PTQ_10,4,neither agree nor disagree,1
+PTQ_10,5,slightly agree,1
+PTQ_10,6,agree,1
+PTQ_10,7,strongly agree,1
+PTQ_10,comment,Perseverative Thinking Questionnaire: My thoughts prevent me from focusing on other things.,1
+PTQ_10,class,avector,1
+PTQ_10,class,numeric,2
+PTQ_11,1,strongly disagree,1
+PTQ_11,2,disagree,1
+PTQ_11,3,slightly disagree,1
+PTQ_11,4,neither agree nor disagree,1
+PTQ_11,5,slightly agree,1
+PTQ_11,6,agree,1
+PTQ_11,7,strongly agree,1
+PTQ_11,comment,Perseverative Thinking Questionnaire: I keep thinking about the same issue all the time.,1
+PTQ_11,class,avector,1
+PTQ_11,class,numeric,2
+PTQ_12,1,strongly disagree,1
+PTQ_12,2,disagree,1
+PTQ_12,3,slightly disagree,1
+PTQ_12,4,neither agree nor disagree,1
+PTQ_12,5,slightly agree,1
+PTQ_12,6,agree,1
+PTQ_12,7,strongly agree,1
+PTQ_12,comment,Perseverative Thinking Questionnaire: Thoughts just pop into my mind.,1
+PTQ_12,class,avector,1
+PTQ_12,class,numeric,2
+PTQ_13,1,strongly disagree,1
+PTQ_13,2,disagree,1
+PTQ_13,3,slightly disagree,1
+PTQ_13,4,neither agree nor disagree,1
+PTQ_13,5,slightly agree,1
+PTQ_13,6,agree,1
+PTQ_13,7,strongly agree,1
+PTQ_13,comment,Perseverative Thinking Questionnaire: I feel driven to continue dwelling on the same issue.,1
+PTQ_13,class,avector,1
+PTQ_13,class,numeric,2
+PTQ_14,1,strongly disagree,1
+PTQ_14,2,disagree,1
+PTQ_14,3,slightly disagree,1
+PTQ_14,4,neither agree nor disagree,1
+PTQ_14,5,slightly agree,1
+PTQ_14,6,agree,1
+PTQ_14,7,strongly agree,1
+PTQ_14,comment,Perseverative Thinking Questionnaire: My thoughts are not much help to me.,1
+PTQ_14,class,avector,1
+PTQ_14,class,numeric,2
+PTQ_15,1,strongly disagree,1
+PTQ_15,2,disagree,1
+PTQ_15,3,slightly disagree,1
+PTQ_15,4,neither agree nor disagree,1
+PTQ_15,5,slightly agree,1
+PTQ_15,6,agree,1
+PTQ_15,7,strongly agree,1
+PTQ_15,comment,Perseverative Thinking Questionnaire: My thoughts take up all my attention.,1
+PTQ_15,class,avector,1
+PTQ_15,class,numeric,2
+RAAS_01,1,strongly disagree,1
+RAAS_01,2,disagree,1
+RAAS_01,3,slightly disagree,1
+RAAS_01,4,neither agree nor disagree,1
+RAAS_01,5,slightly agree,1
+RAAS_01,6,agree,1
+RAAS_01,7,strongly agree,1
+RAAS_01,comment,Revised Adult Attachment Scale: I find it relatively easy to get close to people.,1
+RAAS_01,class,avector,1
+RAAS_01,class,numeric,2
+RAAS_02,1,strongly disagree,1
+RAAS_02,2,disagree,1
+RAAS_02,3,slightly disagree,1
+RAAS_02,4,neither agree nor disagree,1
+RAAS_02,5,slightly agree,1
+RAAS_02,6,agree,1
+RAAS_02,7,strongly agree,1
+RAAS_02,comment,Revised Adult Attachment Scale: I find it difficult to allow myself to depend on others.,1
+RAAS_02,class,avector,1
+RAAS_02,class,numeric,2
+RAAS_05,1,strongly disagree,1
+RAAS_05,2,disagree,1
+RAAS_05,3,slightly disagree,1
+RAAS_05,4,neither agree nor disagree,1
+RAAS_05,5,slightly agree,1
+RAAS_05,6,agree,1
+RAAS_05,7,strongly agree,1
+RAAS_05,comment,Revised Adult Attachment Scale: I am comfortable depending on others.,1
+RAAS_05,class,avector,1
+RAAS_05,class,numeric,2
+RAAS_06,1,strongly disagree,1
+RAAS_06,2,disagree,1
+RAAS_06,3,slightly disagree,1
+RAAS_06,4,neither agree nor disagree,1
+RAAS_06,5,slightly agree,1
+RAAS_06,6,agree,1
+RAAS_06,7,strongly agree,1
+RAAS_06,comment,Revised Adult Attachment Scale: I don’t worry about people getting too close to me.,1
+RAAS_06,class,avector,1
+RAAS_06,class,numeric,2
+RAAS_07,1,strongly disagree,1
+RAAS_07,2,disagree,1
+RAAS_07,3,slightly disagree,1
+RAAS_07,4,neither agree nor disagree,1
+RAAS_07,5,slightly agree,1
+RAAS_07,6,agree,1
+RAAS_07,7,strongly agree,1
+RAAS_07,comment,Revised Adult Attachment Scale: I find that people are never there when you need them.,1
+RAAS_07,class,avector,1
+RAAS_07,class,numeric,2
+RAAS_08,1,strongly disagree,1
+RAAS_08,2,disagree,1
+RAAS_08,3,slightly disagree,1
+RAAS_08,4,neither agree nor disagree,1
+RAAS_08,5,slightly agree,1
+RAAS_08,6,agree,1
+RAAS_08,7,strongly agree,1
+RAAS_08,comment,Revised Adult Attachment Scale: I am somewhat uncomfortable being close to others.,1
+RAAS_08,class,avector,1
+RAAS_08,class,numeric,2
+RAAS_12,1,strongly disagree,1
+RAAS_12,2,disagree,1
+RAAS_12,3,slightly disagree,1
+RAAS_12,4,neither agree nor disagree,1
+RAAS_12,5,slightly agree,1
+RAAS_12,6,agree,1
+RAAS_12,7,strongly agree,1
+RAAS_12,comment,Revised Adult Attachment Scale: I am comfortable developing close relationships with others.,1
+RAAS_12,class,avector,1
+RAAS_12,class,numeric,2
+RAAS_13,1,strongly disagree,1
+RAAS_13,2,disagree,1
+RAAS_13,3,slightly disagree,1
+RAAS_13,4,neither agree nor disagree,1
+RAAS_13,5,slightly agree,1
+RAAS_13,6,agree,1
+RAAS_13,7,strongly agree,1
+RAAS_13,comment,Revised Adult Attachment Scale: I am uncomfortable when anyone gets too emotionally close to me.,1
+RAAS_13,class,avector,1
+RAAS_13,class,numeric,2
+RAAS_14,1,strongly disagree,1
+RAAS_14,2,disagree,1
+RAAS_14,3,slightly disagree,1
+RAAS_14,4,neither agree nor disagree,1
+RAAS_14,5,slightly agree,1
+RAAS_14,6,agree,1
+RAAS_14,7,strongly agree,1
+RAAS_14,comment,Revised Adult Attachment Scale: I know that people will be there when I need them.,1
+RAAS_14,class,avector,1
+RAAS_14,class,numeric,2
+RAAS_16,1,strongly disagree,1
+RAAS_16,2,disagree,1
+RAAS_16,3,slightly disagree,1
+RAAS_16,4,neither agree nor disagree,1
+RAAS_16,5,slightly agree,1
+RAAS_16,6,agree,1
+RAAS_16,7,strongly agree,1
+RAAS_16,comment,Revised Adult Attachment Scale: I find it difficult to trust others completely.,1
+RAAS_16,class,avector,1
+RAAS_16,class,numeric,2
+RAAS_17,1,strongly disagree,1
+RAAS_17,2,disagree,1
+RAAS_17,3,slightly disagree,1
+RAAS_17,4,neither agree nor disagree,1
+RAAS_17,5,slightly agree,1
+RAAS_17,6,agree,1
+RAAS_17,7,strongly agree,1
+RAAS_17,comment,Revised Adult Attachment Scale: Romantic partners often want me to be emotionally closer than I feel comfortable being.,1
+RAAS_17,class,avector,1
+RAAS_17,class,numeric,2
+KSA3_01,1,strongly disagree,1
+KSA3_01,2,disagree,1
+KSA3_01,3,slightly disagree,1
+KSA3_01,4,neither agree nor disagree,1
+KSA3_01,5,slightly agree,1
+KSA3_01,6,agree,1
+KSA3_01,7,strongly agree,1
+KSA3_01,comment,Authoritarianism Short Scale: We should take strong action against misfits and slackers in society.,1
+KSA3_01,class,avector,1
+KSA3_01,class,numeric,2
+KSA3_02,1,strongly disagree,1
+KSA3_02,2,disagree,1
+KSA3_02,3,slightly disagree,1
+KSA3_02,4,neither agree nor disagree,1
+KSA3_02,5,slightly agree,1
+KSA3_02,6,agree,1
+KSA3_02,7,strongly agree,1
+KSA3_02,comment,Authoritarianism Short Scale: Troublemakers should be made to feel that they are not welcome in society.,1
+KSA3_02,class,avector,1
+KSA3_02,class,numeric,2
+KSA3_03,1,strongly disagree,1
+KSA3_03,2,disagree,1
+KSA3_03,3,slightly disagree,1
+KSA3_03,4,neither agree nor disagree,1
+KSA3_03,5,slightly agree,1
+KSA3_03,6,agree,1
+KSA3_03,7,strongly agree,1
+KSA3_03,comment,Authoritarianism Short Scale: Rules in society should be enforced without pity.,1
+KSA3_03,class,avector,1
+KSA3_03,class,numeric,2
+KSA3_04,1,strongly disagree,1
+KSA3_04,2,disagree,1
+KSA3_04,3,slightly disagree,1
+KSA3_04,4,neither agree nor disagree,1
+KSA3_04,5,slightly agree,1
+KSA3_04,6,agree,1
+KSA3_04,7,strongly agree,1
+KSA3_04,comment,Authoritarianism Short Scale: We need strong leaders so that we can live safely in society.,1
+KSA3_04,class,avector,1
+KSA3_04,class,numeric,2
+KSA3_05,1,strongly disagree,1
+KSA3_05,2,disagree,1
+KSA3_05,3,slightly disagree,1
+KSA3_05,4,neither agree nor disagree,1
+KSA3_05,5,slightly agree,1
+KSA3_05,6,agree,1
+KSA3_05,7,strongly agree,1
+KSA3_05,comment,Authoritarianism Short Scale: People should leave important decisions in society to their leaders.,1
+KSA3_05,class,avector,1
+KSA3_05,class,numeric,2
+KSA3_06,1,strongly disagree,1
+KSA3_06,2,disagree,1
+KSA3_06,3,slightly disagree,1
+KSA3_06,4,neither agree nor disagree,1
+KSA3_06,5,slightly agree,1
+KSA3_06,6,agree,1
+KSA3_06,7,strongly agree,1
+KSA3_06,comment,Authoritarianism Short Scale: We should be grateful for leaders telling us exactly what to do.,1
+KSA3_06,class,avector,1
+KSA3_06,class,numeric,2
+KSA3_07,1,strongly disagree,1
+KSA3_07,2,disagree,1
+KSA3_07,3,slightly disagree,1
+KSA3_07,4,neither agree nor disagree,1
+KSA3_07,5,slightly agree,1
+KSA3_07,6,agree,1
+KSA3_07,7,strongly agree,1
+KSA3_07,comment,Authoritarianism Short Scale: Traditions should definitely be carried on and kept alive.,1
+KSA3_07,class,avector,1
+KSA3_07,class,numeric,2
+KSA3_08,1,strongly disagree,1
+KSA3_08,2,disagree,1
+KSA3_08,3,slightly disagree,1
+KSA3_08,4,neither agree nor disagree,1
+KSA3_08,5,slightly agree,1
+KSA3_08,6,agree,1
+KSA3_08,7,strongly agree,1
+KSA3_08,comment,Authoritarianism Short Scale: Well-established behavior should not be questioned.,1
+KSA3_08,class,avector,1
+KSA3_08,class,numeric,2
+KSA3_09,1,strongly disagree,1
+KSA3_09,2,disagree,1
+KSA3_09,3,slightly disagree,1
+KSA3_09,4,neither agree nor disagree,1
+KSA3_09,5,slightly agree,1
+KSA3_09,6,agree,1
+KSA3_09,7,strongly agree,1
+KSA3_09,comment,Authoritarianism Short Scale: It's always best to do things in the usual way.,1
+KSA3_09,class,avector,1
+KSA3_09,class,numeric,2
+AA19_10,1,strongly disagree,1
+AA19_10,2,disagree,1
+AA19_10,3,slightly disagree,1
+AA19_10,4,neither agree nor disagree,1
+AA19_10,5,slightly agree,1
+AA19_10,6,agree,1
+AA19_10,7,strongly agree,1
+AA19_10,comment,Authoritarianism Short Scale: Nuclear weapons would be dangerous if they got into the wrong hands.,1
+AA19_10,class,avector,1
+AA19_10,class,numeric,2
+SAS_01,1,strongly disagree,1
+SAS_01,2,disagree,1
+SAS_01,3,slightly disagree,1
+SAS_01,4,neither agree nor disagree,1
+SAS_01,5,slightly agree,1
+SAS_01,6,agree,1
+SAS_01,7,strongly agree,1
+SAS_01,comment,Survey Attitude Scale: I really enjoy responding to questionnaires through the mail or Internet.,1
+SAS_01,class,avector,1
+SAS_01,class,numeric,2
+SAS_02,1,strongly disagree,1
+SAS_02,2,disagree,1
+SAS_02,3,slightly disagree,1
+SAS_02,4,neither agree nor disagree,1
+SAS_02,5,slightly agree,1
+SAS_02,6,agree,1
+SAS_02,7,strongly agree,1
+SAS_02,comment,Survey Attitude Scale: I really enjoy being interviewed for a survey.,1
+SAS_02,class,avector,1
+SAS_02,class,numeric,2
+SAS_03,1,strongly disagree,1
+SAS_03,2,disagree,1
+SAS_03,3,slightly disagree,1
+SAS_03,4,neither agree nor disagree,1
+SAS_03,5,slightly agree,1
+SAS_03,6,agree,1
+SAS_03,7,strongly agree,1
+SAS_03,comment,Survey Attitude Scale: Surveys are interesting in themselves.,1
+SAS_03,class,avector,1
+SAS_03,class,numeric,2
+SAS_04,1,strongly disagree,1
+SAS_04,2,disagree,1
+SAS_04,3,slightly disagree,1
+SAS_04,4,neither agree nor disagree,1
+SAS_04,5,slightly agree,1
+SAS_04,6,agree,1
+SAS_04,7,strongly agree,1
+SAS_04,comment,Survey Attitude Scale: Surveys are important for society.,1
+SAS_04,class,avector,1
+SAS_04,class,numeric,2
+SAS_05,1,strongly disagree,1
+SAS_05,2,disagree,1
+SAS_05,3,slightly disagree,1
+SAS_05,4,neither agree nor disagree,1
+SAS_05,5,slightly agree,1
+SAS_05,6,agree,1
+SAS_05,7,strongly agree,1
+SAS_05,comment,Survey Attitude Scale: A lot can be learned from information collected through surveys.,1
+SAS_05,class,avector,1
+SAS_05,class,numeric,2
+SAS_06,1,strongly disagree,1
+SAS_06,2,disagree,1
+SAS_06,3,slightly disagree,1
+SAS_06,4,neither agree nor disagree,1
+SAS_06,5,slightly agree,1
+SAS_06,6,agree,1
+SAS_06,7,strongly agree,1
+SAS_06,comment,Survey Attitude Scale: Completing surveys is a waste of time.,1
+SAS_06,class,avector,1
+SAS_06,class,numeric,2
+SAS_07,1,strongly disagree,1
+SAS_07,2,disagree,1
+SAS_07,3,slightly disagree,1
+SAS_07,4,neither agree nor disagree,1
+SAS_07,5,slightly agree,1
+SAS_07,6,agree,1
+SAS_07,7,strongly agree,1
+SAS_07,comment,Survey Attitude Scale: I receive far too many requests to participate in surveys.,1
+SAS_07,class,avector,1
+SAS_07,class,numeric,2
+SAS_08,1,strongly disagree,1
+SAS_08,2,disagree,1
+SAS_08,3,slightly disagree,1
+SAS_08,4,neither agree nor disagree,1
+SAS_08,5,slightly agree,1
+SAS_08,6,agree,1
+SAS_08,7,strongly agree,1
+SAS_08,comment,Survey Attitude Scale: Opinion polls are an invasion of privacy.,1
+SAS_08,class,avector,1
+SAS_08,class,numeric,2
+SAS_09,1,strongly disagree,1
+SAS_09,2,disagree,1
+SAS_09,3,slightly disagree,1
+SAS_09,4,neither agree nor disagree,1
+SAS_09,5,slightly agree,1
+SAS_09,6,agree,1
+SAS_09,7,strongly agree,1
+SAS_09,comment,Survey Attitude Scale: It is exhaustive to answer so many questions in a survey.,1
+SAS_09,class,avector,1
+SAS_09,class,numeric,2
+MFQ_01,1,strongly disagree,1
+MFQ_01,2,disagree,1
+MFQ_01,3,slightly disagree,1
+MFQ_01,4,neither agree nor disagree,1
+MFQ_01,5,slightly agree,1
+MFQ_01,6,agree,1
+MFQ_01,7,strongly agree,1
+MFQ_01,comment,Moral Foundations Questionnaire: Compassion for those who are suffering is the most crucial virtue.,1
+MFQ_01,class,avector,1
+MFQ_01,class,numeric,2
+MFQ_02,1,strongly disagree,1
+MFQ_02,2,disagree,1
+MFQ_02,3,slightly disagree,1
+MFQ_02,4,neither agree nor disagree,1
+MFQ_02,5,slightly agree,1
+MFQ_02,6,agree,1
+MFQ_02,7,strongly agree,1
+MFQ_02,comment,"Moral Foundations Questionnaire: When the government makes laws, the number one principle should be ensuring that everyone is treated fairly.",1
+MFQ_02,class,avector,1
+MFQ_02,class,numeric,2
+MFQ_03,1,strongly disagree,1
+MFQ_03,2,disagree,1
+MFQ_03,3,slightly disagree,1
+MFQ_03,4,neither agree nor disagree,1
+MFQ_03,5,slightly agree,1
+MFQ_03,6,agree,1
+MFQ_03,7,strongly agree,1
+MFQ_03,comment,Moral Foundations Questionnaire: I am proud of my country’s history.,1
+MFQ_03,class,avector,1
+MFQ_03,class,numeric,2
+MFQ_04,1,strongly disagree,1
+MFQ_04,2,disagree,1
+MFQ_04,3,slightly disagree,1
+MFQ_04,4,neither agree nor disagree,1
+MFQ_04,5,slightly agree,1
+MFQ_04,6,agree,1
+MFQ_04,7,strongly agree,1
+MFQ_04,comment,Moral Foundations Questionnaire: Respect for authority is something all children need to learn.,1
+MFQ_04,class,avector,1
+MFQ_04,class,numeric,2
+MFQ_05,1,strongly disagree,1
+MFQ_05,2,disagree,1
+MFQ_05,3,slightly disagree,1
+MFQ_05,4,neither agree nor disagree,1
+MFQ_05,5,slightly agree,1
+MFQ_05,6,agree,1
+MFQ_05,7,strongly agree,1
+MFQ_05,comment,"Moral Foundations Questionnaire: People should not do things that are disgusting, even if no one is harmed.",1
+MFQ_05,class,avector,1
+MFQ_05,class,numeric,2
+MFQ_06,1,strongly disagree,1
+MFQ_06,2,disagree,1
+MFQ_06,3,slightly disagree,1
+MFQ_06,4,neither agree nor disagree,1
+MFQ_06,5,slightly agree,1
+MFQ_06,6,agree,1
+MFQ_06,7,strongly agree,1
+MFQ_06,comment,Moral Foundations Questionnaire: It is better to do good than to do bad.,1
+MFQ_06,class,avector,1
+MFQ_06,class,numeric,2
+MFQ_07,1,strongly disagree,1
+MFQ_07,2,disagree,1
+MFQ_07,3,slightly disagree,1
+MFQ_07,4,neither agree nor disagree,1
+MFQ_07,5,slightly agree,1
+MFQ_07,6,agree,1
+MFQ_07,7,strongly agree,1
+MFQ_07,comment,Moral Foundations Questionnaire: One of the worst things a person could do is hurt a defenseless animal.,1
+MFQ_07,class,avector,1
+MFQ_07,class,numeric,2
+MFQ_08,1,strongly disagree,1
+MFQ_08,2,disagree,1
+MFQ_08,3,slightly disagree,1
+MFQ_08,4,neither agree nor disagree,1
+MFQ_08,5,slightly agree,1
+MFQ_08,6,agree,1
+MFQ_08,7,strongly agree,1
+MFQ_08,comment,Moral Foundations Questionnaire: Justice is the most important requirement for a society.,1
+MFQ_08,class,avector,1
+MFQ_08,class,numeric,2
+MFQ_09,1,strongly disagree,1
+MFQ_09,2,disagree,1
+MFQ_09,3,slightly disagree,1
+MFQ_09,4,neither agree nor disagree,1
+MFQ_09,5,slightly agree,1
+MFQ_09,6,agree,1
+MFQ_09,7,strongly agree,1
+MFQ_09,comment,"Moral Foundations Questionnaire: People should be loyal to their family members, even when they have done something wrong.",1
+MFQ_09,class,avector,1
+MFQ_09,class,numeric,2
+MFQ_10,1,strongly disagree,1
+MFQ_10,2,disagree,1
+MFQ_10,3,slightly disagree,1
+MFQ_10,4,neither agree nor disagree,1
+MFQ_10,5,slightly agree,1
+MFQ_10,6,agree,1
+MFQ_10,7,strongly agree,1
+MFQ_10,comment,Moral Foundations Questionnaire: Men and women each have different roles to play in society.,1
+MFQ_10,class,avector,1
+MFQ_10,class,numeric,2
+MFQ_11,1,strongly disagree,1
+MFQ_11,2,disagree,1
+MFQ_11,3,slightly disagree,1
+MFQ_11,4,neither agree nor disagree,1
+MFQ_11,5,slightly agree,1
+MFQ_11,6,agree,1
+MFQ_11,7,strongly agree,1
+MFQ_11,comment,Moral Foundations Questionnaire: I would call some acts wrong on the grounds that they are unnatural.,1
+MFQ_11,class,avector,1
+MFQ_11,class,numeric,2
+FRI_02,1,strongly disagree,1
+FRI_02,2,disagree,1
+FRI_02,3,slightly disagree,1
+FRI_02,4,neither agree nor disagree,1
+FRI_02,5,slightly agree,1
+FRI_02,6,agree,1
+FRI_02,7,strongly agree,1
+FRI_02,comment,Moral Foundations Questionnaire: It feels good to be appreciated.,1
+FRI_02,class,avector,1
+FRI_02,class,numeric,2
+CQ_01,1,strongly disagree,1
+CQ_01,2,disagree,1
+CQ_01,3,slightly disagree,1
+CQ_01,4,neither agree nor disagree,1
+CQ_01,5,slightly agree,1
+CQ_01,6,agree,1
+CQ_01,7,strongly agree,1
+CQ_01,comment,Chronotype Questionnaire: I can work efficiently at any time of the day,1
+CQ_01,class,avector,1
+CQ_01,class,numeric,2
+CQ_02,1,strongly disagree,1
+CQ_02,2,disagree,1
+CQ_02,3,slightly disagree,1
+CQ_02,4,neither agree nor disagree,1
+CQ_02,5,slightly agree,1
+CQ_02,6,agree,1
+CQ_02,7,strongly agree,1
+CQ_02,comment,Chronotype Questionnaire: I feel I can think the best in the morning.,1
+CQ_02,class,avector,1
+CQ_02,class,numeric,2
+CQ_03,1,strongly disagree,1
+CQ_03,2,disagree,1
+CQ_03,3,slightly disagree,1
+CQ_03,4,neither agree nor disagree,1
+CQ_03,5,slightly agree,1
+CQ_03,6,agree,1
+CQ_03,7,strongly agree,1
+CQ_03,comment,Chronotype Questionnaire: There are moments during the day where I would prefer to avoid any work.,1
+CQ_03,class,avector,1
+CQ_03,class,numeric,2
+CQ_04,1,strongly disagree,1
+CQ_04,2,disagree,1
+CQ_04,3,slightly disagree,1
+CQ_04,4,neither agree nor disagree,1
+CQ_04,5,slightly agree,1
+CQ_04,6,agree,1
+CQ_04,7,strongly agree,1
+CQ_04,comment,Chronotype Questionnaire: I feel drowsy for a long time after awakening.,1
+CQ_04,class,avector,1
+CQ_04,class,numeric,2
+CQ_05,1,strongly disagree,1
+CQ_05,2,disagree,1
+CQ_05,3,slightly disagree,1
+CQ_05,4,neither agree nor disagree,1
+CQ_05,5,slightly agree,1
+CQ_05,6,agree,1
+CQ_05,7,strongly agree,1
+CQ_05,comment,"Chronotype Questionnaire: If I were to study anything by myself, I would rather do it in the evening.",1
+CQ_05,class,avector,1
+CQ_05,class,numeric,2
+CQ_06,1,strongly disagree,1
+CQ_06,2,disagree,1
+CQ_06,3,slightly disagree,1
+CQ_06,4,neither agree nor disagree,1
+CQ_06,5,slightly agree,1
+CQ_06,6,agree,1
+CQ_06,7,strongly agree,1
+CQ_06,comment,Chronotype Questionnaire: My mood stays the same throughout the day.,1
+CQ_06,class,avector,1
+CQ_06,class,numeric,2
+CQ_07,1,strongly disagree,1
+CQ_07,2,disagree,1
+CQ_07,3,slightly disagree,1
+CQ_07,4,neither agree nor disagree,1
+CQ_07,5,slightly agree,1
+CQ_07,6,agree,1
+CQ_07,7,strongly agree,1
+CQ_07,comment,"Chronotype Questionnaire: I like to get up earlier then necessary, e.g. in order to prepare things for the whole day.",1
+CQ_07,class,avector,1
+CQ_07,class,numeric,2
+CQ_08,1,strongly disagree,1
+CQ_08,2,disagree,1
+CQ_08,3,slightly disagree,1
+CQ_08,4,neither agree nor disagree,1
+CQ_08,5,slightly agree,1
+CQ_08,6,agree,1
+CQ_08,7,strongly agree,1
+CQ_08,comment,Chronotype Questionnaire: I can focus at any time of the day.,1
+CQ_08,class,avector,1
+CQ_08,class,numeric,2
+CQ_09,1,strongly disagree,1
+CQ_09,2,disagree,1
+CQ_09,3,slightly disagree,1
+CQ_09,4,neither agree nor disagree,1
+CQ_09,5,slightly agree,1
+CQ_09,6,agree,1
+CQ_09,7,strongly agree,1
+CQ_09,comment,Chronotype Questionnaire: My work goes better in the afternoon than before noon.,1
+CQ_09,class,avector,1
+CQ_09,class,numeric,2
+CQ_10,1,strongly disagree,1
+CQ_10,2,disagree,1
+CQ_10,3,slightly disagree,1
+CQ_10,4,neither agree nor disagree,1
+CQ_10,5,slightly agree,1
+CQ_10,6,agree,1
+CQ_10,7,strongly agree,1
+CQ_10,comment,"Chronotype Questionnaire: At any time of the day, my motivation is the same.",1
+CQ_10,class,avector,1
+CQ_10,class,numeric,2
+CQ_11,1,strongly disagree,1
+CQ_11,2,disagree,1
+CQ_11,3,slightly disagree,1
+CQ_11,4,neither agree nor disagree,1
+CQ_11,5,slightly agree,1
+CQ_11,6,agree,1
+CQ_11,7,strongly agree,1
+CQ_11,comment,Chronotype Questionnaire: I am usually in an excellent mood in the morning.,1
+CQ_11,class,avector,1
+CQ_11,class,numeric,2
+CQ_12,1,strongly disagree,1
+CQ_12,2,disagree,1
+CQ_12,3,slightly disagree,1
+CQ_12,4,neither agree nor disagree,1
+CQ_12,5,slightly agree,1
+CQ_12,6,agree,1
+CQ_12,7,strongly agree,1
+CQ_12,comment,"Chronotype Questionnaire: If I need it, I’m able to concentrate at any time of the day.",1
+CQ_12,class,avector,1
+CQ_12,class,numeric,2
+CQ_13,1,strongly disagree,1
+CQ_13,2,disagree,1
+CQ_13,3,slightly disagree,1
+CQ_13,4,neither agree nor disagree,1
+CQ_13,5,slightly agree,1
+CQ_13,6,agree,1
+CQ_13,7,strongly agree,1
+CQ_13,comment,"Chronotype Questionnaire: I am in my best form in the morning, in the course of the day my energy runs out.",1
+CQ_13,class,avector,1
+CQ_13,class,numeric,2
+CQ_14,1,strongly disagree,1
+CQ_14,2,disagree,1
+CQ_14,3,slightly disagree,1
+CQ_14,4,neither agree nor disagree,1
+CQ_14,5,slightly agree,1
+CQ_14,6,agree,1
+CQ_14,7,strongly agree,1
+CQ_14,comment,Chronotype Questionnaire: There are moments during the day where I feel unable to do anything.,1
+CQ_14,class,avector,1
+CQ_14,class,numeric,2
+CQ_15,1,strongly disagree,1
+CQ_15,2,disagree,1
+CQ_15,3,slightly disagree,1
+CQ_15,4,neither agree nor disagree,1
+CQ_15,5,slightly agree,1
+CQ_15,6,agree,1
+CQ_15,7,strongly agree,1
+CQ_15,comment,Chronotype Questionnaire: There are moments during the day when it is harder for me to think.,1
+CQ_15,class,avector,1
+CQ_15,class,numeric,2
+CQ_16,1,strongly disagree,1
+CQ_16,2,disagree,1
+CQ_16,3,slightly disagree,1
+CQ_16,4,neither agree nor disagree,1
+CQ_16,5,slightly agree,1
+CQ_16,6,agree,1
+CQ_16,7,strongly agree,1
+CQ_16,comment,Chronotype Questionnaire: I feel sluggish in the morning and I warm up slowly during the day.,1
+CQ_16,class,avector,1
+CQ_16,class,numeric,2
+BFI01,1,strongly disagree,1
+BFI01,2,disagree,1
+BFI01,3,slightly disagree,1
+BFI01,4,neither agree nor disagree,1
+BFI01,5,slightly agree,1
+BFI01,6,agree,1
+BFI01,7,strongly agree,1
+BFI01,comment,Big Five Inventory (BFI-10): I see myself as someone who is reserved,1
+BFI01,class,avector,1
+BFI01,class,numeric,2
+BFI02,1,strongly disagree,1
+BFI02,2,disagree,1
+BFI02,3,slightly disagree,1
+BFI02,4,neither agree nor disagree,1
+BFI02,5,slightly agree,1
+BFI02,6,agree,1
+BFI02,7,strongly agree,1
+BFI02,comment,Big Five Inventory (BFI-10): I see myself as someone who is generally trusting,1
+BFI02,class,avector,1
+BFI02,class,numeric,2
+BFI03,1,strongly disagree,1
+BFI03,2,disagree,1
+BFI03,3,slightly disagree,1
+BFI03,4,neither agree nor disagree,1
+BFI03,5,slightly agree,1
+BFI03,6,agree,1
+BFI03,7,strongly agree,1
+BFI03,comment,Big Five Inventory (BFI-10): I see myself as someone who tends to be lazy,1
+BFI03,class,avector,1
+BFI03,class,numeric,2
+BFI04,1,strongly disagree,1
+BFI04,2,disagree,1
+BFI04,3,slightly disagree,1
+BFI04,4,neither agree nor disagree,1
+BFI04,5,slightly agree,1
+BFI04,6,agree,1
+BFI04,7,strongly agree,1
+BFI04,comment,"Big Five Inventory (BFI-10): I see myself as someone who is relaxed, handles stress well",1
+BFI04,class,avector,1
+BFI04,class,numeric,2
+BFI05,1,strongly disagree,1
+BFI05,2,disagree,1
+BFI05,3,slightly disagree,1
+BFI05,4,neither agree nor disagree,1
+BFI05,5,slightly agree,1
+BFI05,6,agree,1
+BFI05,7,strongly agree,1
+BFI05,comment,Big Five Inventory (BFI-10): I see myself as someone who has few artistic interests,1
+BFI05,class,avector,1
+BFI05,class,numeric,2
+BFI06,1,strongly disagree,1
+BFI06,2,disagree,1
+BFI06,3,slightly disagree,1
+BFI06,4,neither agree nor disagree,1
+BFI06,5,slightly agree,1
+BFI06,6,agree,1
+BFI06,7,strongly agree,1
+BFI06,comment,"Big Five Inventory (BFI-10): I see myself as someone who is outgoing, sociable",1
+BFI06,class,avector,1
+BFI06,class,numeric,2
+BFI07,1,strongly disagree,1
+BFI07,2,disagree,1
+BFI07,3,slightly disagree,1
+BFI07,4,neither agree nor disagree,1
+BFI07,5,slightly agree,1
+BFI07,6,agree,1
+BFI07,7,strongly agree,1
+BFI07,comment,Big Five Inventory (BFI-10): I see myself as someone who tends to find fault with others,1
+BFI07,class,avector,1
+BFI07,class,numeric,2
+BFI08,1,strongly disagree,1
+BFI08,2,disagree,1
+BFI08,3,slightly disagree,1
+BFI08,4,neither agree nor disagree,1
+BFI08,5,slightly agree,1
+BFI08,6,agree,1
+BFI08,7,strongly agree,1
+BFI08,comment,Big Five Inventory (BFI-10): I see myself as someone who does a thorough job,1
+BFI08,class,avector,1
+BFI08,class,numeric,2
+BFI09,1,strongly disagree,1
+BFI09,2,disagree,1
+BFI09,3,slightly disagree,1
+BFI09,4,neither agree nor disagree,1
+BFI09,5,slightly agree,1
+BFI09,6,agree,1
+BFI09,7,strongly agree,1
+BFI09,comment,Big Five Inventory (BFI-10): I see myself as someone who gets nervous easily,1
+BFI09,class,avector,1
+BFI09,class,numeric,2
+BFI10,1,strongly disagree,1
+BFI10,2,disagree,1
+BFI10,3,slightly disagree,1
+BFI10,4,neither agree nor disagree,1
+BFI10,5,slightly agree,1
+BFI10,6,agree,1
+BFI10,7,strongly agree,1
+BFI10,comment,Big Five Inventory (BFI-10): I see myself as someone who has an active imagination,1
+BFI10,class,avector,1
+BFI10,class,numeric,2
+BH02_01,comment,OE-E01: I would,1
+BH02_01,class,avector,1
+BH02_01,class,character,2
+BH03_01,comment,OE-A01: I would,1
+BH03_01,class,avector,1
+BH03_01,class,character,2
+BH04_01,comment,OE-C01: I would,1
+BH04_01,class,avector,1
+BH04_01,class,character,2
+BH05_01,comment,OE-N01: I would,1
+BH05_01,class,avector,1
+BH05_01,class,character,2
+BH06_01,comment,OE-O01: I would,1
+BH06_01,class,avector,1
+BH06_01,class,character,2
+BH07_01,comment,OE-E02: I would,1
+BH07_01,class,avector,1
+BH07_01,class,character,2
+BH08_01,comment,OE-A02: I would,1
+BH08_01,class,avector,1
+BH08_01,class,character,2
+BH09_01,comment,OE-C02: I would,1
+BH09_01,class,avector,1
+BH09_01,class,character,2
+BH10_01,comment,OE-N02: I would,1
+BH10_01,class,avector,1
+BH10_01,class,character,2
+BH11_01,comment,OE-O02: I would,1
+BH11_01,class,avector,1
+BH11_01,class,character,2
+MS01,levels,Republican,1
+MS01,levels,Democrat,2
+MS01,levels,Independent,3
+MS01,levels,Something else,4
+MS01,levels,[NA] Not answered,5
+MS01,class,factor,1
+MS01,comment,Politics,1
+MS02_01,comment,YOB: [01],1
+MS02_01,class,avector,1
+MS02_01,class,numeric,2
+MS03,levels,Yes,1
+MS03,levels,No,2
+MS03,levels,[NA] Not answered,3
+MS03,class,factor,1
+MS03,comment,Spanish,1
+MS04,levels,Yes,1
+MS04,levels,No,2
+MS04,levels,I don't know,3
+MS04,levels,[NA] Not answered,4
+MS04,class,factor,1
+MS04,comment,Knowledge of Wordsum,1
+OC01,levels,None,1
+OC01,levels,1,2
+OC01,levels,2,3
+OC01,levels,3,4
+OC01,levels,4,5
+OC01,levels,5,6
+OC01,levels,6 or more,7
+OC01,levels,[NA] Not answered,8
+OC01,class,factor,1
+OC01,comment,Automobiles,1
+OC02,levels,Yes,1
+OC02,levels,No,2
+OC02,levels,[NA] Not answered,3
+OC02,class,factor,1
+OC02,comment,Smoking,1
+OC03,levels,Abortion should always be legal. There should be no restrictions on abortion.,1
+OC03,levels,"Abortion should be legal, but with some restrictions (such as for minors or late-term abortions).",2
+OC03,levels,"Abortion should only be legal in special circumstances, such as when the life of the mother is in danger.",3
+OC03,levels,Abortion should be illegal. It should never be allowed.,4
+OC03,levels,[NA] Not answered,5
+OC03,class,factor,1
+OC03,comment,Abortion,1
+OC04,levels,Strongly disagree,1
+OC04,levels,Tend to disagree,2
+OC04,levels,Neither agree nor disagree,3
+OC04,levels,Tend to agree,4
+OC04,levels,Strongly agree,5
+OC04,levels,[NA] Not answered,6
+OC04,class,factor,1
+OC04,comment,Holocaust,1
+PR01_01,1,strongly disagree,1
+PR01_01,2,disagree,1
+PR01_01,3,slightly disagree,1
+PR01_01,4,neither agree nor disagree,1
+PR01_01,5,slightly agree,1
+PR01_01,6,agree,1
+PR01_01,7,strongly agree,1
+PR01_01,comment,"Attention checks (instructed response): To ensure data quality, please choose strongly disagree for this item",1
+PR01_01,class,avector,1
+PR01_01,class,numeric,2
+PR01_02,1,strongly disagree,1
+PR01_02,2,disagree,1
+PR01_02,3,slightly disagree,1
+PR01_02,4,neither agree nor disagree,1
+PR01_02,5,slightly agree,1
+PR01_02,6,agree,1
+PR01_02,7,strongly agree,1
+PR01_02,comment,"Attention checks (instructed response): To ensure data quality, please choose strongly agree for this item",1
+PR01_02,class,avector,1
+PR01_02,class,numeric,2
+PR02_01,1,strongly disagree,1
+PR02_01,2,disagree,1
+PR02_01,3,slightly disagree,1
+PR02_01,4,neither agree nor disagree,1
+PR02_01,5,slightly agree,1
+PR02_01,6,agree,1
+PR02_01,7,strongly agree,1
+PR02_01,comment,Bogus items (frequency/infrequency): Nuclear weapons would be dangerous if they got into the wrong hands.,1
+PR02_01,class,avector,1
+PR02_01,class,numeric,2
+PR02_02,1,strongly disagree,1
+PR02_02,2,disagree,1
+PR02_02,3,slightly disagree,1
+PR02_02,4,neither agree nor disagree,1
+PR02_02,5,slightly agree,1
+PR02_02,6,agree,1
+PR02_02,7,strongly agree,1
+PR02_02,comment,Bogus items (frequency/infrequency): It feels good to be appreciated.,1
+PR02_02,class,avector,1
+PR02_02,class,numeric,2
+PR02_03,1,strongly disagree,1
+PR02_03,2,disagree,1
+PR02_03,3,slightly disagree,1
+PR02_03,4,neither agree nor disagree,1
+PR02_03,5,slightly agree,1
+PR02_03,6,agree,1
+PR02_03,7,strongly agree,1
+PR02_03,comment,Bogus items (frequency/infrequency): I can speak 30 languages fluently.,1
+PR02_03,class,avector,1
+PR02_03,class,numeric,2
+PR02_04,1,strongly disagree,1
+PR02_04,2,disagree,1
+PR02_04,3,slightly disagree,1
+PR02_04,4,neither agree nor disagree,1
+PR02_04,5,slightly agree,1
+PR02_04,6,agree,1
+PR02_04,7,strongly agree,1
+PR02_04,comment,Bogus items (frequency/infrequency): I have never cried.,1
+PR02_04,class,avector,1
+PR02_04,class,numeric,2
+PR03_01,comment,Open question: [01],1
+PR03_01,class,avector,1
+PR03_01,class,character,2
+RG01_CP,comment,"External measures vs. no: Complete clearances of the ballot, yet",1
+RG01_CP,class,avector,1
+RG01_CP,class,numeric,2
+RG01,1,"no external PR measures (attention checks, bogus questions, and open question)",1
+RG01,2,external PR measures,1
+RG01,comment,External measures vs. no: Code drawn,1
+RG01,class,avector,1
+RG01,class,numeric,2
+RG02_CP,comment,"1-4 vs. 4-1 sequence on abortion q: Complete clearances of the ballot, yet",1
+RG02_CP,class,avector,1
+RG02_CP,class,numeric,2
+RG02,1,1-4,1
+RG02,2,4-1,1
+RG02,comment,1-4 vs. 4-1 sequence on abortion q: Code drawn,1
+RG02,class,avector,1
+RG02,class,numeric,2
+RG03_CP,comment,"1-5 vs. 5-1 sequence on holocaust q: Complete clearances of the ballot, yet",1
+RG03_CP,class,avector,1
+RG03_CP,class,numeric,2
+RG03,1,1-5,1
+RG03,2,5-1,1
+RG03,comment,1-5 vs. 5-1 sequence on holocaust q: Code drawn,1
+RG03,class,avector,1
+RG03,class,numeric,2
+gender,levels,Female,1
+gender,levels,Male,2
+gender,levels,[NA] Not answered,3
+gender,class,factor,1
+gender,comment,Sex,1
+SD13,levels,Same as sex,1
+SD13,levels,"Other, please specify",2
+SD13,levels,[NA] Not answered,3
+SD13,class,factor,1
+SD13,comment,Gender,1
+SD13_02,comment,"Gender: Other, please specify",1
+SD13_02,class,avector,1
+SD13_02,class,character,2
+SD02_01,comment,Age: [01],1
+SD02_01,class,avector,1
+SD02_01,class,numeric,2
+SD03,levels,White,1
+SD03,levels,Black/African American,2
+SD03,levels,American Indian or Alaska Native,3
+SD03,levels,Chinese,4
+SD03,levels,Japanese,5
+SD03,levels,Other Asian or Pacific Islander,6
+SD03,levels,Other race,7
+SD03,levels,"Two major races (e.g., White and Japanese)",8
+SD03,levels,Three or more major races,9
+SD03,levels,[NA] Not answered,10
+SD03,class,factor,1
+SD03,comment,Race,1
+SD04,levels,"No, not of Hispanic, Latino, or Spanish origin",1
+SD04,levels,"Yes, Mexican, Mexican Am., Chicano",2
+SD04,levels,"Yes, Puerto Rican",3
+SD04,levels,"Yes, Cuban",4
+SD04,levels,"Yes, another Hispanic, Latino, or Spanish origin",5
+SD04,levels,[NA] Not answered,6
+SD04,class,factor,1
+SD04,comment,Hispan,1
+SD05,levels,N/A: not in the US,1
+SD05,levels,Alabama,2
+SD05,levels,Alaska,3
+SD05,levels,Arizona,4
+SD05,levels,Arkansas,5
+SD05,levels,California,6
+SD05,levels,Colorado,7
+SD05,levels,Connecticut,8
+SD05,levels,Delaware,9
+SD05,levels,Florida,10
+SD05,levels,Georgia,11
+SD05,levels,Hawaii,12
+SD05,levels,Idaho,13
+SD05,levels,Illinois,14
+SD05,levels,Indiana,15
+SD05,levels,Iowa,16
+SD05,levels,Kansas,17
+SD05,levels,Kentucky,18
+SD05,levels,Louisiana,19
+SD05,levels,Maine,20
+SD05,levels,Maryland,21
+SD05,levels,Massachusetts,22
+SD05,levels,Michigan,23
+SD05,levels,Minnesota,24
+SD05,levels,Mississippi,25
+SD05,levels,Missouri,26
+SD05,levels,Montana,27
+SD05,levels,Nebraska,28
+SD05,levels,Nevada,29
+SD05,levels,New Hampshire,30
+SD05,levels,New Jersey,31
+SD05,levels,New Mexico,32
+SD05,levels,New York,33
+SD05,levels,North Carolina,34
+SD05,levels,North Dakota,35
+SD05,levels,Ohio,36
+SD05,levels,Oklahoma,37
+SD05,levels,Oregon,38
+SD05,levels,Pennsylvania,39
+SD05,levels,Rhode Island,40
+SD05,levels,South Carolina,41
+SD05,levels,South Dakota,42
+SD05,levels,Tennessee,43
+SD05,levels,Texas,44
+SD05,levels,Utah,45
+SD05,levels,Vermont,46
+SD05,levels,Virginia,47
+SD05,levels,Washington,48
+SD05,levels,West Virginia,49
+SD05,levels,Wisconsin,50
+SD05,levels,Wyoming,51
+SD05,levels,[NA] Not answered,52
+SD05,class,factor,1
+SD05,comment,BPL- state,1
+SD12,levels,United States,1
+SD12,levels,Afghanistan,2
+SD12,levels,Albania,3
+SD12,levels,Algeria,4
+SD12,levels,Andorra,5
+SD12,levels,Angola,6
+SD12,levels,Antigua and Barbuda,7
+SD12,levels,Argentina,8
+SD12,levels,Armenia,9
+SD12,levels,Australia,10
+SD12,levels,Austria,11
+SD12,levels,Azerbaijan,12
+SD12,levels,Bahamas,13
+SD12,levels,Bahrain,14
+SD12,levels,Bangladesh,15
+SD12,levels,Barbados,16
+SD12,levels,Belarus,17
+SD12,levels,Belgium,18
+SD12,levels,Belize,19
+SD12,levels,Benin,20
+SD12,levels,Bhutan,21
+SD12,levels,Bolivia,22
+SD12,levels,Bosnia and Herzegovina,23
+SD12,levels,Botswana,24
+SD12,levels,Brazil,25
+SD12,levels,Brunei,26
+SD12,levels,Bulgaria,27
+SD12,levels,Burkina Faso,28
+SD12,levels,Burundi,29
+SD12,levels,Cabo Verde,30
+SD12,levels,Cambodia,31
+SD12,levels,Cameroon,32
+SD12,levels,Canada,33
+SD12,levels,Central African Republic,34
+SD12,levels,Chad,35
+SD12,levels,Chile,36
+SD12,levels,China,37
+SD12,levels,Colombia,38
+SD12,levels,Comoros,39
+SD12,levels,Congo (Democratic Republic of the),40
+SD12,levels,Congo (Republic of the),41
+SD12,levels,Costa Rica,42
+SD12,levels,Côte d’Ivoire,43
+SD12,levels,Croatia,44
+SD12,levels,Cuba,45
+SD12,levels,Cyprus,46
+SD12,levels,Czech Republic,47
+SD12,levels,Denmark,48
+SD12,levels,Djibouti,49
+SD12,levels,Dominica,50
+SD12,levels,Dominican Republic,51
+SD12,levels,Ecuador,52
+SD12,levels,Egypt,53
+SD12,levels,El Salvador,54
+SD12,levels,Equatorial Guinea,55
+SD12,levels,Eritrea,56
+SD12,levels,Estonia,57
+SD12,levels,Eswatini,58
+SD12,levels,Ethiopia,59
+SD12,levels,Fiji,60
+SD12,levels,Finland,61
+SD12,levels,France,62
+SD12,levels,Gabon,63
+SD12,levels,Gambia,64
+SD12,levels,Georgia,65
+SD12,levels,Germany,66
+SD12,levels,Ghana,67
+SD12,levels,Greece,68
+SD12,levels,Grenada,69
+SD12,levels,Guatemala,70
+SD12,levels,Guinea,71
+SD12,levels,Guinea-Bissau,72
+SD12,levels,Guyana,73
+SD12,levels,Haiti,74
+SD12,levels,Honduras,75
+SD12,levels,Hungary,76
+SD12,levels,Iceland,77
+SD12,levels,India,78
+SD12,levels,Indonesia,79
+SD12,levels,Iran,80
+SD12,levels,Iraq,81
+SD12,levels,Ireland,82
+SD12,levels,Israel,83
+SD12,levels,Italy,84
+SD12,levels,Jamaica,85
+SD12,levels,Japan,86
+SD12,levels,Jordan,87
+SD12,levels,Kazakhstan,88
+SD12,levels,Kenya,89
+SD12,levels,Kiribati,90
+SD12,levels,Kosovo,91
+SD12,levels,Kuwait,92
+SD12,levels,Kyrgyzstan,93
+SD12,levels,Laos,94
+SD12,levels,Latvia,95
+SD12,levels,Lebanon,96
+SD12,levels,Lesotho,97
+SD12,levels,Liberia,98
+SD12,levels,Libya,99
+SD12,levels,Liechtenstein,100
+SD12,levels,Lithuania,101
+SD12,levels,Luxembourg,102
+SD12,levels,Madagascar,103
+SD12,levels,Malawi,104
+SD12,levels,Malaysia,105
+SD12,levels,Maldives,106
+SD12,levels,Mali,107
+SD12,levels,Malta,108
+SD12,levels,Marshall Islands,109
+SD12,levels,Mauritania,110
+SD12,levels,Mauritius,111
+SD12,levels,Mexico,112
+SD12,levels,Micronesia,113
+SD12,levels,Moldova,114
+SD12,levels,Monaco,115
+SD12,levels,Mongolia,116
+SD12,levels,Montenegro,117
+SD12,levels,Morocco,118
+SD12,levels,Mozambique,119
+SD12,levels,Myanmar,120
+SD12,levels,Namibia,121
+SD12,levels,Nauru,122
+SD12,levels,Nepal,123
+SD12,levels,Netherlands,124
+SD12,levels,New Zealand,125
+SD12,levels,Nicaragua,126
+SD12,levels,Niger,127
+SD12,levels,Nigeria,128
+SD12,levels,North Korea,129
+SD12,levels,North Macedonia,130
+SD12,levels,Norway,131
+SD12,levels,Oman,132
+SD12,levels,Pakistan,133
+SD12,levels,Palau,134
+SD12,levels,Palestine,135
+SD12,levels,Panama,136
+SD12,levels,Papua New Guinea,137
+SD12,levels,Paraguay,138
+SD12,levels,Peru,139
+SD12,levels,Philippines,140
+SD12,levels,Poland,141
+SD12,levels,Portugal,142
+SD12,levels,Qatar,143
+SD12,levels,Romania,144
+SD12,levels,Russia,145
+SD12,levels,Rwanda,146
+SD12,levels,Saint Kitts and Nevis,147
+SD12,levels,Saint Lucia,148
+SD12,levels,Saint Vincent and the Grenadines,149
+SD12,levels,Samoa,150
+SD12,levels,San Marino,151
+SD12,levels,Sao Tome and Principe,152
+SD12,levels,Saudi Arabia,153
+SD12,levels,Senegal,154
+SD12,levels,Serbia,155
+SD12,levels,Seychelles,156
+SD12,levels,Sierra Leone,157
+SD12,levels,Singapore,158
+SD12,levels,Slovakia,159
+SD12,levels,Slovenia,160
+SD12,levels,Solomon Islands,161
+SD12,levels,Somalia,162
+SD12,levels,South Africa,163
+SD12,levels,South Korea,164
+SD12,levels,South Sudan,165
+SD12,levels,Spain,166
+SD12,levels,Sri Lanka,167
+SD12,levels,Sudan,168
+SD12,levels,Suriname,169
+SD12,levels,Sweden,170
+SD12,levels,Switzerland,171
+SD12,levels,Syria,172
+SD12,levels,Taiwan,173
+SD12,levels,Tajikistan,174
+SD12,levels,Tanzania,175
+SD12,levels,Thailand,176
+SD12,levels,Timor-Leste,177
+SD12,levels,Togo,178
+SD12,levels,Tonga,179
+SD12,levels,Trinidad and Tobago,180
+SD12,levels,Tunisia,181
+SD12,levels,Turkey,182
+SD12,levels,Turkmenistan,183
+SD12,levels,Tuvalu,184
+SD12,levels,Uganda,185
+SD12,levels,Ukraine,186
+SD12,levels,United Arab Emirates,187
+SD12,levels,United Kingdom,188
+SD12,levels,Uruguay,189
+SD12,levels,Uzbekistan,190
+SD12,levels,Vanuatu,191
+SD12,levels,Vatican City,192
+SD12,levels,Venezuela,193
+SD12,levels,Vietnam,194
+SD12,levels,Yemen,195
+SD12,levels,Zambia,196
+SD12,levels,Zimbabwe,197
+SD12,levels,[NA] Not answered,198
+SD12,class,factor,1
+SD12,comment,BPL- country,1
+SD06,levels,N/A: not in the US,1
+SD06,levels,Alabama,2
+SD06,levels,Alaska,3
+SD06,levels,Arizona,4
+SD06,levels,Arkansas,5
+SD06,levels,California,6
+SD06,levels,Colorado,7
+SD06,levels,Connecticut,8
+SD06,levels,Delaware,9
+SD06,levels,Florida,10
+SD06,levels,Georgia,11
+SD06,levels,Hawaii,12
+SD06,levels,Idaho,13
+SD06,levels,Illinois,14
+SD06,levels,Indiana,15
+SD06,levels,Iowa,16
+SD06,levels,Kansas,17
+SD06,levels,Kentucky,18
+SD06,levels,Louisiana,19
+SD06,levels,Maine,20
+SD06,levels,Maryland,21
+SD06,levels,Massachusetts,22
+SD06,levels,Michigan,23
+SD06,levels,Minnesota,24
+SD06,levels,Mississippi,25
+SD06,levels,Missouri,26
+SD06,levels,Montana,27
+SD06,levels,Nebraska,28
+SD06,levels,Nevada,29
+SD06,levels,New Hampshire,30
+SD06,levels,New Jersey,31
+SD06,levels,New Mexico,32
+SD06,levels,New York,33
+SD06,levels,North Carolina,34
+SD06,levels,North Dakota,35
+SD06,levels,Ohio,36
+SD06,levels,Oklahoma,37
+SD06,levels,Oregon,38
+SD06,levels,Pennsylvania,39
+SD06,levels,Rhode Island,40
+SD06,levels,South Carolina,41
+SD06,levels,South Dakota,42
+SD06,levels,Tennessee,43
+SD06,levels,Texas,44
+SD06,levels,Utah,45
+SD06,levels,Vermont,46
+SD06,levels,Virginia,47
+SD06,levels,Washington,48
+SD06,levels,West Virginia,49
+SD06,levels,Wisconsin,50
+SD06,levels,Wyoming,51
+SD06,levels,[NA] Not answered,52
+SD06,class,factor,1
+SD06,comment,State,1
+SD07,levels,Married,1
+SD07,levels,Widowed,2
+SD07,levels,Divorced,3
+SD07,levels,Separated,4
+SD07,levels,Never married/single,5
+SD07,levels,[NA] Not answered,6
+SD07,class,factor,1
+SD07,comment,Marst,1
+SD08,levels,N/A or no schooling,1
+SD08,levels,Nursery school to grade 4,2
+SD08,levels,"Grade 5, 6, 7, or 8",3
+SD08,levels,Grade 9,4
+SD08,levels,Grade 10,5
+SD08,levels,Grade 11,6
+SD08,levels,Grade 12,7
+SD08,levels,1 year of college,8
+SD08,levels,2 years of college,9
+SD08,levels,3 years of college,10
+SD08,levels,4 years of college,11
+SD08,levels,5+ years of college,12
+SD08,levels,[NA] Not answered,13
+SD08,class,factor,1
+SD08,comment,Educ,1
+SD09,levels,N/A,1
+SD09,levels,Agriculture,2
+SD09,levels,Environment and Natural Resources,3
+SD09,levels,Architecture,4
+SD09,levels,"Area, Ethnic, and Civilization Studies",5
+SD09,levels,Communications,6
+SD09,levels,Communication Technologies,7
+SD09,levels,Computer and Information Sciences,8
+SD09,levels,Cosmetology Services and Culinary Arts,9
+SD09,levels,Education Administration and Teaching,10
+SD09,levels,Engineering,11
+SD09,levels,Engineering Technologies,12
+SD09,levels,Linguistics and Foreign Languages,13
+SD09,levels,Family and Consumer Sciences,14
+SD09,levels,Law,15
+SD09,levels,"English Language, Literature, and Composition",16
+SD09,levels,Liberal Arts and Humanities,17
+SD09,levels,Library Science,18
+SD09,levels,Biology and Life Sciences,19
+SD09,levels,Mathematics and Statistics,20
+SD09,levels,Military Technologies,21
+SD09,levels,Interdisciplinary and Multi-Disciplinary Studies (General),22
+SD09,levels,"Physical Fitness, Parks, Recreation, and Leisure",23
+SD09,levels,Philosophy and Religious Studies,24
+SD09,levels,Theology and Religious Vocations,25
+SD09,levels,Physical Sciences,26
+SD09,levels,"Nuclear, Industrial Radiology, and Biological Technologies",27
+SD09,levels,Psychology,28
+SD09,levels,Criminal Justice and Fire Protection,29
+SD09,levels,"Public Affairs, Policy, and Social Work",30
+SD09,levels,Social Sciences,31
+SD09,levels,Construction Services,32
+SD09,levels,Electrical and Mechanic Repairs and Technologies,33
+SD09,levels,Precision Production and Industrial Arts,34
+SD09,levels,Transportation Sciences and Technologies,35
+SD09,levels,Fine Arts,36
+SD09,levels,Medical and Health Sciences and Services,37
+SD09,levels,Business,38
+SD09,levels,History,39
+SD09,levels,[NA] Not answered,40
+SD09,class,factor,1
+SD09,comment,Degfield,1
+SD10,comment,OCC,1
+SD10,class,avector,1
+SD10,class,numeric,2
+SD11_01,comment,Inctot: [01],1
+SD11_01,class,avector,1
+SD11_01,class,numeric,2
+WS01,levels,74c71ab746868b169203e54abecb095fff3513c87b2cce05ee3ca0abaa2e1be0,1
+WS01,levels,eb40f4843362d523a051dcb2d283e64997d2068f865dc7ed83a1f000857bb562,2
+WS01,levels,940807a67107d20052977386cc1dc58f522c0fc7a75cac4295ec0cc0b7eb52a4,3
+WS01,levels,03c61398cdfdd403959c8f5de6dba9d07f52c838e30cfd667ab6b5b93f11426d,4
+WS01,levels,1e4a66d94d182569d92f14a8d64bb6da848b1606be2861c19529bb5d438d044b,5
+WS01,levels,78477a2ba423a76cda7bdd49fcdbf0e674315add06ebc3bfe50ed7779303f7b7,6
+WS01,class,464e7c710d727e6756041782af32c1fefa2b6e2184ffd5eacea4d430049b337d,1
+WS01,comment,8147c99fa5bdfffe5b1aa49a736d150c06ad477bed489bac5eabc27bae4e6102,1
+WS02,levels,f1d39166a5ee1ca0900c0e6ccbf331c1abc6026a31d83508d195c08f17c37464,1
+WS02,levels,949998e54449c59d104b3c7879ec54dc1aff11c092096305e22080fa5f2ea106,2
+WS02,levels,af18fa8fcf521f4465fc2b0e6e87deb615c71ada9cd7735be5544315045aefe7,3
+WS02,levels,503bc4206cdb87134f654c5693c40e483d38b94334ca8bd6fce159c87b4e1ee7,4
+WS02,levels,db9f9fde60e1da5baa7d4e98844907d17b90b23fef7507ece82ca18c9cbe661b,5
+WS02,levels,78477a2ba423a76cda7bdd49fcdbf0e674315add06ebc3bfe50ed7779303f7b7,6
+WS02,class,464e7c710d727e6756041782af32c1fefa2b6e2184ffd5eacea4d430049b337d,1
+WS02,comment,999982af8cdfa2faa5c9fbe5b24e0c0450f26f47353fe312d3755fc253ac0634,1
+WS03,levels,d5bb74bc7184a1fbf0a9077a9917706e5c62bfcccea51911ee51215e2dbbeb15,1
+WS03,levels,1f77e925ac8573110d49a6fd20643cc533725ba62c8bb4f6e385497a650f0750,2
+WS03,levels,c5c58b10effc4fa3f26d1faf606dc10cb7ca7e7521ad712b715310b06cf45679,3
+WS03,levels,ff04e61ca4cc2e906f325283910296e88ac3a4b2da4b3f5a5ed643cb850e4bdb,4
+WS03,levels,eb91dc738af013334afc8b2eb8c8ff0d044f7583fd07819aa0d0b270e48b3fdc,5
+WS03,levels,78477a2ba423a76cda7bdd49fcdbf0e674315add06ebc3bfe50ed7779303f7b7,6
+WS03,class,464e7c710d727e6756041782af32c1fefa2b6e2184ffd5eacea4d430049b337d,1
+WS03,comment,cf375fd8dc660b255017d27bd52107ed4a673ec40ce728a6d4bf10667166c2da,1
+WS04,levels,6b7e73f7de902fdd4169afc86bcc12ff8bbad8d20209476dd8417126aa14ffdc,1
+WS04,levels,37edc0770e28bc53f46142de53b848188bd1e6672dec7ba7039556d46fb25e3a,2
+WS04,levels,125dd16ed702fbe4d4ba515125c6dbe08b14f890ddae272f647a41e1d795ad36,3
+WS04,levels,0c05f949ca694a556fba324a5d3642f5e6b3f4dd405ed05790c0bf1c8eaebb52,4
+WS04,levels,2efcdd247fa10f3f2508f600f94d66897c9abd0deb1fd0f431acdde6044d2f32,5
+WS04,levels,78477a2ba423a76cda7bdd49fcdbf0e674315add06ebc3bfe50ed7779303f7b7,6
+WS04,class,464e7c710d727e6756041782af32c1fefa2b6e2184ffd5eacea4d430049b337d,1
+WS04,comment,3b4cdece142307571527fefdaf19a34e743d2bf4c3dd002334f25e6575175b73,1
+WS05,levels,512f8e6468266cc94624e213250d74c73a0e085cc22aaef03690f0f8a4860521,1
+WS05,levels,15a1c836b0f34d4e0b71c8e435c73bbeefd7b9d5c9ac12e7d7ef672f75160fe4,2
+WS05,levels,f2e7d9a180db153686fe31ce334f2ba8fea7d4d7d3df9f47be10e40c30bc9092,3
+WS05,levels,2535c0d32bbe0fa8e2496f1266ad6438ff3bac801afbee4a31359d0af99d448b,4
+WS05,levels,58cc535bbf3eb4cdbeb72b8cf988d215c0eda6963db90ed9147fed4a8526d4ea,5
+WS05,levels,78477a2ba423a76cda7bdd49fcdbf0e674315add06ebc3bfe50ed7779303f7b7,6
+WS05,class,464e7c710d727e6756041782af32c1fefa2b6e2184ffd5eacea4d430049b337d,1
+WS05,comment,3a0f1679d77797a567ca8b857a7860c1057fef97e66cc8657ec2391856ebcb72,1
+WS06,levels,f1919b9e06afec44d19d3642ca1ea74b5a399c7ce19f3981bd6fb9afffd523fe,1
+WS06,levels,3856b117c5eabb549b5c22487fb1b718e09d058a99ba2fba0600ca9f6c523ca3,2
+WS06,levels,b7d00c3d70e1a2c908b8591ce6ef7c1b83085a7f796822dc8cc7b2cf2f7f04be,3
+WS06,levels,e7721cec37ac4649497dbb9f6b6ffdecdce9fb01ec629928d0ad91b2a9b7e95d,4
+WS06,levels,005f5e60974299b3c70d432413eda71202815dfa0e764fad4fa852ce9f077614,5
+WS06,levels,78477a2ba423a76cda7bdd49fcdbf0e674315add06ebc3bfe50ed7779303f7b7,6
+WS06,class,464e7c710d727e6756041782af32c1fefa2b6e2184ffd5eacea4d430049b337d,1
+WS06,comment,6e5f94b185344dd2fd6688700929cc354a29a5fd2b29bf53ea98e092d046681a,1
+WS07,levels,5766253693da735d05abf70f6c05c064a99ff20b701a3a764c2d2bf508a71c18,1
+WS07,levels,d65b7ab3800276b21d4319e5572685806d22b5cd7270967154378fcd01b6a9d1,2
+WS07,levels,8cd3a64bb63a0bd630fd507a046203a62ec37fc9995e4afc53289d0dbb2feb99,3
+WS07,levels,53aa8cd35cf83ac838c6ac93b9567095ceac5484dba595ac87857ba3a1636330,4
+WS07,levels,418a49462a002137191f79ba3e141458133352099bccdd1ccc82612739e8921e,5
+WS07,levels,78477a2ba423a76cda7bdd49fcdbf0e674315add06ebc3bfe50ed7779303f7b7,6
+WS07,class,464e7c710d727e6756041782af32c1fefa2b6e2184ffd5eacea4d430049b337d,1
+WS07,comment,10fb40001e8fa1a3f48e94dfa3112a266990516f65d124856f7fa6b4d217cc8f,1
+WS08,levels,0dc7dfa47dce95e05228f622207740b6f727082b2acc223110991d6c03058622,1
+WS08,levels,e1687a09f32e5aa2b4e97b32ed0d040ea3a0111c92cde89387a4c81687b268dc,2
+WS08,levels,db172aa746745ebb8357ffa1a63f95814da09390ac8ebf7a798609168d0f6a41,3
+WS08,levels,d0486e2a536598485ac39a05587f407a818fdc34b86b86d7a03a97472cff480a,4
+WS08,levels,f678d32c52f77541b0a9ff1ef9584ab7aa0e7242d7b044e5b1347a5d481b00e3,5
+WS08,levels,78477a2ba423a76cda7bdd49fcdbf0e674315add06ebc3bfe50ed7779303f7b7,6
+WS08,class,464e7c710d727e6756041782af32c1fefa2b6e2184ffd5eacea4d430049b337d,1
+WS08,comment,183d07b53cbca15ec35868eea4344a4883edc08a486757fa11dc9425be3be06f,1
+WS09,levels,5272cdf1c7cac7eb376d0b224955a1b43e3e3185d03cab98f065fb60eccb34dd,1
+WS09,levels,2a60c3d546387ed14bbd6077af38212a66cfd16a9eb28bb12bd28c9fae39b7cf,2
+WS09,levels,43c380e7c394eede358d0875061abf5ed268b71bf46229e848a90ffa7c272f29,3
+WS09,levels,9f2d23e890420e7f813b249ab82a8f30b4e6cb92bd402b723b91c317e3d2c166,4
+WS09,levels,7e95f523012685f906743fd2b9d2f2838e78fa9979b69234f7726d2f606835bc,5
+WS09,levels,78477a2ba423a76cda7bdd49fcdbf0e674315add06ebc3bfe50ed7779303f7b7,6
+WS09,class,464e7c710d727e6756041782af32c1fefa2b6e2184ffd5eacea4d430049b337d,1
+WS09,comment,5111c9f1e2b06d7aaf8610efc57e99b69969da41e4bc0f228a2a1e1ab708f14c,1
+WS10,levels,b886b4ea9f6dd1ff240c48177885e0570770dd047d0d9e5e6cd4c7fc22875eeb,1
+WS10,levels,c328e4c02b06458fc764a112207896035b00da84e7e9fea0be35c35256f47e38,2
+WS10,levels,37cc46e8e5471b9f2059cbb7abfd44e0a477cd66ff9f59dde1f16f9973a81632,3
+WS10,levels,969e6ad44313559d57d4314a3e437b9549aea48b8b71f48350c80e252dcb0689,4
+WS10,levels,95b408ddd216d6832a3b51c0de8d35899cd71a302c8c39f375f0d5d737d365c4,5
+WS10,levels,78477a2ba423a76cda7bdd49fcdbf0e674315add06ebc3bfe50ed7779303f7b7,6
+WS10,class,464e7c710d727e6756041782af32c1fefa2b6e2184ffd5eacea4d430049b337d,1
+WS10,comment,73ef6d5f878ff539ed7daae474a0a8b11c3992155c776df34b4b2cca3428ecb1,1
+ZY01_01,comment,Prolific ID: Prolific ID,1
+ZY01_01,class,avector,1
+ZY01_01,class,character,2
+ZY02,levels,Yes,1
+ZY02,levels,"No, my responses should not be used.",2
+ZY02,levels,[NA] Not answered,3
+ZY02,class,factor,1
+ZY02,comment,Truthfulness,1
+ZY03_01,comment,Feedback: Did you experience any problems while participating in this survey?,1
+ZY03_01,class,avector,1
+ZY03_01,class,character,2
+ZY03_02,comment,Feedback: Do you have recommendations for how we can improve the survey?,1
+ZY03_02,class,avector,1
+ZY03_02,class,character,2
+ZY04_01,comment,Question shuffle sequence: sequence,1
+ZY04_01,class,avector,1
+ZY04_01,class,character,2
+ZY05_01,comment,Prolific ID (GET): prolific_id,1
+ZY05_01,class,avector,1
+ZY05_01,class,character,2
+TIME001,comment,Time spent on page 1,1
+TIME001,class,avector,1
+TIME001,class,integer,2
+TIME002,comment,Time spent on page 2,1
+TIME002,class,avector,1
+TIME002,class,integer,2
+TIME003,comment,Time spent on page 3,1
+TIME003,class,avector,1
+TIME003,class,integer,2
+TIME004,comment,Time spent on page 4,1
+TIME004,class,avector,1
+TIME004,class,integer,2
+TIME005,comment,Time spent on page 5,1
+TIME005,class,avector,1
+TIME005,class,integer,2
+TIME006,comment,Time spent on page 6,1
+TIME006,class,avector,1
+TIME006,class,integer,2
+TIME007,comment,Time spent on page 7,1
+TIME007,class,avector,1
+TIME007,class,integer,2
+TIME008,comment,Time spent on page 8,1
+TIME008,class,avector,1
+TIME008,class,integer,2
+TIME009,comment,Time spent on page 9,1
+TIME009,class,avector,1
+TIME009,class,integer,2
+TIME010,comment,Time spent on page 10,1
+TIME010,class,avector,1
+TIME010,class,integer,2
+TIME_SUM,comment,Time spent overall (except outliers),1
+TIME_SUM,class,avector,1
+TIME_SUM,class,integer,2
+MAILSENT,class,POSIXct,1
+MAILSENT,class,POSIXt,2
+MAILSENT,comment,"Time when the invitation mailing was sent (personally identifiable recipients, only)",1
+LASTDATA,class,POSIXct,1
+LASTDATA,class,POSIXt,2
+LASTDATA,comment,Time when the data was most recently updated,1
+FINISHED,F,Canceled,1
+FINISHED,T,Finished,1
+FINISHED,comment,Has the interview been finished (reached last page)?,1
+FINISHED,class,avector,1
+FINISHED,class,logical,2
+Q_VIEWER,F,Respondent,1
+Q_VIEWER,T,Spectator,1
+Q_VIEWER,comment,"Did the respondent only view the questionnaire, omitting mandatory questions?",1
+Q_VIEWER,class,avector,1
+Q_VIEWER,class,logical,2
+LASTPAGE,comment,Last page that the participant has handled in the questionnaire,1
+LASTPAGE,class,avector,1
+LASTPAGE,class,numeric,2
+MAXPAGE,comment,Hindmost page handled by the participant,1
+MAXPAGE,class,avector,1
+MAXPAGE,class,numeric,2
+MISSING,comment,Missing answers in percent,1
+MISSING,class,avector,1
+MISSING,class,numeric,2
+MISSREL,comment,Missing answers (weighted by relevance),1
+MISSREL,class,avector,1
+MISSREL,class,numeric,2
+TIME_RSI,comment,Completion Speed (relative),1
+TIME_RSI,class,avector,1
+TIME_RSI,class,numeric,2

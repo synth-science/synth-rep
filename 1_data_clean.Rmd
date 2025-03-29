@@ -1,0 +1,3089 @@
+---
+title: "Data Cleaning"
+author: "Ruben Arslan"
+date: "`r Sys.Date()`"
+---
+
+Here, we're just setting a few options.
+
+```{r setup}
+ggplot2::theme_set(ggplot2::theme_bw())
+```
+
+Loading and labelling the data from SoSciSurvey, using a slightly modified version of their provided script.
+
+## Load data
+```{r load data}
+library(codebook)
+library(tidyverse)
+library(labelled)
+library(tidylog)
+
+# Dieses Script liest eine CSV-Datendatei in GNU R ein.
+# Beim Einlesen werden für alle Variablen Beschriftungen (comment) angelegt.
+# Die Beschriftungen für Werte wird ebenfalls als Attribute (attr) abgelegt.
+
+# keyring::key_set("sosci_synthrep")
+ds_file = keyring::key_get("sosci_synthrep")
+
+options(encoding = "UTF-8")
+ds = read.delim(
+  file=ds_file, encoding="UTF-8", fileEncoding="UTF-8",
+  header = FALSE, sep = "\t", quote = "\"",
+  dec = ".", row.names = NULL,
+  col.names = c(
+    "CASE","SERIAL","REF","QUESTNNR","MODE","STARTED","AAID_01","AAID_05","AAID_07",
+    "AAID_09","AAID_12","AAID_14","PANAS_09","PANAS_14","PANAS_10","PANAS_05",
+    "PANAS_08","PANAS_06","PANAS_04","PANAS_18","OLBI_07","OLBI_08","OLBI_09",
+    "OLBI_10","OLBI_11","OLBI_12","OLBI_15","OLBI_16","UWES9_01","UWES9_02",
+    "UWES9_03","UWES9_04","UWES9_05","UWES9_06","UWES9_07","UWES9_08","UWES9_09",
+    "PAQ_08","PAQ_20","PAQ_05","PAQ_17","PAQ_13","PAQ_07","PAQ_10","PAQ_16",
+    "PAQ_03","PAQ_15","IFI_01","PSS_01","PSS_02","PSS_03","PSS_04","PSS_05",
+    "PSS_06","PSS_07","PSS_08","PSS_09","PSS_10","PSS_11","PSS_12","PSS_13",
+    "PSS_14","NEPS_01","NEPS_04","NEPS_05","NEPS_06","NEPS_07","NEPS_08","NEPS_09",
+    "NEPS_10","NEPS_12","NEPS_13","HSQ_02","HSQ_03","HSQ_04","HSQ_06","HSQ_07",
+    "HSQ_08","HSQ_09","HSQ_16","HSQ_21","HSQ_22","HSQ_23","HSQ_29","ULS8_01",
+    "ULS8_02","ULS8_03","ULS8_04","ULS8_05","ULS8_06","ULS8_07","ULS8_08","ACH_01",
+    "NGSE_01","NGSE_02","NGSE_03","NGSE_04","NGSE_05","NGSE_06","NGSE_07","NGSE_08",
+    "ATB_03","FCV19S_01","FCV19S_02","FCV19S_03","FCV19S_04","FCV19S_05",
+    "FCV19S_06","FCV19S_07","DAQ_05","DAQ_07","DAQ_09","DAQ_11","DAQ_15","DAQ_19",
+    "DAQ_21","DAQ_23","DAQ_25","DAQ_02","DAQ_06","DAQ_08","DAQ_10","DAQ_12",
+    "DAQ_14","DAQ_16","DAQ_24","ACH_02","WGS_01","WGS_02","WGS_03","WGS_04",
+    "WGS_05","WGS_06","WGS_07","WGS_08","WGS_09","WGS_10","CESD_01","CESD_02",
+    "CESD_03","CESD_04","CESD_05","CESD_06","CESD_07","CESD_08","CESD_09","CESD_10",
+    "CESD_11","CESD_12","CESD_13","CESD_14","CESD_15","CESD_16","CESD_17","CESD_18",
+    "CESD_19","CESD_20","HEXACO_01","HEXACO_02","HEXACO_03","HEXACO_04","HEXACO_05",
+    "HEXACO_06","HEXACO_07","HEXACO_08","HEXACO_09","HEXACO_10","HEXACO_11",
+    "HEXACO_12","HEXACO_13","HEXACO_14","HEXACO_15","HEXACO_16","HEXACO_17",
+    "HEXACO_18","HEXACO_19","HEXACO_20","HEXACO_21","HEXACO_22","HEXACO_23",
+    "HEXACO_24","HEXACO_25","HEXACO_26","HEXACO_27","HEXACO_28","HEXACO_29",
+    "HEXACO_30","IFI_02","OCIR_01","OCIR_02","OCIR_03","OCIR_04","OCIR_05",
+    "OCIR_06","OCIR_07","OCIR_08","OCIR_09","OCIR_10","OCIR_11","OCIR_12","OCIR_13",
+    "OCIR_14","OCIR_15","OCIR_16","OCIR_17","OCIR_18","PTQ_01","PTQ_02","PTQ_03",
+    "PTQ_04","PTQ_05","PTQ_06","PTQ_07","PTQ_08","PTQ_09","PTQ_10","PTQ_11",
+    "PTQ_12","PTQ_13","PTQ_14","PTQ_15","RAAS_01","RAAS_02","RAAS_05","RAAS_06",
+    "RAAS_07","RAAS_08","RAAS_12","RAAS_13","RAAS_14","RAAS_16","RAAS_17","KSA3_01",
+    "KSA3_02","KSA3_03","KSA3_04","KSA3_05","KSA3_06","KSA3_07","KSA3_08","KSA3_09",
+    "FRI_01","SAS_01","SAS_02","SAS_03","SAS_04","SAS_05","SAS_06","SAS_07",
+    "SAS_08","SAS_09","MFQ_01","MFQ_02","MFQ_03","MFQ_04","MFQ_05","MFQ_06",
+    "MFQ_07","MFQ_08","MFQ_09","MFQ_10","MFQ_11","FRI_02","CQ_01","CQ_02","CQ_03",
+    "CQ_04","CQ_05","CQ_06","CQ_07","CQ_08","CQ_09","CQ_10","CQ_11","CQ_12","CQ_13",
+    "CQ_14","CQ_15","CQ_16","BFI01","BFI02","BFI03","BFI04","BFI05","BFI06","BFI07",
+    "BFI08","BFI09","BFI10","BH02_01","BH03_01","BH04_01","BH05_01","BH06_01",
+    "BH07_01","BH08_01","BH09_01","BH10_01","BH11_01","MS01","MS02_01","MS03",
+    "MS04","OC01","OC02","OC03","OC04","PR01_01","PR01_02","PR02_01","PR02_02",
+    "PR02_03","PR02_04","PR03_01","RG01_CP","RG01","RG02_CP","RG02","RG03_CP",
+    "RG03","gender","SD13","SD13_02","SD02_01","SD03","SD04","SD05","SD12",
+    "SD06","SD07","SD08","SD09","SD10","SD11_01","WS01","WS02","WS03","WS04",
+    "WS05","WS06","WS07","WS08","WS09","WS10","ZY01_01","ZY02","ZY03_01","ZY03_02",
+    "ZY04_01","ZY05_01","TIME001","TIME002","TIME003","TIME004","TIME005","TIME006",
+    "TIME007","TIME008","TIME009","TIME010","TIME_SUM","MAILSENT","LASTDATA",
+    "FINISHED","Q_VIEWER","LASTPAGE","MAXPAGE","MISSING","MISSREL","TIME_RSI"
+  ),
+  as.is = TRUE,
+  colClasses = c(
+    CASE="numeric", SERIAL="character", REF="character", QUESTNNR="character",
+    MODE="factor", STARTED="POSIXct", AAID_01="numeric", AAID_05="numeric",
+    AAID_07="numeric", AAID_09="numeric", AAID_12="numeric", AAID_14="numeric",
+    PANAS_09="numeric", PANAS_14="numeric", PANAS_10="numeric",
+    PANAS_05="numeric", PANAS_08="numeric", PANAS_06="numeric",
+    PANAS_04="numeric", PANAS_18="numeric", OLBI_07="numeric",
+    OLBI_08="numeric", OLBI_09="numeric", OLBI_10="numeric", OLBI_11="numeric",
+    OLBI_12="numeric", OLBI_15="numeric", OLBI_16="numeric", UWES9_01="numeric",
+    UWES9_02="numeric", UWES9_03="numeric", UWES9_04="numeric",
+    UWES9_05="numeric", UWES9_06="numeric", UWES9_07="numeric",
+    UWES9_08="numeric", UWES9_09="numeric", PAQ_08="numeric", PAQ_20="numeric",
+    PAQ_05="numeric", PAQ_17="numeric", PAQ_13="numeric", PAQ_07="numeric",
+    PAQ_10="numeric", PAQ_16="numeric", PAQ_03="numeric", PAQ_15="numeric",
+    IFI_01="numeric", PSS_01="numeric", PSS_02="numeric", PSS_03="numeric",
+    PSS_04="numeric", PSS_05="numeric", PSS_06="numeric", PSS_07="numeric",
+    PSS_08="numeric", PSS_09="numeric", PSS_10="numeric", PSS_11="numeric",
+    PSS_12="numeric", PSS_13="numeric", PSS_14="numeric", NEPS_01="numeric",
+    NEPS_04="numeric", NEPS_05="numeric", NEPS_06="numeric", NEPS_07="numeric",
+    NEPS_08="numeric", NEPS_09="numeric", NEPS_10="numeric", NEPS_12="numeric",
+    NEPS_13="numeric", HSQ_02="numeric", HSQ_03="numeric", HSQ_04="numeric",
+    HSQ_06="numeric", HSQ_07="numeric", HSQ_08="numeric", HSQ_09="numeric",
+    HSQ_16="numeric", HSQ_21="numeric", HSQ_22="numeric", HSQ_23="numeric",
+    HSQ_29="numeric", ULS8_01="numeric", ULS8_02="numeric", ULS8_03="numeric",
+    ULS8_04="numeric", ULS8_05="numeric", ULS8_06="numeric", ULS8_07="numeric",
+    ULS8_08="numeric", ACH_01="numeric", NGSE_01="numeric", NGSE_02="numeric",
+    NGSE_03="numeric", NGSE_04="numeric", NGSE_05="numeric", NGSE_06="numeric",
+    NGSE_07="numeric", NGSE_08="numeric", ATB_03="numeric", FCV19S_01="numeric",
+    FCV19S_02="numeric", FCV19S_03="numeric", FCV19S_04="numeric",
+    FCV19S_05="numeric", FCV19S_06="numeric", FCV19S_07="numeric",
+    DAQ_05="numeric", DAQ_07="numeric", DAQ_09="numeric", DAQ_11="numeric",
+    DAQ_15="numeric", DAQ_19="numeric", DAQ_21="numeric", DAQ_23="numeric",
+    DAQ_25="numeric", DAQ_02="numeric", DAQ_06="numeric", DAQ_08="numeric",
+    DAQ_10="numeric", DAQ_12="numeric", DAQ_14="numeric", DAQ_16="numeric",
+    DAQ_24="numeric", ACH_02="numeric", WGS_01="numeric", WGS_02="numeric",
+    WGS_03="numeric", WGS_04="numeric", WGS_05="numeric", WGS_06="numeric",
+    WGS_07="numeric", WGS_08="numeric", WGS_09="numeric", WGS_10="numeric",
+    CESD_01="numeric", CESD_02="numeric", CESD_03="numeric", CESD_04="numeric",
+    CESD_05="numeric", CESD_06="numeric", CESD_07="numeric", CESD_08="numeric",
+    CESD_09="numeric", CESD_10="numeric", CESD_11="numeric", CESD_12="numeric",
+    CESD_13="numeric", CESD_14="numeric", CESD_15="numeric", CESD_16="numeric",
+    CESD_17="numeric", CESD_18="numeric", CESD_19="numeric", CESD_20="numeric",
+    HEXACO_01="numeric", HEXACO_02="numeric", HEXACO_03="numeric",
+    HEXACO_04="numeric", HEXACO_05="numeric", HEXACO_06="numeric",
+    HEXACO_07="numeric", HEXACO_08="numeric", HEXACO_09="numeric",
+    HEXACO_10="numeric", HEXACO_11="numeric", HEXACO_12="numeric",
+    HEXACO_13="numeric", HEXACO_14="numeric", HEXACO_15="numeric",
+    HEXACO_16="numeric", HEXACO_17="numeric", HEXACO_18="numeric",
+    HEXACO_19="numeric", HEXACO_20="numeric", HEXACO_21="numeric",
+    HEXACO_22="numeric", HEXACO_23="numeric", HEXACO_24="numeric",
+    HEXACO_25="numeric", HEXACO_26="numeric", HEXACO_27="numeric",
+    HEXACO_28="numeric", HEXACO_29="numeric", HEXACO_30="numeric",
+    IFI_02="numeric", OCIR_01="numeric", OCIR_02="numeric", OCIR_03="numeric",
+    OCIR_04="numeric", OCIR_05="numeric", OCIR_06="numeric", OCIR_07="numeric",
+    OCIR_08="numeric", OCIR_09="numeric", OCIR_10="numeric", OCIR_11="numeric",
+    OCIR_12="numeric", OCIR_13="numeric", OCIR_14="numeric", OCIR_15="numeric",
+    OCIR_16="numeric", OCIR_17="numeric", OCIR_18="numeric", PTQ_01="numeric",
+    PTQ_02="numeric", PTQ_03="numeric", PTQ_04="numeric", PTQ_05="numeric",
+    PTQ_06="numeric", PTQ_07="numeric", PTQ_08="numeric", PTQ_09="numeric",
+    PTQ_10="numeric", PTQ_11="numeric", PTQ_12="numeric", PTQ_13="numeric",
+    PTQ_14="numeric", PTQ_15="numeric", RAAS_01="numeric", RAAS_02="numeric",
+    RAAS_05="numeric", RAAS_06="numeric", RAAS_07="numeric", RAAS_08="numeric",
+    RAAS_12="numeric", RAAS_13="numeric", RAAS_14="numeric", RAAS_16="numeric",
+    RAAS_17="numeric", KSA3_01="numeric", KSA3_02="numeric", KSA3_03="numeric",
+    KSA3_04="numeric", KSA3_05="numeric", KSA3_06="numeric", KSA3_07="numeric",
+    KSA3_08="numeric", KSA3_09="numeric", FRI_01="numeric", SAS_01="numeric",
+    SAS_02="numeric", SAS_03="numeric", SAS_04="numeric", SAS_05="numeric",
+    SAS_06="numeric", SAS_07="numeric", SAS_08="numeric", SAS_09="numeric",
+    MFQ_01="numeric", MFQ_02="numeric", MFQ_03="numeric", MFQ_04="numeric",
+    MFQ_05="numeric", MFQ_06="numeric", MFQ_07="numeric", MFQ_08="numeric",
+    MFQ_09="numeric", MFQ_10="numeric", MFQ_11="numeric", FRI_02="numeric",
+    CQ_01="numeric", CQ_02="numeric", CQ_03="numeric", CQ_04="numeric",
+    CQ_05="numeric", CQ_06="numeric", CQ_07="numeric", CQ_08="numeric",
+    CQ_09="numeric", CQ_10="numeric", CQ_11="numeric", CQ_12="numeric",
+    CQ_13="numeric", CQ_14="numeric", CQ_15="numeric", CQ_16="numeric",
+    BFI01="numeric", BFI02="numeric", BFI03="numeric", BFI04="numeric",
+    BFI05="numeric", BFI06="numeric", BFI07="numeric", BFI08="numeric",
+    BFI09="numeric", BFI10="numeric", BH02_01="character", BH03_01="character",
+    BH04_01="character", BH05_01="character", BH06_01="character",
+    BH07_01="character", BH08_01="character", BH09_01="character",
+    BH10_01="character", BH11_01="character", MS01="numeric", MS02_01="numeric",
+    MS03="numeric", MS04="numeric", OC01="numeric", OC02="numeric",
+    OC03="numeric", OC04="numeric", PR01_01="numeric", PR01_02="numeric",
+    PR02_01="numeric", PR02_02="numeric", PR02_03="numeric", PR02_04="numeric",
+    PR03_01="character", RG01_CP="numeric", RG01="numeric", RG02_CP="numeric",
+    RG02="numeric", RG03_CP="numeric", RG03="numeric", gender="numeric",
+    SD13="numeric", SD13_02="character", SD02_01="numeric", SD03="numeric",
+    SD04="numeric", SD05="numeric", SD12="numeric", SD06="numeric",
+    SD07="numeric", SD08="numeric", SD09="numeric", SD10="numeric",
+    SD11_01="numeric", WS01="numeric", WS02="numeric", WS03="numeric",
+    WS04="numeric", WS05="numeric", WS06="numeric", WS07="numeric",
+    WS08="numeric", WS09="numeric", WS10="numeric", ZY01_01="character",
+    ZY02="numeric", ZY03_01="character", ZY03_02="character",
+    ZY04_01="character", ZY05_01="character", TIME001="integer",
+    TIME002="integer", TIME003="integer", TIME004="integer", TIME005="integer",
+    TIME006="integer", TIME007="integer", TIME008="integer", TIME009="integer",
+    TIME010="integer", TIME_SUM="integer", MAILSENT="POSIXct",
+    LASTDATA="POSIXct", FINISHED="logical", Q_VIEWER="logical",
+    LASTPAGE="numeric", MAXPAGE="numeric", MISSING="numeric", MISSREL="numeric",
+    TIME_RSI="numeric"
+  ),
+  skip = 1,
+  check.names = TRUE, fill = TRUE,
+  strip.white = FALSE, blank.lines.skip = TRUE,
+  comment.char = "",
+  na.strings = ""
+)
+
+row.names(ds) = ds$CASE
+saveRDS(ds, "data/raw/sosci_raw.rds")
+
+rm(ds_file)
+```
+
+
+## Add metadata
+```{r metadata}
+ds <- readRDS("data/raw/sosci_raw.rds")
+metadata(ds)$name = "synth-rep"
+metadata(ds)$description = "Synthetic Replications"
+metadata(ds)$temporalCoverage = "2024-11-01"
+metadata(ds)$spatialCoverage = "USA"
+metadata(ds)$datePublished = "2024-11-01 23:21:07"
+metadata(ds)$url = "https://www.soscisurvey.de"
+metadata(ds)$citation <- "Hommel, B., Arslan, R. C. & Alsalti, T. (2024). Synthetic Replication Validation Dataset."
+
+
+# Variable und Value Labels
+ds$MS01 = factor(ds$MS01,
+    levels=c("1","2","3","4","-9"),
+    labels=c("Republican","Democrat","Independent","Something else","[NA] Not answered"),
+    ordered=FALSE)
+ds$MS03 = factor(ds$MS03,
+    levels=c("1","2","-9"),
+    labels=c("Yes","No","[NA] Not answered"),
+    ordered=FALSE)
+ds$MS04 = factor(ds$MS04,
+    levels=c("1","2","3","-9"),
+    labels=c("Yes","No","I don\'t know","[NA] Not answered"),
+    ordered=FALSE)
+ds$OC01 = factor(ds$OC01,
+    levels=c("1","2","3","4","5","6","7","-9"),
+    labels=c("None","1","2","3","4","5","6 or more","[NA] Not answered"),
+    ordered=FALSE)
+ds$OC02 = factor(ds$OC02,
+    levels=c("1","2","-9"),
+    labels=c("Yes","No","[NA] Not answered"),
+    ordered=FALSE)
+ds$OC03 = factor(ds$OC03,
+    levels=c("1","2","3","4","-9"),
+    labels=c("Abortion should always be legal. There should be no restrictions on abortion.","Abortion should be legal, but with some restrictions (such as for minors or late-term abortions).","Abortion should only be legal in special circumstances, such as when the life of the mother is in danger.","Abortion should be illegal. It should never be allowed.","[NA] Not answered"),
+    ordered=FALSE)
+ds$OC04 = factor(ds$OC04,
+    levels=c("1","2","3","4","5","-9"),
+    labels=c("Strongly disagree","Tend to disagree","Neither agree nor disagree","Tend to agree","Strongly agree","[NA] Not answered"),
+    ordered=FALSE)
+ds$gender = factor(ds$gender,
+    levels=c("1","2","-9"),
+    labels=c("Female","Male","[NA] Not answered"),
+    ordered=FALSE)
+ds$SD13 = factor(ds$SD13,
+    levels=c("1","2","-9"),
+    labels=c("Same as sex","Other, please specify","[NA] Not answered"),
+    ordered=FALSE)
+ds$SD03 = factor(ds$SD03,
+    levels=c("1","2","3","4","5","6","7","8","9","-9"),
+    labels=c("White","Black/African American","American Indian or Alaska Native","Chinese","Japanese","Other Asian or Pacific Islander","Other race","Two major races (e.g., White and Japanese)","Three or more major races","[NA] Not answered"),
+    ordered=FALSE)
+ds$SD04 = factor(ds$SD04,
+    levels=c("1","2","3","4","5","-9"),
+    labels=c("No, not of Hispanic, Latino, or Spanish origin","Yes, Mexican, Mexican Am., Chicano","Yes, Puerto Rican","Yes, Cuban","Yes, another Hispanic, Latino, or Spanish origin","[NA] Not answered"),
+    ordered=FALSE)
+ds$SD05 = factor(ds$SD05,
+    levels=c("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","-9"),
+    labels=c("N/A: not in the US","Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming","[NA] Not answered"),
+    ordered=FALSE)
+ds$SD12 = factor(ds$SD12,
+    levels=c("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100","101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","122","123","124","125","126","127","128","129","130","131","132","133","134","135","136","137","138","139","140","141","142","143","144","145","146","147","148","149","150","151","152","153","154","155","156","157","158","159","160","161","162","163","164","165","166","167","168","169","170","171","172","173","174","175","176","177","178","179","180","181","182","183","184","185","186","187","188",
+    "189","190","191","192","193","194","195","196","197","-9"),
+    labels=c("United States","Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso","Burundi","Cabo Verde","Cambodia","Cameroon","Canada","Central African Republic","Chad","Chile","China","Colombia","Comoros","Congo (Democratic Republic of the)","Congo (Republic of the)","Costa Rica","Côte d’Ivoire","Croatia","Cuba","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Eswatini","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea","Guinea-Bissau","Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Jamaica","Japan","Jordan","Kazakhstan","Kenya",
+    "Kiribati","Kosovo","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria","North Korea","North Macedonia","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Romania","Russia","Rwanda","Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand",
+    "Timor-Leste","Togo","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe","[NA] Not answered"),
+    ordered=FALSE)
+ds$SD06 = factor(ds$SD06,
+    levels=c("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","-9"),
+    labels=c("N/A: not in the US","Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming","[NA] Not answered"),
+    ordered=FALSE)
+ds$SD07 = factor(ds$SD07,
+    levels=c("1","2","3","4","5","-9"),
+    labels=c("Married","Widowed","Divorced","Separated","Never married/single","[NA] Not answered"),
+    ordered=FALSE)
+ds$SD08 = factor(ds$SD08,
+    levels=c("10","11","12","13","14","15","16","17","18","19","20","21","-9"),
+    labels=c("N/A or no schooling","Nursery school to grade 4","Grade 5, 6, 7, or 8","Grade 9","Grade 10","Grade 11","Grade 12","1 year of college","2 years of college","3 years of college","4 years of college","5+ years of college","[NA] Not answered"),
+    ordered=FALSE)
+ds$SD09 = factor(ds$SD09,
+    levels=c("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","-9"),
+    labels=c("N/A","Agriculture","Environment and Natural Resources","Architecture","Area, Ethnic, and Civilization Studies","Communications","Communication Technologies","Computer and Information Sciences","Cosmetology Services and Culinary Arts","Education Administration and Teaching","Engineering","Engineering Technologies","Linguistics and Foreign Languages","Family and Consumer Sciences","Law","English Language, Literature, and Composition","Liberal Arts and Humanities","Library Science","Biology and Life Sciences","Mathematics and Statistics","Military Technologies","Interdisciplinary and Multi-Disciplinary Studies (General)","Physical Fitness, Parks, Recreation, and Leisure","Philosophy and Religious Studies","Theology and Religious Vocations","Physical Sciences","Nuclear, Industrial Radiology, and Biological Technologies","Psychology","Criminal Justice and Fire Protection","Public Affairs, Policy, and Social Work","Social Sciences","Construction Services","Electrical and Mechanic Repairs and Technologies",
+    "Precision Production and Industrial Arts","Transportation Sciences and Technologies","Fine Arts","Medical and Health Sciences and Services","Business","History","[NA] Not answered"),
+    ordered=FALSE)
+# Assuming `ds` is your data frame
+ds$SD10 = factor(ds$SD10,
+    levels = c(
+        "10001", "10", "20", "40", "51", "52", "60", "101", "102", "110", "120", "135", "136", "137", "140",
+        "150", "160", "205", "220", "230", "300", "310", "335", "340", "350", "360", "410", "420", "425",
+        "440", "500", "510", "520", "530", "540", "565", "600", "630", "640", "650", "700", "705", "710",
+        "725", "726", "735", "750", "800", "810", "820", "830", "845", "850", "860", "900", "910", "930",
+        "940", "960", "1005", "1006", "1007", "1010", "1021", "1022", "1031", "1032", "1050", "1065",
+        "1105", "1106", "1108", "1200", "1220", "1240", "1305", "1306", "1310", "1320", "1340", "1350",
+        "1360", "1400", "1410", "1420", "1430", "1440", "1450", "1460", "1520", "1530", "1541", "1545",
+        "1551", "1555", "1560", "1600", "1610", "1640", "1650", "1700", "1710", "1720", "1745", "1750",
+        "1760", "1800", "1821", "1822", "1825", "1840", "1860", "1900", "1910", "1920", "1935", "1970",
+        "1980", "2001", "2002", "2003", "2004", "2005", "2006", "2011", "2012", "2013", "2014", "2015",
+        "2016", "2025", "2040", "2050", "2060", "2100", "2105", "2145", "2170", "2180", "2205", "2300",
+        "2310", "2320", "2330", "2350", "2360", "2400", "2435", "2440", "2545", "2555", "2600", "2631",
+        "2632", "2633", "2634", "2635", "2636", "2640", "2700", "2710", "2721", "2722", "2723", "2740",
+        "2751", "2752", "2755", "2770", "2805", "2810", "2825", "2830", "2840", "2850", "2861", "2862",
+        "2865", "2905", "2910", "2920", "3000", "3010", "3030", "3040", "3050", "3090", "3100", "3110",
+        "3120", "3140", "3150", "3160", "3200", "3210", "3220", "3230", "3245", "3250", "3255", "3256",
+        "3258", "3261", "3270", "3300", "3310", "3321", "3322", "3323", "3324", "3330", "3401", "3402",
+        "3421", "3422", "3423", "3424", "3430", "3500", "3515", "3520", "3545", "3550", "3601", "3602",
+        "3603", "3605", "3610", "3620", "3630", "3640", "3645", "3646", "3647", "3648", "3649", "3655",
+        "3700", "3710", "3720", "3725", "3740", "3750", "3801", "3802", "3820", "3840", "3870", "3900",
+        "3910", "3930", "3940", "3945", "3946", "3960", "4000", "4010", "4020", "4030", "4040", "4055",
+        "4110", "4120", "4130", "4140", "4150", "4160", "4200", "4210", "4220", "4230", "4240", "4251",
+        "4252", "4255", "4330", "4340", "4350", "4400", "4420", "4435", "4461", "4465", "4500", "4510",
+        "4521", "4522", "4525", "4530", "4540", "4600", "4621", "4622", "4640", "4655", "4700", "4710",
+        "4720", "4740", "4750", "4760", "4800", "4810", "4820", "4830", "4840", "4850", "4900", "4920",
+        "4930", "4940", "4950", "4965", "5000", "5010", "5020", "5040", "5100", "5110", "5120", "5140",
+        "5150", "5160", "5165", "5220", "5230", "5240", "5250", "5260", "5300", "5310", "5320", "5330",
+        "5340", "5350", "5360", "5400", "5410", "5420", "5500", "5510", "5521", "5522", "5530", "5540",
+        "5550", "5560", "5600", "5610", "5630", "5710", "5720", "5730", "5740", "5810", "5820", "5840",
+        "5850", "5860", "5900", "5910", "5920", "5940", "6005", "6010", "6040", "6050", "6115", "6120",
+        "6130", "6200", "6210", "6220", "6230", "6240", "6250", "6260", "6305", "6330", "6355", "6360",
+        "6400", "6410", "6441", "6442", "6460", "6515", "6520", "6530", "6540", "6600", "6660", "6700",
+        "6710", "6720", "6730", "6740", "6765", "6800", "6825", "6835", "6850", "6950", "7000", "7010",
+        "7020", "7030", "7040", "7100", "7120", "7130", "7140", "7150", "7160", "7200", "7210", "7220",
+        "7240", "7260", "7300", "7315", "7320", "7330", "7340", "7350", "7360", "7410", "7420", "7430",
+        "7510", "7540", "7560", "7610", "7640", "7700", "7720", "7730", "7740", "7750", "7800", "7810",
+        "7830", "7840", "7850", "7855", "7905", "7925", "7950", "8000", "8025", "8030", "8040", "8100",
+        "8130", "8140", "8225", "8250", "8255", "8256", "8300", "8310", "8320", "8335", "8350", "8365",
+        "8450", "8465", "8500", "8510", "8530", "8540", "8555", "8600", "8610", "8620", "8630", "8640",
+        "8650", "8710", "8720", "8730", "8740", "8750", "8760", "8800", "8810", "8830", "8850", "8910",
+        "8920", "8930", "8940", "8950", "8990", "9005", "9030", "9040", "9050", "9110", "9121", "9122",
+        "9130", "9141", "9142", "9150", "9210", "9240", "9265", "9300", "9310", "9350", "9365", "9410",
+        "9415", "9430", "9510", "9570", "9600", "9610", "9620", "9630", "9640", "9645", "9650", "9720",
+        "9760", "9800", "9810", "9825", "9830", "-9"
+    ),
+    labels = c(
+        "N/A: Unemployed", "Chief executives and legislators", "General and operations managers",
+        "Advertising and promotions managers", "Marketing managers", "Sales managers",
+        "Public relations and fundraising managers", "Administrative services managers",
+        "Facilities managers", "Computer and information systems managers", "Financial managers",
+        "Compensation and benefits managers", "Human resources managers", "Training and development managers",
+        "Industrial production managers", "Purchasing managers", "Transportation, storage, and distribution managers",
+        "Farmers, ranchers, and other agricultural managers", "Construction managers",
+        "Education and childcare administrators", "Architectural and engineering managers",
+        "Food service managers", "Entertainment and recreation managers", "Lodging managers",
+        "Medical and health services managers", "Natural sciences managers",
+        "Property, real estate, and community association managers", "Social and community service managers",
+        "Emergency management directors", "Other managers", "Agents and business managers of artists, performers, and athletes",
+        "Buyers and purchasing agents, farm products", "Wholesale and retail buyers, except farm products",
+        "Purchasing agents, except wholesale, retail, and farm products", "Claims adjusters, appraisers, examiners, and investigators",
+        "Compliance officers", "Cost estimators", "Human resources workers", "Compensation, benefits, and job analysis specialists",
+        "Training and development specialists", "Logisticians", "Project management specialists",
+        "Management analysts", "Meeting, convention, and event planners", "Fundraisers", "Market research analysts and marketing specialists",
+        "Business operations specialists, all other", "Accountants and auditors", "Property appraisers and assessors",
+        "Budget analysts", "Credit analysts", "Financial and investment analysts", "Personal financial advisors",
+        "Insurance underwriters", "Financial examiners", "Credit counselors and loan officers",
+        "Tax examiners and collectors, and revenue agents", "Tax preparers", "Other financial specialists",
+        "Computer and information research scientists", "Computer systems analysts", "Information security analysts",
+        "Computer programmers", "Software developers", "Software quality assurance analysts and testers",
+        "Web developers", "Web and digital interface designers", "Computer support specialists", "Database administrators and architects",
+        "Network and computer systems administrators", "Computer network architects", "Computer occupations, all other",
+        "Actuaries", "Operations research analysts", "Other mathematical science occupations", "Architects, except landscape and naval",
+        "Landscape architects", "Surveyors, cartographers, and photogrammetrists", "Aerospace engineers",
+        "Biomedical and agricultural engineers", "Chemical engineers", "Civil engineers",
+        "Computer hardware engineers", "Electrical and electronics engineers", "Environmental engineers",
+        "Industrial engineers, including health and safety", "Marine engineers and naval architects",
+        "Materials engineers", "Mechanical engineers", "Petroleum, mining and geological engineers, including mining safety engineers",
+        "Other engineers", "Architectural and civil drafters", "Other drafters",
+        "Electrical and electronic engineering technologists and technicians", "Other engineering technologists and technicians, except drafters",
+        "Surveying and mapping technicians", "Agricultural and food scientists", "Biological scientists",
+        "Conservation scientists and foresters", "Other life scientists", "Astronomers and physicists",
+        "Atmospheric and space scientists", "Chemists and materials scientists", "Environmental scientists and specialists, including health",
+        "Geoscientists and hydrologists, except geographers", "Physical scientists, all other", "Economists",
+        "Clinical and counseling psychologists", "School psychologists", "Other psychologists", "Urban and regional planners",
+        "Other social scientists", "Agricultural and food science technicians", "Biological technicians",
+        "Chemical technicians", "Environmental science and geoscience technicians, and nuclear technicians",
+        "Other life, physical, and social science technicians", "Occupational health and safety specialists and technicians",
+        "Substance abuse and behavioral disorder counselors", "Educational, guidance, and career counselors and advisors",
+        "Marriage and family therapists", "Mental health counselors", "Rehabilitation counselors", "Counselors, all other",
+        "Child, family, and school social workers", "Healthcare social workers", "Mental health and substance abuse social workers",
+        "Social workers, all other", "Probation officers and correctional treatment specialists",
+        "Social and human service assistants", "Other community and social service specialists", "Clergy",
+        "Directors, religious activities and education", "Religious workers, all other", "Lawyers, and judges, magistrates, and other judicial workers",
+        "Judicial law clerks", "Paralegals and legal assistants", "Title examiners, abstractors, and searchers",
+        "Legal support workers, all other", "Postsecondary teachers", "Preschool and kindergarten teachers",
+        "Elementary and middle school teachers", "Secondary school teachers", "Special education teachers", "Tutors",
+        "Other teachers and instructors", "Archivists, curators, and museum technicians",
+        "Librarians and media collections specialists", "Library technicians", "Teaching assistants",
+        "Other educational instruction and library workers", "Artists and related workers", "Commercial and industrial designers",
+        "Fashion designers", "Floral designers", "Graphic designers", "Interior designers",
+        "Merchandise displayers and window trimmers", "Other designers", "Actors", "Producers and directors",
+        "Athletes and sports competitors", "Coaches and scouts", "Umpires, referees, and other sports officials",
+        "Dancers and choreographers", "Music directors and composers", "Musicians and singers", "Disc jockeys, except radio",
+        "Entertainers and performers, sports and related workers, all other", "Broadcast announcers and radio disc jockeys",
+        "News analysts, reporters, and journalists", "Public relations specialists", "Editors", "Technical writers",
+        "Writers and authors", "Interpreters and translators", "Court reporters and simultaneous captioners",
+        "Media and communication workers, all other", "Other media and communication equipment workers",
+        "Photographers", "Television, video, and film camera operators and editors", "Chiropractors", "Dentists",
+        "Dietitians and nutritionists", "Optometrists", "Pharmacists", "Physicians", "Surgeons", "Physician assistants",
+        "Podiatrists", "Audiologists", "Occupational therapists", "Physical therapists", "Radiation therapists",
+        "Recreational therapists", "Respiratory therapists", "Speech-language pathologists", "Other therapists",
+        "Veterinarians", "Registered nurses", "Nurse anesthetists", "Nurse practitioners, and nurse midwives",
+        "Acupuncturists", "Healthcare diagnosing or treating practitioners, all other", "Clinical laboratory technologists and technicians",
+        "Dental hygienists", "Cardiovascular technologists and technicians", "Diagnostic medical sonographers",
+        "Radiologic technologists and technicians", "Magnetic resonance imaging technologists",
+        "Nuclear medicine technologists and medical dosimetrists", "Emergency medical technicians", "Paramedics",
+        "Pharmacy technicians", "Psychiatric technicians", "Surgical technologists", "Veterinary technologists and technicians",
+        "Dietetic technicians and ophthalmic medical technicians", "Licensed practical and licensed vocational nurses",
+        "Medical records specialists", "Opticians, dispensing", "Miscellaneous health technologists and technicians",
+        "Other healthcare practitioners and technical occupations", "Home health aides", "Personal care aides",
+        "Nursing assistants", "Orderlies and psychiatric aides", "Occupational therapy assistants and aides",
+        "Physical therapist assistants and aides", "Massage therapists", "Dental assistants", "Medical assistants",
+        "Medical transcriptionists", "Pharmacy aides", "Veterinary assistants and laboratory animal caretakers",
+        "Phlebotomists", "Other healthcare support workers", "First-line supervisors of correctional officers",
+        "First-line supervisors of police and detectives", "First-line supervisors of firefighting and prevention workers",
+        "Miscellaneous first-line supervisors, protective service workers", "Firefighters", "Fire inspectors",
+        "Bailiffs", "Correctional officers and jailers", "Detectives and criminal investigators",
+        "Fish and game wardens and parking enforcement officers", "Police officers", "Animal control workers",
+        "Private detectives and investigators", "Security guards and gaming surveillance officers",
+        "Crossing guards and flaggers", "Transportation security screeners", "School bus monitors", "Other protective service workers",
+        "Chefs and head cooks", "First-line supervisors of food preparation and serving workers", "Cooks",
+        "Food preparation workers", "Bartenders", "Fast food and counter workers", "Waiters and waitresses",
+        "Food servers, nonrestaurant", "Dining room and cafeteria attendants and bartender helpers", "Dishwashers",
+        "Hosts and hostesses, restaurant, lounge, and coffee shop", "Food preparation and serving related workers, all other",
+        "First-line supervisors of housekeeping and janitorial workers", "First-line supervisors of landscaping, lawn service, and groundskeeping workers",
+        "Janitors and building cleaners", "Maids and housekeeping cleaners", "Pest control workers",
+        "Landscaping and groundskeeping workers", "Tree trimmers and pruners", "Other grounds maintenance workers",
+        "Supervisors of personal care and service workers", "Animal trainers", "Animal caretakers", "Gambling services workers",
+        "Ushers, lobby attendants, and ticket takers", "Other entertainment attendants and related workers",
+        "Embalmers, crematory operators, and funeral attendants", "Morticians, undertakers, and funeral arrangers",
+        "Barbers", "Hairdressers, hairstylists, and cosmetologists", "Manicurists and pedicurists",
+        "Skincare specialists", "Other personal appearance workers", "Baggage porters, bellhops, and concierges",
+        "Tour and travel guides", "Childcare workers", "Exercise trainers and group fitness instructors",
+        "Recreation workers", "Residential advisors", "Personal care and service workers, all other",
+        "First-line supervisors of retail sales workers", "First-line supervisors of non-retail sales workers", "Cashiers",
+        "Counter and rental clerks", "Parts salespersons", "Retail salespersons", "Advertising sales agents",
+        "Insurance sales agents", "Securities, commodities, and financial services sales agents", "Travel agents",
+        "Sales representatives of services, except advertising, insurance, financial services, and travel",
+        "Sales representatives, wholesale and manufacturing", "Models, demonstrators, and product promoters",
+        "Real estate brokers and sales agents", "Sales engineers", "Telemarketers", "Door-to-door sales workers, news and street vendors, and related workers",
+        "Sales and related workers, all other", "First-line supervisors of office and administrative support workers",
+        "Switchboard operators, including answering service", "Telephone operators", "Communications equipment operators, all other",
+        "Bill and account collectors", "Billing and posting clerks", "Bookkeeping, accounting, and auditing clerks",
+        "Payroll and timekeeping clerks", "Procurement clerks", "Tellers", "Other financial clerks", "Court, municipal, and license clerks",
+        "Credit authorizers, checkers, and clerks", "Customer service representatives", "Eligibility interviewers, government programs",
+        "File clerks", "Hotel, motel, and resort desk clerks", "Interviewers, except eligibility and loan",
+        "Library assistants, clerical", "Loan interviewers and clerks", "New accounts clerks", "Correspondence clerks and order clerks",
+        "Human resources assistants, except payroll and timekeeping", "Receptionists and information clerks", "Reservation and transportation ticket agents and travel clerks",
+        "Other information and records clerks", "Cargo and freight agents", "Couriers and messengers",
+        "Public safety telecommunicators", "Dispatchers, except police, fire, and ambulance",
+        "Meter readers, utilities", "Postal service clerks", "Postal service mail carriers", "Postal service mail sorters, processors, and processing machine operators",
+        "Production, planning, and expediting clerks", "Shipping, receiving, and inventory clerks",
+        "Weighers, measurers, checkers, and samplers, recordkeeping", "Executive secretaries and executive administrative assistants",
+        "Legal secretaries and administrative assistants", "Medical secretaries and administrative assistants",
+        "Secretaries and administrative assistants, except legal, medical, and executive", "Data entry keyers",
+        "Word processors and typists", "Insurance claims and policy processing clerks", "Mail clerks and mail machine operators, except postal service",
+        "Office clerks, general", "Office machine operators, except computer", "Proofreaders and copy markers",
+        "Statistical assistants", "Other office and administrative support workers", "First-line supervisors of farming, fishing, and forestry workers",
+        "Agricultural inspectors", "Graders and sorters, agricultural products", "Other agricultural workers",
+        "Fishing and hunting workers", "Forest and conservation workers", "Logging workers",
+        "First-line supervisors of construction trades and extraction workers", "Boilermakers",
+        "Brickmasons, blockmasons, stonemasons, and reinforcing iron and rebar workers", "Carpenters",
+        "Carpet, floor, and tile installers and finishers", "Cement masons, concrete finishers, and terrazzo workers",
+        "Construction laborers", "Construction equipment operators", "Drywall installers, ceiling tile installers, and tapers",
+        "Electricians", "Glaziers", "Insulation workers", "Painters and paperhangers",
+        "Pipelayers", "Plumbers, pipefitters, and steamfitters", "Plasterers and stucco masons", "Roofers",
+        "Sheet metal workers", "Structural iron and steel workers", "Solar photovoltaic installers",
+        "Helpers, construction trades", "Construction and building inspectors", "Elevator installers and repairers",
+        "Fence erectors", "Hazardous materials removal workers", "Highway maintenance workers",
+        "Rail-track laying and maintenance equipment operators", "Other construction and related workers",
+        "Derrick, rotary drill, and service unit operators, and roustabouts, oil, gas, and mining",
+        "Surface mining machine operators and earth drillers", "Explosives workers, ordnance handling experts, and blasters",
+        "Underground mining machine operators", "Other extraction workers", "First-line supervisors of mechanics, installers, and repairers",
+        "Computer, automated teller, and office machine repairers", "Radio and telecommunications equipment installers and repairers",
+        "Avionics technicians", "Electric motor, power tool, and related repairers", "Other electrical and electronic equipment mechanics, installers, and repairers",
+        "Electronic home entertainment equipment installers and repairers", "Security and fire alarm systems installers",
+        "Aircraft mechanics and service technicians", "Automotive body and related repairers", "Automotive glass installers and repairers",
+        "Automotive service technicians and mechanics", "Bus and truck mechanics and diesel engine specialists",
+        "Heavy vehicle and mobile equipment service technicians and mechanics", "Small engine mechanics",
+        "Miscellaneous vehicle and mobile equipment mechanics, installers, and repairers", "Control and valve installers and repairers",
+        "Heating, air conditioning, and refrigeration mechanics and installers", "Home appliance repairers",
+        "Industrial and refractory machinery mechanics", "Maintenance and repair workers, general",
+        "Maintenance workers, machinery", "Millwrights", "Electrical power-line installers and repairers",
+        "Telecommunications line installers and repairers", "Precision instrument and equipment repairers",
+        "Coin, vending, and amusement machine servicers and repairers", "Locksmiths and safe repairers",
+        "Riggers", "Helpers – installation, maintenance, and repair workers",
+        "Other installation, maintenance, and repair workers", "First-line supervisors of production and operating workers",
+        "Electrical, electronics, and electromechanical assemblers", "Engine and other machine assemblers",
+        "Structural metal fabricators and fitters", "Other assemblers and fabricators", "Bakers",
+        "Butchers and other meat, poultry, and fish processing workers", "Food and tobacco roasting, baking, and drying machine operators and tenders",
+        "Food batchmakers", "Food cooking machine operators and tenders", "Food processing workers, all other",
+        "Computer numerically controlled tool operators and programmers", "Forming machine setters, operators, and tenders, metal and plastic",
+        "Cutting, punching, and press machine setters, operators, and tenders, metal and plastic",
+        "Grinding, lapping, polishing, and buffing machine tool setters, operators, and tenders, metal and plastic",
+        "Other machine tool setters, operators, and tenders, metal and plastic", "Machinists",
+        "Metal furnace operators, tenders, pourers, and casters", "Model makers, patternmakers, and molding machine setters, metal and plastic",
+        "Tool and die makers", "Welding, soldering, and brazing workers", "Other metal workers and plastic workers",
+        "Prepress technicians and workers", "Printing press operators", "Print binding and finishing workers",
+        "Laundry and dry-cleaning workers", "Pressers, textile, garment, and related materials",
+        "Sewing machine operators", "Shoe and leather workers", "Tailors, dressmakers, and sewers",
+        "Textile machine setters, operators, and tenders", "Upholsterers", "Other textile, apparel, and furnishings workers",
+        "Cabinetmakers and bench carpenters", "Furniture finishers", "Sawing machine setters, operators, and tenders, wood",
+        "Woodworking machine setters, operators, and tenders, except sawing", "Other woodworkers",
+        "Power plant operators, distributors, and dispatchers", "Stationary engineers and boiler operators",
+        "Water and wastewater treatment plant and system operators", "Miscellaneous plant and system operators",
+        "Chemical processing machine setters, operators, and tenders", "Crushing, grinding, polishing, mixing, and blending workers",
+        "Cutting workers", "Extruding, forming, pressing, and compacting machine setters, operators, and tenders",
+        "Furnace, kiln, oven, drier, and kettle operators and tenders", "Inspectors, testers, sorters, samplers, and weighers",
+        "Jewelers and precious stone and metal workers", "Dental and ophthalmic laboratory technicians and medical appliance technicians",
+        "Packaging and filling machine operators and tenders", "Painting workers", "Photographic process workers and processing machine operators",
+        "Adhesive bonding machine operators and tenders", "Etchers and engravers",
+        "Molders, shapers, and casters, except metal and plastic", "Paper goods machine setters, operators, and tenders",
+        "Tire builders", "Helpers – production workers", "Miscellaneous production workers, including equipment operators and tenders",
+        "Supervisors of transportation and material moving workers", "Aircraft pilots and flight engineers",
+        "Air traffic controllers and airfield operations specialists", "Flight attendants",
+        "Ambulance drivers and attendants, except emergency medical technicians", "Bus drivers, school",
+        "Bus drivers, transit and intercity", "Driver/sales workers and truck drivers", "Shuttle drivers and chauffeurs",
+        "Taxi drivers", "Motor vehicle operators, all other", "Locomotive engineers and operators",
+        "Railroad conductors and yardmasters", "Other rail transportation workers",
+        "Sailors and marine oilers, and ship engineers", "Ship and boat captains and operators", "Parking attendants",
+        "Transportation service attendants", "Transportation inspectors", "Passenger attendants",
+        "Other transportation workers", "Crane and tower operators", "Conveyor, dredge, and hoist and winch operators",
+        "Industrial truck and tractor operators", "Cleaners of vehicles and equipment", "Laborers and freight, stock, and material movers, hand",
+        "Machine feeders and offbearers", "Packers and packagers, hand", "Stockers and order fillers",
+        "Pumping station operators", "Refuse and recyclable material collectors", "Other material moving workers",
+        "Military officer special and tactical operations leaders", "First-line enlisted military supervisors",
+        "Military enlisted tactical operations and air/weapons specialists and crew members", "Military, rank not specified",
+        "Not answered"
+    ),
+    ordered = FALSE)
+
+ds$ZY02 = factor(ds$ZY02,
+    levels=c("1","2","-9"),
+    labels=c("Yes","No, my responses should not be used.","[NA] Not answered"),
+    ordered=FALSE)
+attr(ds$AAID_01,"1") = "strongly disagree"
+attr(ds$AAID_01,"2") = "disagree"
+attr(ds$AAID_01,"3") = "slightly disagree"
+attr(ds$AAID_01,"4") = "neither agree nor disagree"
+attr(ds$AAID_01,"5") = "slightly agree"
+attr(ds$AAID_01,"6") = "agree"
+attr(ds$AAID_01,"7") = "strongly agree"
+attr(ds$AAID_05,"1") = "strongly disagree"
+attr(ds$AAID_05,"2") = "disagree"
+attr(ds$AAID_05,"3") = "slightly disagree"
+attr(ds$AAID_05,"4") = "neither agree nor disagree"
+attr(ds$AAID_05,"5") = "slightly agree"
+attr(ds$AAID_05,"6") = "agree"
+attr(ds$AAID_05,"7") = "strongly agree"
+attr(ds$AAID_07,"1") = "strongly disagree"
+attr(ds$AAID_07,"2") = "disagree"
+attr(ds$AAID_07,"3") = "slightly disagree"
+attr(ds$AAID_07,"4") = "neither agree nor disagree"
+attr(ds$AAID_07,"5") = "slightly agree"
+attr(ds$AAID_07,"6") = "agree"
+attr(ds$AAID_07,"7") = "strongly agree"
+attr(ds$AAID_09,"1") = "strongly disagree"
+attr(ds$AAID_09,"2") = "disagree"
+attr(ds$AAID_09,"3") = "slightly disagree"
+attr(ds$AAID_09,"4") = "neither agree nor disagree"
+attr(ds$AAID_09,"5") = "slightly agree"
+attr(ds$AAID_09,"6") = "agree"
+attr(ds$AAID_09,"7") = "strongly agree"
+attr(ds$AAID_12,"1") = "strongly disagree"
+attr(ds$AAID_12,"2") = "disagree"
+attr(ds$AAID_12,"3") = "slightly disagree"
+attr(ds$AAID_12,"4") = "neither agree nor disagree"
+attr(ds$AAID_12,"5") = "slightly agree"
+attr(ds$AAID_12,"6") = "agree"
+attr(ds$AAID_12,"7") = "strongly agree"
+attr(ds$AAID_14,"1") = "strongly disagree"
+attr(ds$AAID_14,"2") = "disagree"
+attr(ds$AAID_14,"3") = "slightly disagree"
+attr(ds$AAID_14,"4") = "neither agree nor disagree"
+attr(ds$AAID_14,"5") = "slightly agree"
+attr(ds$AAID_14,"6") = "agree"
+attr(ds$AAID_14,"7") = "strongly agree"
+attr(ds$PANAS_09,"1") = "never"
+attr(ds$PANAS_09,"2") = "rarely"
+attr(ds$PANAS_09,"3") = "occasionally"
+attr(ds$PANAS_09,"4") = "sometimes"
+attr(ds$PANAS_09,"5") = "often"
+attr(ds$PANAS_09,"6") = "very often"
+attr(ds$PANAS_09,"7") = "most of the time"
+attr(ds$PANAS_14,"1") = "never"
+attr(ds$PANAS_14,"2") = "rarely"
+attr(ds$PANAS_14,"3") = "occasionally"
+attr(ds$PANAS_14,"4") = "sometimes"
+attr(ds$PANAS_14,"5") = "often"
+attr(ds$PANAS_14,"6") = "very often"
+attr(ds$PANAS_14,"7") = "most of the time"
+attr(ds$PANAS_10,"1") = "never"
+attr(ds$PANAS_10,"2") = "rarely"
+attr(ds$PANAS_10,"3") = "occasionally"
+attr(ds$PANAS_10,"4") = "sometimes"
+attr(ds$PANAS_10,"5") = "often"
+attr(ds$PANAS_10,"6") = "very often"
+attr(ds$PANAS_10,"7") = "most of the time"
+attr(ds$PANAS_05,"1") = "never"
+attr(ds$PANAS_05,"2") = "rarely"
+attr(ds$PANAS_05,"3") = "occasionally"
+attr(ds$PANAS_05,"4") = "sometimes"
+attr(ds$PANAS_05,"5") = "often"
+attr(ds$PANAS_05,"6") = "very often"
+attr(ds$PANAS_05,"7") = "most of the time"
+attr(ds$PANAS_08,"1") = "never"
+attr(ds$PANAS_08,"2") = "rarely"
+attr(ds$PANAS_08,"3") = "occasionally"
+attr(ds$PANAS_08,"4") = "sometimes"
+attr(ds$PANAS_08,"5") = "often"
+attr(ds$PANAS_08,"6") = "very often"
+attr(ds$PANAS_08,"7") = "most of the time"
+attr(ds$PANAS_06,"1") = "never"
+attr(ds$PANAS_06,"2") = "rarely"
+attr(ds$PANAS_06,"3") = "occasionally"
+attr(ds$PANAS_06,"4") = "sometimes"
+attr(ds$PANAS_06,"5") = "often"
+attr(ds$PANAS_06,"6") = "very often"
+attr(ds$PANAS_06,"7") = "most of the time"
+attr(ds$PANAS_04,"1") = "never"
+attr(ds$PANAS_04,"2") = "rarely"
+attr(ds$PANAS_04,"3") = "occasionally"
+attr(ds$PANAS_04,"4") = "sometimes"
+attr(ds$PANAS_04,"5") = "often"
+attr(ds$PANAS_04,"6") = "very often"
+attr(ds$PANAS_04,"7") = "most of the time"
+attr(ds$PANAS_18,"1") = "never"
+attr(ds$PANAS_18,"2") = "rarely"
+attr(ds$PANAS_18,"3") = "occasionally"
+attr(ds$PANAS_18,"4") = "sometimes"
+attr(ds$PANAS_18,"5") = "often"
+attr(ds$PANAS_18,"6") = "very often"
+attr(ds$PANAS_18,"7") = "most of the time"
+attr(ds$OLBI_07,"1") = "strongly disagree"
+attr(ds$OLBI_07,"2") = "disagree"
+attr(ds$OLBI_07,"3") = "slightly disagree"
+attr(ds$OLBI_07,"4") = "neither agree nor disagree"
+attr(ds$OLBI_07,"5") = "slightly agree"
+attr(ds$OLBI_07,"6") = "agree"
+attr(ds$OLBI_07,"7") = "strongly agree"
+attr(ds$OLBI_08,"1") = "strongly disagree"
+attr(ds$OLBI_08,"2") = "disagree"
+attr(ds$OLBI_08,"3") = "slightly disagree"
+attr(ds$OLBI_08,"4") = "neither agree nor disagree"
+attr(ds$OLBI_08,"5") = "slightly agree"
+attr(ds$OLBI_08,"6") = "agree"
+attr(ds$OLBI_08,"7") = "strongly agree"
+attr(ds$OLBI_09,"1") = "strongly disagree"
+attr(ds$OLBI_09,"2") = "disagree"
+attr(ds$OLBI_09,"3") = "slightly disagree"
+attr(ds$OLBI_09,"4") = "neither agree nor disagree"
+attr(ds$OLBI_09,"5") = "slightly agree"
+attr(ds$OLBI_09,"6") = "agree"
+attr(ds$OLBI_09,"7") = "strongly agree"
+attr(ds$OLBI_10,"1") = "strongly disagree"
+attr(ds$OLBI_10,"2") = "disagree"
+attr(ds$OLBI_10,"3") = "slightly disagree"
+attr(ds$OLBI_10,"4") = "neither agree nor disagree"
+attr(ds$OLBI_10,"5") = "slightly agree"
+attr(ds$OLBI_10,"6") = "agree"
+attr(ds$OLBI_10,"7") = "strongly agree"
+attr(ds$OLBI_11,"1") = "strongly disagree"
+attr(ds$OLBI_11,"2") = "disagree"
+attr(ds$OLBI_11,"3") = "slightly disagree"
+attr(ds$OLBI_11,"4") = "neither agree nor disagree"
+attr(ds$OLBI_11,"5") = "slightly agree"
+attr(ds$OLBI_11,"6") = "agree"
+attr(ds$OLBI_11,"7") = "strongly agree"
+attr(ds$OLBI_12,"1") = "strongly disagree"
+attr(ds$OLBI_12,"2") = "disagree"
+attr(ds$OLBI_12,"3") = "slightly disagree"
+attr(ds$OLBI_12,"4") = "neither agree nor disagree"
+attr(ds$OLBI_12,"5") = "slightly agree"
+attr(ds$OLBI_12,"6") = "agree"
+attr(ds$OLBI_12,"7") = "strongly agree"
+attr(ds$OLBI_15,"1") = "strongly disagree"
+attr(ds$OLBI_15,"2") = "disagree"
+attr(ds$OLBI_15,"3") = "slightly disagree"
+attr(ds$OLBI_15,"4") = "neither agree nor disagree"
+attr(ds$OLBI_15,"5") = "slightly agree"
+attr(ds$OLBI_15,"6") = "agree"
+attr(ds$OLBI_15,"7") = "strongly agree"
+attr(ds$OLBI_16,"1") = "strongly disagree"
+attr(ds$OLBI_16,"2") = "disagree"
+attr(ds$OLBI_16,"3") = "slightly disagree"
+attr(ds$OLBI_16,"4") = "neither agree nor disagree"
+attr(ds$OLBI_16,"5") = "slightly agree"
+attr(ds$OLBI_16,"6") = "agree"
+attr(ds$OLBI_16,"7") = "strongly agree"
+attr(ds$UWES9_01,"1") = "strongly disagree"
+attr(ds$UWES9_01,"2") = "disagree"
+attr(ds$UWES9_01,"3") = "slightly disagree"
+attr(ds$UWES9_01,"4") = "neither agree nor disagree"
+attr(ds$UWES9_01,"5") = "slightly agree"
+attr(ds$UWES9_01,"6") = "agree"
+attr(ds$UWES9_01,"7") = "strongly agree"
+attr(ds$UWES9_02,"1") = "strongly disagree"
+attr(ds$UWES9_02,"2") = "disagree"
+attr(ds$UWES9_02,"3") = "slightly disagree"
+attr(ds$UWES9_02,"4") = "neither agree nor disagree"
+attr(ds$UWES9_02,"5") = "slightly agree"
+attr(ds$UWES9_02,"6") = "agree"
+attr(ds$UWES9_02,"7") = "strongly agree"
+attr(ds$UWES9_03,"1") = "strongly disagree"
+attr(ds$UWES9_03,"2") = "disagree"
+attr(ds$UWES9_03,"3") = "slightly disagree"
+attr(ds$UWES9_03,"4") = "neither agree nor disagree"
+attr(ds$UWES9_03,"5") = "slightly agree"
+attr(ds$UWES9_03,"6") = "agree"
+attr(ds$UWES9_03,"7") = "strongly agree"
+attr(ds$UWES9_04,"1") = "strongly disagree"
+attr(ds$UWES9_04,"2") = "disagree"
+attr(ds$UWES9_04,"3") = "slightly disagree"
+attr(ds$UWES9_04,"4") = "neither agree nor disagree"
+attr(ds$UWES9_04,"5") = "slightly agree"
+attr(ds$UWES9_04,"6") = "agree"
+attr(ds$UWES9_04,"7") = "strongly agree"
+attr(ds$UWES9_05,"1") = "strongly disagree"
+attr(ds$UWES9_05,"2") = "disagree"
+attr(ds$UWES9_05,"3") = "slightly disagree"
+attr(ds$UWES9_05,"4") = "neither agree nor disagree"
+attr(ds$UWES9_05,"5") = "slightly agree"
+attr(ds$UWES9_05,"6") = "agree"
+attr(ds$UWES9_05,"7") = "strongly agree"
+attr(ds$UWES9_06,"1") = "strongly disagree"
+attr(ds$UWES9_06,"2") = "disagree"
+attr(ds$UWES9_06,"3") = "slightly disagree"
+attr(ds$UWES9_06,"4") = "neither agree nor disagree"
+attr(ds$UWES9_06,"5") = "slightly agree"
+attr(ds$UWES9_06,"6") = "agree"
+attr(ds$UWES9_06,"7") = "strongly agree"
+attr(ds$UWES9_07,"1") = "strongly disagree"
+attr(ds$UWES9_07,"2") = "disagree"
+attr(ds$UWES9_07,"3") = "slightly disagree"
+attr(ds$UWES9_07,"4") = "neither agree nor disagree"
+attr(ds$UWES9_07,"5") = "slightly agree"
+attr(ds$UWES9_07,"6") = "agree"
+attr(ds$UWES9_07,"7") = "strongly agree"
+attr(ds$UWES9_08,"1") = "strongly disagree"
+attr(ds$UWES9_08,"2") = "disagree"
+attr(ds$UWES9_08,"3") = "slightly disagree"
+attr(ds$UWES9_08,"4") = "neither agree nor disagree"
+attr(ds$UWES9_08,"5") = "slightly agree"
+attr(ds$UWES9_08,"6") = "agree"
+attr(ds$UWES9_08,"7") = "strongly agree"
+attr(ds$UWES9_09,"1") = "strongly disagree"
+attr(ds$UWES9_09,"2") = "disagree"
+attr(ds$UWES9_09,"3") = "slightly disagree"
+attr(ds$UWES9_09,"4") = "neither agree nor disagree"
+attr(ds$UWES9_09,"5") = "slightly agree"
+attr(ds$UWES9_09,"6") = "agree"
+attr(ds$UWES9_09,"7") = "strongly agree"
+attr(ds$PAQ_08,"1") = "strongly disagree"
+attr(ds$PAQ_08,"2") = "disagree"
+attr(ds$PAQ_08,"3") = "slightly disagree"
+attr(ds$PAQ_08,"4") = "neither agree nor disagree"
+attr(ds$PAQ_08,"5") = "slightly agree"
+attr(ds$PAQ_08,"6") = "agree"
+attr(ds$PAQ_08,"7") = "strongly agree"
+attr(ds$PAQ_20,"1") = "strongly disagree"
+attr(ds$PAQ_20,"2") = "disagree"
+attr(ds$PAQ_20,"3") = "slightly disagree"
+attr(ds$PAQ_20,"4") = "neither agree nor disagree"
+attr(ds$PAQ_20,"5") = "slightly agree"
+attr(ds$PAQ_20,"6") = "agree"
+attr(ds$PAQ_20,"7") = "strongly agree"
+attr(ds$PAQ_05,"1") = "strongly disagree"
+attr(ds$PAQ_05,"2") = "disagree"
+attr(ds$PAQ_05,"3") = "slightly disagree"
+attr(ds$PAQ_05,"4") = "neither agree nor disagree"
+attr(ds$PAQ_05,"5") = "slightly agree"
+attr(ds$PAQ_05,"6") = "agree"
+attr(ds$PAQ_05,"7") = "strongly agree"
+attr(ds$PAQ_17,"1") = "strongly disagree"
+attr(ds$PAQ_17,"2") = "disagree"
+attr(ds$PAQ_17,"3") = "slightly disagree"
+attr(ds$PAQ_17,"4") = "neither agree nor disagree"
+attr(ds$PAQ_17,"5") = "slightly agree"
+attr(ds$PAQ_17,"6") = "agree"
+attr(ds$PAQ_17,"7") = "strongly agree"
+attr(ds$PAQ_13,"1") = "strongly disagree"
+attr(ds$PAQ_13,"2") = "disagree"
+attr(ds$PAQ_13,"3") = "slightly disagree"
+attr(ds$PAQ_13,"4") = "neither agree nor disagree"
+attr(ds$PAQ_13,"5") = "slightly agree"
+attr(ds$PAQ_13,"6") = "agree"
+attr(ds$PAQ_13,"7") = "strongly agree"
+attr(ds$PAQ_07,"1") = "strongly disagree"
+attr(ds$PAQ_07,"2") = "disagree"
+attr(ds$PAQ_07,"3") = "slightly disagree"
+attr(ds$PAQ_07,"4") = "neither agree nor disagree"
+attr(ds$PAQ_07,"5") = "slightly agree"
+attr(ds$PAQ_07,"6") = "agree"
+attr(ds$PAQ_07,"7") = "strongly agree"
+attr(ds$PAQ_10,"1") = "strongly disagree"
+attr(ds$PAQ_10,"2") = "disagree"
+attr(ds$PAQ_10,"3") = "slightly disagree"
+attr(ds$PAQ_10,"4") = "neither agree nor disagree"
+attr(ds$PAQ_10,"5") = "slightly agree"
+attr(ds$PAQ_10,"6") = "agree"
+attr(ds$PAQ_10,"7") = "strongly agree"
+attr(ds$PAQ_16,"1") = "strongly disagree"
+attr(ds$PAQ_16,"2") = "disagree"
+attr(ds$PAQ_16,"3") = "slightly disagree"
+attr(ds$PAQ_16,"4") = "neither agree nor disagree"
+attr(ds$PAQ_16,"5") = "slightly agree"
+attr(ds$PAQ_16,"6") = "agree"
+attr(ds$PAQ_16,"7") = "strongly agree"
+attr(ds$PAQ_03,"1") = "strongly disagree"
+attr(ds$PAQ_03,"2") = "disagree"
+attr(ds$PAQ_03,"3") = "slightly disagree"
+attr(ds$PAQ_03,"4") = "neither agree nor disagree"
+attr(ds$PAQ_03,"5") = "slightly agree"
+attr(ds$PAQ_03,"6") = "agree"
+attr(ds$PAQ_03,"7") = "strongly agree"
+attr(ds$PAQ_15,"1") = "strongly disagree"
+attr(ds$PAQ_15,"2") = "disagree"
+attr(ds$PAQ_15,"3") = "slightly disagree"
+attr(ds$PAQ_15,"4") = "neither agree nor disagree"
+attr(ds$PAQ_15,"5") = "slightly agree"
+attr(ds$PAQ_15,"6") = "agree"
+attr(ds$PAQ_15,"7") = "strongly agree"
+attr(ds$IFI_01,"1") = "strongly disagree"
+attr(ds$IFI_01,"2") = "disagree"
+attr(ds$IFI_01,"3") = "slightly disagree"
+attr(ds$IFI_01,"4") = "neither agree nor disagree"
+attr(ds$IFI_01,"5") = "slightly agree"
+attr(ds$IFI_01,"6") = "agree"
+attr(ds$IFI_01,"7") = "strongly agree"
+attr(ds$PSS_01,"1") = "never"
+attr(ds$PSS_01,"2") = "rarely"
+attr(ds$PSS_01,"3") = "occasionally"
+attr(ds$PSS_01,"4") = "sometimes"
+attr(ds$PSS_01,"5") = "often"
+attr(ds$PSS_01,"6") = "very often"
+attr(ds$PSS_01,"7") = "most of the time"
+attr(ds$PSS_02,"1") = "never"
+attr(ds$PSS_02,"2") = "rarely"
+attr(ds$PSS_02,"3") = "occasionally"
+attr(ds$PSS_02,"4") = "sometimes"
+attr(ds$PSS_02,"5") = "often"
+attr(ds$PSS_02,"6") = "very often"
+attr(ds$PSS_02,"7") = "most of the time"
+attr(ds$PSS_03,"1") = "never"
+attr(ds$PSS_03,"2") = "rarely"
+attr(ds$PSS_03,"3") = "occasionally"
+attr(ds$PSS_03,"4") = "sometimes"
+attr(ds$PSS_03,"5") = "often"
+attr(ds$PSS_03,"6") = "very often"
+attr(ds$PSS_03,"7") = "most of the time"
+attr(ds$PSS_04,"1") = "never"
+attr(ds$PSS_04,"2") = "rarely"
+attr(ds$PSS_04,"3") = "occasionally"
+attr(ds$PSS_04,"4") = "sometimes"
+attr(ds$PSS_04,"5") = "often"
+attr(ds$PSS_04,"6") = "very often"
+attr(ds$PSS_04,"7") = "most of the time"
+attr(ds$PSS_05,"1") = "never"
+attr(ds$PSS_05,"2") = "rarely"
+attr(ds$PSS_05,"3") = "occasionally"
+attr(ds$PSS_05,"4") = "sometimes"
+attr(ds$PSS_05,"5") = "often"
+attr(ds$PSS_05,"6") = "very often"
+attr(ds$PSS_05,"7") = "most of the time"
+attr(ds$PSS_06,"1") = "never"
+attr(ds$PSS_06,"2") = "rarely"
+attr(ds$PSS_06,"3") = "occasionally"
+attr(ds$PSS_06,"4") = "sometimes"
+attr(ds$PSS_06,"5") = "often"
+attr(ds$PSS_06,"6") = "very often"
+attr(ds$PSS_06,"7") = "most of the time"
+attr(ds$PSS_07,"1") = "never"
+attr(ds$PSS_07,"2") = "rarely"
+attr(ds$PSS_07,"3") = "occasionally"
+attr(ds$PSS_07,"4") = "sometimes"
+attr(ds$PSS_07,"5") = "often"
+attr(ds$PSS_07,"6") = "very often"
+attr(ds$PSS_07,"7") = "most of the time"
+attr(ds$PSS_08,"1") = "never"
+attr(ds$PSS_08,"2") = "rarely"
+attr(ds$PSS_08,"3") = "occasionally"
+attr(ds$PSS_08,"4") = "sometimes"
+attr(ds$PSS_08,"5") = "often"
+attr(ds$PSS_08,"6") = "very often"
+attr(ds$PSS_08,"7") = "most of the time"
+attr(ds$PSS_09,"1") = "never"
+attr(ds$PSS_09,"2") = "rarely"
+attr(ds$PSS_09,"3") = "occasionally"
+attr(ds$PSS_09,"4") = "sometimes"
+attr(ds$PSS_09,"5") = "often"
+attr(ds$PSS_09,"6") = "very often"
+attr(ds$PSS_09,"7") = "most of the time"
+attr(ds$PSS_10,"1") = "never"
+attr(ds$PSS_10,"2") = "rarely"
+attr(ds$PSS_10,"3") = "occasionally"
+attr(ds$PSS_10,"4") = "sometimes"
+attr(ds$PSS_10,"5") = "often"
+attr(ds$PSS_10,"6") = "very often"
+attr(ds$PSS_10,"7") = "most of the time"
+attr(ds$PSS_11,"1") = "never"
+attr(ds$PSS_11,"2") = "rarely"
+attr(ds$PSS_11,"3") = "occasionally"
+attr(ds$PSS_11,"4") = "sometimes"
+attr(ds$PSS_11,"5") = "often"
+attr(ds$PSS_11,"6") = "very often"
+attr(ds$PSS_11,"7") = "most of the time"
+attr(ds$PSS_12,"1") = "never"
+attr(ds$PSS_12,"2") = "rarely"
+attr(ds$PSS_12,"3") = "occasionally"
+attr(ds$PSS_12,"4") = "sometimes"
+attr(ds$PSS_12,"5") = "often"
+attr(ds$PSS_12,"6") = "very often"
+attr(ds$PSS_12,"7") = "most of the time"
+attr(ds$PSS_13,"1") = "never"
+attr(ds$PSS_13,"2") = "rarely"
+attr(ds$PSS_13,"3") = "occasionally"
+attr(ds$PSS_13,"4") = "sometimes"
+attr(ds$PSS_13,"5") = "often"
+attr(ds$PSS_13,"6") = "very often"
+attr(ds$PSS_13,"7") = "most of the time"
+attr(ds$PSS_14,"1") = "never"
+attr(ds$PSS_14,"2") = "rarely"
+attr(ds$PSS_14,"3") = "occasionally"
+attr(ds$PSS_14,"4") = "sometimes"
+attr(ds$PSS_14,"5") = "often"
+attr(ds$PSS_14,"6") = "very often"
+attr(ds$PSS_14,"7") = "most of the time"
+attr(ds$NEPS_01,"1") = "strongly disagree"
+attr(ds$NEPS_01,"2") = "disagree"
+attr(ds$NEPS_01,"3") = "slightly disagree"
+attr(ds$NEPS_01,"4") = "neither agree nor disagree"
+attr(ds$NEPS_01,"5") = "slightly agree"
+attr(ds$NEPS_01,"6") = "agree"
+attr(ds$NEPS_01,"7") = "strongly agree"
+attr(ds$NEPS_04,"1") = "strongly disagree"
+attr(ds$NEPS_04,"2") = "disagree"
+attr(ds$NEPS_04,"3") = "slightly disagree"
+attr(ds$NEPS_04,"4") = "neither agree nor disagree"
+attr(ds$NEPS_04,"5") = "slightly agree"
+attr(ds$NEPS_04,"6") = "agree"
+attr(ds$NEPS_04,"7") = "strongly agree"
+attr(ds$NEPS_05,"1") = "strongly disagree"
+attr(ds$NEPS_05,"2") = "disagree"
+attr(ds$NEPS_05,"3") = "slightly disagree"
+attr(ds$NEPS_05,"4") = "neither agree nor disagree"
+attr(ds$NEPS_05,"5") = "slightly agree"
+attr(ds$NEPS_05,"6") = "agree"
+attr(ds$NEPS_05,"7") = "strongly agree"
+attr(ds$NEPS_06,"1") = "strongly disagree"
+attr(ds$NEPS_06,"2") = "disagree"
+attr(ds$NEPS_06,"3") = "slightly disagree"
+attr(ds$NEPS_06,"4") = "neither agree nor disagree"
+attr(ds$NEPS_06,"5") = "slightly agree"
+attr(ds$NEPS_06,"6") = "agree"
+attr(ds$NEPS_06,"7") = "strongly agree"
+attr(ds$NEPS_07,"1") = "strongly disagree"
+attr(ds$NEPS_07,"2") = "disagree"
+attr(ds$NEPS_07,"3") = "slightly disagree"
+attr(ds$NEPS_07,"4") = "neither agree nor disagree"
+attr(ds$NEPS_07,"5") = "slightly agree"
+attr(ds$NEPS_07,"6") = "agree"
+attr(ds$NEPS_07,"7") = "strongly agree"
+attr(ds$NEPS_08,"1") = "strongly disagree"
+attr(ds$NEPS_08,"2") = "disagree"
+attr(ds$NEPS_08,"3") = "slightly disagree"
+attr(ds$NEPS_08,"4") = "neither agree nor disagree"
+attr(ds$NEPS_08,"5") = "slightly agree"
+attr(ds$NEPS_08,"6") = "agree"
+attr(ds$NEPS_08,"7") = "strongly agree"
+attr(ds$NEPS_09,"1") = "strongly disagree"
+attr(ds$NEPS_09,"2") = "disagree"
+attr(ds$NEPS_09,"3") = "slightly disagree"
+attr(ds$NEPS_09,"4") = "neither agree nor disagree"
+attr(ds$NEPS_09,"5") = "slightly agree"
+attr(ds$NEPS_09,"6") = "agree"
+attr(ds$NEPS_09,"7") = "strongly agree"
+attr(ds$NEPS_10,"1") = "strongly disagree"
+attr(ds$NEPS_10,"2") = "disagree"
+attr(ds$NEPS_10,"3") = "slightly disagree"
+attr(ds$NEPS_10,"4") = "neither agree nor disagree"
+attr(ds$NEPS_10,"5") = "slightly agree"
+attr(ds$NEPS_10,"6") = "agree"
+attr(ds$NEPS_10,"7") = "strongly agree"
+attr(ds$NEPS_12,"1") = "strongly disagree"
+attr(ds$NEPS_12,"2") = "disagree"
+attr(ds$NEPS_12,"3") = "slightly disagree"
+attr(ds$NEPS_12,"4") = "neither agree nor disagree"
+attr(ds$NEPS_12,"5") = "slightly agree"
+attr(ds$NEPS_12,"6") = "agree"
+attr(ds$NEPS_12,"7") = "strongly agree"
+attr(ds$NEPS_13,"1") = "strongly disagree"
+attr(ds$NEPS_13,"2") = "disagree"
+attr(ds$NEPS_13,"3") = "slightly disagree"
+attr(ds$NEPS_13,"4") = "neither agree nor disagree"
+attr(ds$NEPS_13,"5") = "slightly agree"
+attr(ds$NEPS_13,"6") = "agree"
+attr(ds$NEPS_13,"7") = "strongly agree"
+attr(ds$HSQ_02,"1") = "strongly disagree"
+attr(ds$HSQ_02,"2") = "disagree"
+attr(ds$HSQ_02,"3") = "slightly disagree"
+attr(ds$HSQ_02,"4") = "neither agree nor disagree"
+attr(ds$HSQ_02,"5") = "slightly agree"
+attr(ds$HSQ_02,"6") = "agree"
+attr(ds$HSQ_02,"7") = "strongly agree"
+attr(ds$HSQ_03,"1") = "strongly disagree"
+attr(ds$HSQ_03,"2") = "disagree"
+attr(ds$HSQ_03,"3") = "slightly disagree"
+attr(ds$HSQ_03,"4") = "neither agree nor disagree"
+attr(ds$HSQ_03,"5") = "slightly agree"
+attr(ds$HSQ_03,"6") = "agree"
+attr(ds$HSQ_03,"7") = "strongly agree"
+attr(ds$HSQ_04,"1") = "strongly disagree"
+attr(ds$HSQ_04,"2") = "disagree"
+attr(ds$HSQ_04,"3") = "slightly disagree"
+attr(ds$HSQ_04,"4") = "neither agree nor disagree"
+attr(ds$HSQ_04,"5") = "slightly agree"
+attr(ds$HSQ_04,"6") = "agree"
+attr(ds$HSQ_04,"7") = "strongly agree"
+attr(ds$HSQ_06,"1") = "strongly disagree"
+attr(ds$HSQ_06,"2") = "disagree"
+attr(ds$HSQ_06,"3") = "slightly disagree"
+attr(ds$HSQ_06,"4") = "neither agree nor disagree"
+attr(ds$HSQ_06,"5") = "slightly agree"
+attr(ds$HSQ_06,"6") = "agree"
+attr(ds$HSQ_06,"7") = "strongly agree"
+attr(ds$HSQ_07,"1") = "strongly disagree"
+attr(ds$HSQ_07,"2") = "disagree"
+attr(ds$HSQ_07,"3") = "slightly disagree"
+attr(ds$HSQ_07,"4") = "neither agree nor disagree"
+attr(ds$HSQ_07,"5") = "slightly agree"
+attr(ds$HSQ_07,"6") = "agree"
+attr(ds$HSQ_07,"7") = "strongly agree"
+attr(ds$HSQ_08,"1") = "strongly disagree"
+attr(ds$HSQ_08,"2") = "disagree"
+attr(ds$HSQ_08,"3") = "slightly disagree"
+attr(ds$HSQ_08,"4") = "neither agree nor disagree"
+attr(ds$HSQ_08,"5") = "slightly agree"
+attr(ds$HSQ_08,"6") = "agree"
+attr(ds$HSQ_08,"7") = "strongly agree"
+attr(ds$HSQ_09,"1") = "strongly disagree"
+attr(ds$HSQ_09,"2") = "disagree"
+attr(ds$HSQ_09,"3") = "slightly disagree"
+attr(ds$HSQ_09,"4") = "neither agree nor disagree"
+attr(ds$HSQ_09,"5") = "slightly agree"
+attr(ds$HSQ_09,"6") = "agree"
+attr(ds$HSQ_09,"7") = "strongly agree"
+attr(ds$HSQ_16,"1") = "strongly disagree"
+attr(ds$HSQ_16,"2") = "disagree"
+attr(ds$HSQ_16,"3") = "slightly disagree"
+attr(ds$HSQ_16,"4") = "neither agree nor disagree"
+attr(ds$HSQ_16,"5") = "slightly agree"
+attr(ds$HSQ_16,"6") = "agree"
+attr(ds$HSQ_16,"7") = "strongly agree"
+attr(ds$HSQ_21,"1") = "strongly disagree"
+attr(ds$HSQ_21,"2") = "disagree"
+attr(ds$HSQ_21,"3") = "slightly disagree"
+attr(ds$HSQ_21,"4") = "neither agree nor disagree"
+attr(ds$HSQ_21,"5") = "slightly agree"
+attr(ds$HSQ_21,"6") = "agree"
+attr(ds$HSQ_21,"7") = "strongly agree"
+attr(ds$HSQ_22,"1") = "strongly disagree"
+attr(ds$HSQ_22,"2") = "disagree"
+attr(ds$HSQ_22,"3") = "slightly disagree"
+attr(ds$HSQ_22,"4") = "neither agree nor disagree"
+attr(ds$HSQ_22,"5") = "slightly agree"
+attr(ds$HSQ_22,"6") = "agree"
+attr(ds$HSQ_22,"7") = "strongly agree"
+attr(ds$HSQ_23,"1") = "strongly disagree"
+attr(ds$HSQ_23,"2") = "disagree"
+attr(ds$HSQ_23,"3") = "slightly disagree"
+attr(ds$HSQ_23,"4") = "neither agree nor disagree"
+attr(ds$HSQ_23,"5") = "slightly agree"
+attr(ds$HSQ_23,"6") = "agree"
+attr(ds$HSQ_23,"7") = "strongly agree"
+attr(ds$HSQ_29,"1") = "strongly disagree"
+attr(ds$HSQ_29,"2") = "disagree"
+attr(ds$HSQ_29,"3") = "slightly disagree"
+attr(ds$HSQ_29,"4") = "neither agree nor disagree"
+attr(ds$HSQ_29,"5") = "slightly agree"
+attr(ds$HSQ_29,"6") = "agree"
+attr(ds$HSQ_29,"7") = "strongly agree"
+attr(ds$ULS8_01,"1") = "strongly disagree"
+attr(ds$ULS8_01,"2") = "disagree"
+attr(ds$ULS8_01,"3") = "slightly disagree"
+attr(ds$ULS8_01,"4") = "neither agree nor disagree"
+attr(ds$ULS8_01,"5") = "slightly agree"
+attr(ds$ULS8_01,"6") = "agree"
+attr(ds$ULS8_01,"7") = "strongly agree"
+attr(ds$ULS8_02,"1") = "strongly disagree"
+attr(ds$ULS8_02,"2") = "disagree"
+attr(ds$ULS8_02,"3") = "slightly disagree"
+attr(ds$ULS8_02,"4") = "neither agree nor disagree"
+attr(ds$ULS8_02,"5") = "slightly agree"
+attr(ds$ULS8_02,"6") = "agree"
+attr(ds$ULS8_02,"7") = "strongly agree"
+attr(ds$ULS8_03,"1") = "strongly disagree"
+attr(ds$ULS8_03,"2") = "disagree"
+attr(ds$ULS8_03,"3") = "slightly disagree"
+attr(ds$ULS8_03,"4") = "neither agree nor disagree"
+attr(ds$ULS8_03,"5") = "slightly agree"
+attr(ds$ULS8_03,"6") = "agree"
+attr(ds$ULS8_03,"7") = "strongly agree"
+attr(ds$ULS8_04,"1") = "strongly disagree"
+attr(ds$ULS8_04,"2") = "disagree"
+attr(ds$ULS8_04,"3") = "slightly disagree"
+attr(ds$ULS8_04,"4") = "neither agree nor disagree"
+attr(ds$ULS8_04,"5") = "slightly agree"
+attr(ds$ULS8_04,"6") = "agree"
+attr(ds$ULS8_04,"7") = "strongly agree"
+attr(ds$ULS8_05,"1") = "strongly disagree"
+attr(ds$ULS8_05,"2") = "disagree"
+attr(ds$ULS8_05,"3") = "slightly disagree"
+attr(ds$ULS8_05,"4") = "neither agree nor disagree"
+attr(ds$ULS8_05,"5") = "slightly agree"
+attr(ds$ULS8_05,"6") = "agree"
+attr(ds$ULS8_05,"7") = "strongly agree"
+attr(ds$ULS8_06,"1") = "strongly disagree"
+attr(ds$ULS8_06,"2") = "disagree"
+attr(ds$ULS8_06,"3") = "slightly disagree"
+attr(ds$ULS8_06,"4") = "neither agree nor disagree"
+attr(ds$ULS8_06,"5") = "slightly agree"
+attr(ds$ULS8_06,"6") = "agree"
+attr(ds$ULS8_06,"7") = "strongly agree"
+attr(ds$ULS8_07,"1") = "strongly disagree"
+attr(ds$ULS8_07,"2") = "disagree"
+attr(ds$ULS8_07,"3") = "slightly disagree"
+attr(ds$ULS8_07,"4") = "neither agree nor disagree"
+attr(ds$ULS8_07,"5") = "slightly agree"
+attr(ds$ULS8_07,"6") = "agree"
+attr(ds$ULS8_07,"7") = "strongly agree"
+attr(ds$ULS8_08,"1") = "strongly disagree"
+attr(ds$ULS8_08,"2") = "disagree"
+attr(ds$ULS8_08,"3") = "slightly disagree"
+attr(ds$ULS8_08,"4") = "neither agree nor disagree"
+attr(ds$ULS8_08,"5") = "slightly agree"
+attr(ds$ULS8_08,"6") = "agree"
+attr(ds$ULS8_08,"7") = "strongly agree"
+attr(ds$ACH_01,"1") = "strongly disagree"
+attr(ds$ACH_01,"2") = "disagree"
+attr(ds$ACH_01,"3") = "slightly disagree"
+attr(ds$ACH_01,"4") = "neither agree nor disagree"
+attr(ds$ACH_01,"5") = "slightly agree"
+attr(ds$ACH_01,"6") = "agree"
+attr(ds$ACH_01,"7") = "strongly agree"
+attr(ds$NGSE_01,"1") = "strongly disagree"
+attr(ds$NGSE_01,"2") = "disagree"
+attr(ds$NGSE_01,"3") = "slightly disagree"
+attr(ds$NGSE_01,"4") = "neither agree nor disagree"
+attr(ds$NGSE_01,"5") = "slightly agree"
+attr(ds$NGSE_01,"6") = "agree"
+attr(ds$NGSE_01,"7") = "strongly agree"
+attr(ds$NGSE_02,"1") = "strongly disagree"
+attr(ds$NGSE_02,"2") = "disagree"
+attr(ds$NGSE_02,"3") = "slightly disagree"
+attr(ds$NGSE_02,"4") = "neither agree nor disagree"
+attr(ds$NGSE_02,"5") = "slightly agree"
+attr(ds$NGSE_02,"6") = "agree"
+attr(ds$NGSE_02,"7") = "strongly agree"
+attr(ds$NGSE_03,"1") = "strongly disagree"
+attr(ds$NGSE_03,"2") = "disagree"
+attr(ds$NGSE_03,"3") = "slightly disagree"
+attr(ds$NGSE_03,"4") = "neither agree nor disagree"
+attr(ds$NGSE_03,"5") = "slightly agree"
+attr(ds$NGSE_03,"6") = "agree"
+attr(ds$NGSE_03,"7") = "strongly agree"
+attr(ds$NGSE_04,"1") = "strongly disagree"
+attr(ds$NGSE_04,"2") = "disagree"
+attr(ds$NGSE_04,"3") = "slightly disagree"
+attr(ds$NGSE_04,"4") = "neither agree nor disagree"
+attr(ds$NGSE_04,"5") = "slightly agree"
+attr(ds$NGSE_04,"6") = "agree"
+attr(ds$NGSE_04,"7") = "strongly agree"
+attr(ds$NGSE_05,"1") = "strongly disagree"
+attr(ds$NGSE_05,"2") = "disagree"
+attr(ds$NGSE_05,"3") = "slightly disagree"
+attr(ds$NGSE_05,"4") = "neither agree nor disagree"
+attr(ds$NGSE_05,"5") = "slightly agree"
+attr(ds$NGSE_05,"6") = "agree"
+attr(ds$NGSE_05,"7") = "strongly agree"
+attr(ds$NGSE_06,"1") = "strongly disagree"
+attr(ds$NGSE_06,"2") = "disagree"
+attr(ds$NGSE_06,"3") = "slightly disagree"
+attr(ds$NGSE_06,"4") = "neither agree nor disagree"
+attr(ds$NGSE_06,"5") = "slightly agree"
+attr(ds$NGSE_06,"6") = "agree"
+attr(ds$NGSE_06,"7") = "strongly agree"
+attr(ds$NGSE_07,"1") = "strongly disagree"
+attr(ds$NGSE_07,"2") = "disagree"
+attr(ds$NGSE_07,"3") = "slightly disagree"
+attr(ds$NGSE_07,"4") = "neither agree nor disagree"
+attr(ds$NGSE_07,"5") = "slightly agree"
+attr(ds$NGSE_07,"6") = "agree"
+attr(ds$NGSE_07,"7") = "strongly agree"
+attr(ds$NGSE_08,"1") = "strongly disagree"
+attr(ds$NGSE_08,"2") = "disagree"
+attr(ds$NGSE_08,"3") = "slightly disagree"
+attr(ds$NGSE_08,"4") = "neither agree nor disagree"
+attr(ds$NGSE_08,"5") = "slightly agree"
+attr(ds$NGSE_08,"6") = "agree"
+attr(ds$NGSE_08,"7") = "strongly agree"
+attr(ds$ATB_03,"1") = "strongly disagree"
+attr(ds$ATB_03,"2") = "disagree"
+attr(ds$ATB_03,"3") = "slightly disagree"
+attr(ds$ATB_03,"4") = "neither agree nor disagree"
+attr(ds$ATB_03,"5") = "slightly agree"
+attr(ds$ATB_03,"6") = "agree"
+attr(ds$ATB_03,"7") = "strongly agree"
+attr(ds$FCV19S_01,"1") = "strongly disagree"
+attr(ds$FCV19S_01,"2") = "disagree"
+attr(ds$FCV19S_01,"3") = "slightly disagree"
+attr(ds$FCV19S_01,"4") = "neither agree nor disagree"
+attr(ds$FCV19S_01,"5") = "slightly agree"
+attr(ds$FCV19S_01,"6") = "agree"
+attr(ds$FCV19S_01,"7") = "strongly agree"
+attr(ds$FCV19S_02,"1") = "strongly disagree"
+attr(ds$FCV19S_02,"2") = "disagree"
+attr(ds$FCV19S_02,"3") = "slightly disagree"
+attr(ds$FCV19S_02,"4") = "neither agree nor disagree"
+attr(ds$FCV19S_02,"5") = "slightly agree"
+attr(ds$FCV19S_02,"6") = "agree"
+attr(ds$FCV19S_02,"7") = "strongly agree"
+attr(ds$FCV19S_03,"1") = "strongly disagree"
+attr(ds$FCV19S_03,"2") = "disagree"
+attr(ds$FCV19S_03,"3") = "slightly disagree"
+attr(ds$FCV19S_03,"4") = "neither agree nor disagree"
+attr(ds$FCV19S_03,"5") = "slightly agree"
+attr(ds$FCV19S_03,"6") = "agree"
+attr(ds$FCV19S_03,"7") = "strongly agree"
+attr(ds$FCV19S_04,"1") = "strongly disagree"
+attr(ds$FCV19S_04,"2") = "disagree"
+attr(ds$FCV19S_04,"3") = "slightly disagree"
+attr(ds$FCV19S_04,"4") = "neither agree nor disagree"
+attr(ds$FCV19S_04,"5") = "slightly agree"
+attr(ds$FCV19S_04,"6") = "agree"
+attr(ds$FCV19S_04,"7") = "strongly agree"
+attr(ds$FCV19S_05,"1") = "strongly disagree"
+attr(ds$FCV19S_05,"2") = "disagree"
+attr(ds$FCV19S_05,"3") = "slightly disagree"
+attr(ds$FCV19S_05,"4") = "neither agree nor disagree"
+attr(ds$FCV19S_05,"5") = "slightly agree"
+attr(ds$FCV19S_05,"6") = "agree"
+attr(ds$FCV19S_05,"7") = "strongly agree"
+attr(ds$FCV19S_06,"1") = "strongly disagree"
+attr(ds$FCV19S_06,"2") = "disagree"
+attr(ds$FCV19S_06,"3") = "slightly disagree"
+attr(ds$FCV19S_06,"4") = "neither agree nor disagree"
+attr(ds$FCV19S_06,"5") = "slightly agree"
+attr(ds$FCV19S_06,"6") = "agree"
+attr(ds$FCV19S_06,"7") = "strongly agree"
+attr(ds$FCV19S_07,"1") = "strongly disagree"
+attr(ds$FCV19S_07,"2") = "disagree"
+attr(ds$FCV19S_07,"3") = "slightly disagree"
+attr(ds$FCV19S_07,"4") = "neither agree nor disagree"
+attr(ds$FCV19S_07,"5") = "slightly agree"
+attr(ds$FCV19S_07,"6") = "agree"
+attr(ds$FCV19S_07,"7") = "strongly agree"
+attr(ds$DAQ_05,"1") = "strongly disagree"
+attr(ds$DAQ_05,"2") = "disagree"
+attr(ds$DAQ_05,"3") = "slightly disagree"
+attr(ds$DAQ_05,"4") = "neither agree nor disagree"
+attr(ds$DAQ_05,"5") = "slightly agree"
+attr(ds$DAQ_05,"6") = "agree"
+attr(ds$DAQ_05,"7") = "strongly agree"
+attr(ds$DAQ_07,"1") = "strongly disagree"
+attr(ds$DAQ_07,"2") = "disagree"
+attr(ds$DAQ_07,"3") = "slightly disagree"
+attr(ds$DAQ_07,"4") = "neither agree nor disagree"
+attr(ds$DAQ_07,"5") = "slightly agree"
+attr(ds$DAQ_07,"6") = "agree"
+attr(ds$DAQ_07,"7") = "strongly agree"
+attr(ds$DAQ_09,"1") = "strongly disagree"
+attr(ds$DAQ_09,"2") = "disagree"
+attr(ds$DAQ_09,"3") = "slightly disagree"
+attr(ds$DAQ_09,"4") = "neither agree nor disagree"
+attr(ds$DAQ_09,"5") = "slightly agree"
+attr(ds$DAQ_09,"6") = "agree"
+attr(ds$DAQ_09,"7") = "strongly agree"
+attr(ds$DAQ_11,"1") = "strongly disagree"
+attr(ds$DAQ_11,"2") = "disagree"
+attr(ds$DAQ_11,"3") = "slightly disagree"
+attr(ds$DAQ_11,"4") = "neither agree nor disagree"
+attr(ds$DAQ_11,"5") = "slightly agree"
+attr(ds$DAQ_11,"6") = "agree"
+attr(ds$DAQ_11,"7") = "strongly agree"
+attr(ds$DAQ_15,"1") = "strongly disagree"
+attr(ds$DAQ_15,"2") = "disagree"
+attr(ds$DAQ_15,"3") = "slightly disagree"
+attr(ds$DAQ_15,"4") = "neither agree nor disagree"
+attr(ds$DAQ_15,"5") = "slightly agree"
+attr(ds$DAQ_15,"6") = "agree"
+attr(ds$DAQ_15,"7") = "strongly agree"
+attr(ds$DAQ_19,"1") = "strongly disagree"
+attr(ds$DAQ_19,"2") = "disagree"
+attr(ds$DAQ_19,"3") = "slightly disagree"
+attr(ds$DAQ_19,"4") = "neither agree nor disagree"
+attr(ds$DAQ_19,"5") = "slightly agree"
+attr(ds$DAQ_19,"6") = "agree"
+attr(ds$DAQ_19,"7") = "strongly agree"
+attr(ds$DAQ_21,"1") = "strongly disagree"
+attr(ds$DAQ_21,"2") = "disagree"
+attr(ds$DAQ_21,"3") = "slightly disagree"
+attr(ds$DAQ_21,"4") = "neither agree nor disagree"
+attr(ds$DAQ_21,"5") = "slightly agree"
+attr(ds$DAQ_21,"6") = "agree"
+attr(ds$DAQ_21,"7") = "strongly agree"
+attr(ds$DAQ_23,"1") = "strongly disagree"
+attr(ds$DAQ_23,"2") = "disagree"
+attr(ds$DAQ_23,"3") = "slightly disagree"
+attr(ds$DAQ_23,"4") = "neither agree nor disagree"
+attr(ds$DAQ_23,"5") = "slightly agree"
+attr(ds$DAQ_23,"6") = "agree"
+attr(ds$DAQ_23,"7") = "strongly agree"
+attr(ds$DAQ_25,"1") = "strongly disagree"
+attr(ds$DAQ_25,"2") = "disagree"
+attr(ds$DAQ_25,"3") = "slightly disagree"
+attr(ds$DAQ_25,"4") = "neither agree nor disagree"
+attr(ds$DAQ_25,"5") = "slightly agree"
+attr(ds$DAQ_25,"6") = "agree"
+attr(ds$DAQ_25,"7") = "strongly agree"
+attr(ds$DAQ_02,"1") = "strongly disagree"
+attr(ds$DAQ_02,"2") = "disagree"
+attr(ds$DAQ_02,"3") = "slightly disagree"
+attr(ds$DAQ_02,"4") = "neither agree nor disagree"
+attr(ds$DAQ_02,"5") = "slightly agree"
+attr(ds$DAQ_02,"6") = "agree"
+attr(ds$DAQ_02,"7") = "strongly agree"
+attr(ds$DAQ_06,"1") = "strongly disagree"
+attr(ds$DAQ_06,"2") = "disagree"
+attr(ds$DAQ_06,"3") = "slightly disagree"
+attr(ds$DAQ_06,"4") = "neither agree nor disagree"
+attr(ds$DAQ_06,"5") = "slightly agree"
+attr(ds$DAQ_06,"6") = "agree"
+attr(ds$DAQ_06,"7") = "strongly agree"
+attr(ds$DAQ_08,"1") = "strongly disagree"
+attr(ds$DAQ_08,"2") = "disagree"
+attr(ds$DAQ_08,"3") = "slightly disagree"
+attr(ds$DAQ_08,"4") = "neither agree nor disagree"
+attr(ds$DAQ_08,"5") = "slightly agree"
+attr(ds$DAQ_08,"6") = "agree"
+attr(ds$DAQ_08,"7") = "strongly agree"
+attr(ds$DAQ_10,"1") = "strongly disagree"
+attr(ds$DAQ_10,"2") = "disagree"
+attr(ds$DAQ_10,"3") = "slightly disagree"
+attr(ds$DAQ_10,"4") = "neither agree nor disagree"
+attr(ds$DAQ_10,"5") = "slightly agree"
+attr(ds$DAQ_10,"6") = "agree"
+attr(ds$DAQ_10,"7") = "strongly agree"
+attr(ds$DAQ_12,"1") = "strongly disagree"
+attr(ds$DAQ_12,"2") = "disagree"
+attr(ds$DAQ_12,"3") = "slightly disagree"
+attr(ds$DAQ_12,"4") = "neither agree nor disagree"
+attr(ds$DAQ_12,"5") = "slightly agree"
+attr(ds$DAQ_12,"6") = "agree"
+attr(ds$DAQ_12,"7") = "strongly agree"
+attr(ds$DAQ_14,"1") = "strongly disagree"
+attr(ds$DAQ_14,"2") = "disagree"
+attr(ds$DAQ_14,"3") = "slightly disagree"
+attr(ds$DAQ_14,"4") = "neither agree nor disagree"
+attr(ds$DAQ_14,"5") = "slightly agree"
+attr(ds$DAQ_14,"6") = "agree"
+attr(ds$DAQ_14,"7") = "strongly agree"
+attr(ds$DAQ_16,"1") = "strongly disagree"
+attr(ds$DAQ_16,"2") = "disagree"
+attr(ds$DAQ_16,"3") = "slightly disagree"
+attr(ds$DAQ_16,"4") = "neither agree nor disagree"
+attr(ds$DAQ_16,"5") = "slightly agree"
+attr(ds$DAQ_16,"6") = "agree"
+attr(ds$DAQ_16,"7") = "strongly agree"
+attr(ds$DAQ_24,"1") = "strongly disagree"
+attr(ds$DAQ_24,"2") = "disagree"
+attr(ds$DAQ_24,"3") = "slightly disagree"
+attr(ds$DAQ_24,"4") = "neither agree nor disagree"
+attr(ds$DAQ_24,"5") = "slightly agree"
+attr(ds$DAQ_24,"6") = "agree"
+attr(ds$DAQ_24,"7") = "strongly agree"
+attr(ds$ACH_02,"1") = "strongly disagree"
+attr(ds$ACH_02,"2") = "disagree"
+attr(ds$ACH_02,"3") = "slightly disagree"
+attr(ds$ACH_02,"4") = "neither agree nor disagree"
+attr(ds$ACH_02,"5") = "slightly agree"
+attr(ds$ACH_02,"6") = "agree"
+attr(ds$ACH_02,"7") = "strongly agree"
+attr(ds$WGS_01,"1") = "strongly disagree"
+attr(ds$WGS_01,"2") = "disagree"
+attr(ds$WGS_01,"3") = "slightly disagree"
+attr(ds$WGS_01,"4") = "neither agree nor disagree"
+attr(ds$WGS_01,"5") = "slightly agree"
+attr(ds$WGS_01,"6") = "agree"
+attr(ds$WGS_01,"7") = "strongly agree"
+attr(ds$WGS_02,"1") = "strongly disagree"
+attr(ds$WGS_02,"2") = "disagree"
+attr(ds$WGS_02,"3") = "slightly disagree"
+attr(ds$WGS_02,"4") = "neither agree nor disagree"
+attr(ds$WGS_02,"5") = "slightly agree"
+attr(ds$WGS_02,"6") = "agree"
+attr(ds$WGS_02,"7") = "strongly agree"
+attr(ds$WGS_03,"1") = "strongly disagree"
+attr(ds$WGS_03,"2") = "disagree"
+attr(ds$WGS_03,"3") = "slightly disagree"
+attr(ds$WGS_03,"4") = "neither agree nor disagree"
+attr(ds$WGS_03,"5") = "slightly agree"
+attr(ds$WGS_03,"6") = "agree"
+attr(ds$WGS_03,"7") = "strongly agree"
+attr(ds$WGS_04,"1") = "strongly disagree"
+attr(ds$WGS_04,"2") = "disagree"
+attr(ds$WGS_04,"3") = "slightly disagree"
+attr(ds$WGS_04,"4") = "neither agree nor disagree"
+attr(ds$WGS_04,"5") = "slightly agree"
+attr(ds$WGS_04,"6") = "agree"
+attr(ds$WGS_04,"7") = "strongly agree"
+attr(ds$WGS_05,"1") = "strongly disagree"
+attr(ds$WGS_05,"2") = "disagree"
+attr(ds$WGS_05,"3") = "slightly disagree"
+attr(ds$WGS_05,"4") = "neither agree nor disagree"
+attr(ds$WGS_05,"5") = "slightly agree"
+attr(ds$WGS_05,"6") = "agree"
+attr(ds$WGS_05,"7") = "strongly agree"
+attr(ds$WGS_06,"1") = "strongly disagree"
+attr(ds$WGS_06,"2") = "disagree"
+attr(ds$WGS_06,"3") = "slightly disagree"
+attr(ds$WGS_06,"4") = "neither agree nor disagree"
+attr(ds$WGS_06,"5") = "slightly agree"
+attr(ds$WGS_06,"6") = "agree"
+attr(ds$WGS_06,"7") = "strongly agree"
+attr(ds$WGS_07,"1") = "strongly disagree"
+attr(ds$WGS_07,"2") = "disagree"
+attr(ds$WGS_07,"3") = "slightly disagree"
+attr(ds$WGS_07,"4") = "neither agree nor disagree"
+attr(ds$WGS_07,"5") = "slightly agree"
+attr(ds$WGS_07,"6") = "agree"
+attr(ds$WGS_07,"7") = "strongly agree"
+attr(ds$WGS_08,"1") = "strongly disagree"
+attr(ds$WGS_08,"2") = "disagree"
+attr(ds$WGS_08,"3") = "slightly disagree"
+attr(ds$WGS_08,"4") = "neither agree nor disagree"
+attr(ds$WGS_08,"5") = "slightly agree"
+attr(ds$WGS_08,"6") = "agree"
+attr(ds$WGS_08,"7") = "strongly agree"
+attr(ds$WGS_09,"1") = "strongly disagree"
+attr(ds$WGS_09,"2") = "disagree"
+attr(ds$WGS_09,"3") = "slightly disagree"
+attr(ds$WGS_09,"4") = "neither agree nor disagree"
+attr(ds$WGS_09,"5") = "slightly agree"
+attr(ds$WGS_09,"6") = "agree"
+attr(ds$WGS_09,"7") = "strongly agree"
+attr(ds$WGS_10,"1") = "strongly disagree"
+attr(ds$WGS_10,"2") = "disagree"
+attr(ds$WGS_10,"3") = "slightly disagree"
+attr(ds$WGS_10,"4") = "neither agree nor disagree"
+attr(ds$WGS_10,"5") = "slightly agree"
+attr(ds$WGS_10,"6") = "agree"
+attr(ds$WGS_10,"7") = "strongly agree"
+attr(ds$CESD_01,"1") = "never"
+attr(ds$CESD_01,"2") = "rarely"
+attr(ds$CESD_01,"3") = "occasionally"
+attr(ds$CESD_01,"4") = "sometimes"
+attr(ds$CESD_01,"5") = "often"
+attr(ds$CESD_01,"6") = "very often"
+attr(ds$CESD_01,"7") = "most of the time"
+attr(ds$CESD_02,"1") = "never"
+attr(ds$CESD_02,"2") = "rarely"
+attr(ds$CESD_02,"3") = "occasionally"
+attr(ds$CESD_02,"4") = "sometimes"
+attr(ds$CESD_02,"5") = "often"
+attr(ds$CESD_02,"6") = "very often"
+attr(ds$CESD_02,"7") = "most of the time"
+attr(ds$CESD_03,"1") = "never"
+attr(ds$CESD_03,"2") = "rarely"
+attr(ds$CESD_03,"3") = "occasionally"
+attr(ds$CESD_03,"4") = "sometimes"
+attr(ds$CESD_03,"5") = "often"
+attr(ds$CESD_03,"6") = "very often"
+attr(ds$CESD_03,"7") = "most of the time"
+attr(ds$CESD_04,"1") = "never"
+attr(ds$CESD_04,"2") = "rarely"
+attr(ds$CESD_04,"3") = "occasionally"
+attr(ds$CESD_04,"4") = "sometimes"
+attr(ds$CESD_04,"5") = "often"
+attr(ds$CESD_04,"6") = "very often"
+attr(ds$CESD_04,"7") = "most of the time"
+attr(ds$CESD_05,"1") = "never"
+attr(ds$CESD_05,"2") = "rarely"
+attr(ds$CESD_05,"3") = "occasionally"
+attr(ds$CESD_05,"4") = "sometimes"
+attr(ds$CESD_05,"5") = "often"
+attr(ds$CESD_05,"6") = "very often"
+attr(ds$CESD_05,"7") = "most of the time"
+attr(ds$CESD_06,"1") = "never"
+attr(ds$CESD_06,"2") = "rarely"
+attr(ds$CESD_06,"3") = "occasionally"
+attr(ds$CESD_06,"4") = "sometimes"
+attr(ds$CESD_06,"5") = "often"
+attr(ds$CESD_06,"6") = "very often"
+attr(ds$CESD_06,"7") = "most of the time"
+attr(ds$CESD_07,"1") = "never"
+attr(ds$CESD_07,"2") = "rarely"
+attr(ds$CESD_07,"3") = "occasionally"
+attr(ds$CESD_07,"4") = "sometimes"
+attr(ds$CESD_07,"5") = "often"
+attr(ds$CESD_07,"6") = "very often"
+attr(ds$CESD_07,"7") = "most of the time"
+attr(ds$CESD_08,"1") = "never"
+attr(ds$CESD_08,"2") = "rarely"
+attr(ds$CESD_08,"3") = "occasionally"
+attr(ds$CESD_08,"4") = "sometimes"
+attr(ds$CESD_08,"5") = "often"
+attr(ds$CESD_08,"6") = "very often"
+attr(ds$CESD_08,"7") = "most of the time"
+attr(ds$CESD_09,"1") = "never"
+attr(ds$CESD_09,"2") = "rarely"
+attr(ds$CESD_09,"3") = "occasionally"
+attr(ds$CESD_09,"4") = "sometimes"
+attr(ds$CESD_09,"5") = "often"
+attr(ds$CESD_09,"6") = "very often"
+attr(ds$CESD_09,"7") = "most of the time"
+attr(ds$CESD_10,"1") = "never"
+attr(ds$CESD_10,"2") = "rarely"
+attr(ds$CESD_10,"3") = "occasionally"
+attr(ds$CESD_10,"4") = "sometimes"
+attr(ds$CESD_10,"5") = "often"
+attr(ds$CESD_10,"6") = "very often"
+attr(ds$CESD_10,"7") = "most of the time"
+attr(ds$CESD_11,"1") = "never"
+attr(ds$CESD_11,"2") = "rarely"
+attr(ds$CESD_11,"3") = "occasionally"
+attr(ds$CESD_11,"4") = "sometimes"
+attr(ds$CESD_11,"5") = "often"
+attr(ds$CESD_11,"6") = "very often"
+attr(ds$CESD_11,"7") = "most of the time"
+attr(ds$CESD_12,"1") = "never"
+attr(ds$CESD_12,"2") = "rarely"
+attr(ds$CESD_12,"3") = "occasionally"
+attr(ds$CESD_12,"4") = "sometimes"
+attr(ds$CESD_12,"5") = "often"
+attr(ds$CESD_12,"6") = "very often"
+attr(ds$CESD_12,"7") = "most of the time"
+attr(ds$CESD_13,"1") = "never"
+attr(ds$CESD_13,"2") = "rarely"
+attr(ds$CESD_13,"3") = "occasionally"
+attr(ds$CESD_13,"4") = "sometimes"
+attr(ds$CESD_13,"5") = "often"
+attr(ds$CESD_13,"6") = "very often"
+attr(ds$CESD_13,"7") = "most of the time"
+attr(ds$CESD_14,"1") = "never"
+attr(ds$CESD_14,"2") = "rarely"
+attr(ds$CESD_14,"3") = "occasionally"
+attr(ds$CESD_14,"4") = "sometimes"
+attr(ds$CESD_14,"5") = "often"
+attr(ds$CESD_14,"6") = "very often"
+attr(ds$CESD_14,"7") = "most of the time"
+attr(ds$CESD_15,"1") = "never"
+attr(ds$CESD_15,"2") = "rarely"
+attr(ds$CESD_15,"3") = "occasionally"
+attr(ds$CESD_15,"4") = "sometimes"
+attr(ds$CESD_15,"5") = "often"
+attr(ds$CESD_15,"6") = "very often"
+attr(ds$CESD_15,"7") = "most of the time"
+attr(ds$CESD_16,"1") = "never"
+attr(ds$CESD_16,"2") = "rarely"
+attr(ds$CESD_16,"3") = "occasionally"
+attr(ds$CESD_16,"4") = "sometimes"
+attr(ds$CESD_16,"5") = "often"
+attr(ds$CESD_16,"6") = "very often"
+attr(ds$CESD_16,"7") = "most of the time"
+attr(ds$CESD_17,"1") = "never"
+attr(ds$CESD_17,"2") = "rarely"
+attr(ds$CESD_17,"3") = "occasionally"
+attr(ds$CESD_17,"4") = "sometimes"
+attr(ds$CESD_17,"5") = "often"
+attr(ds$CESD_17,"6") = "very often"
+attr(ds$CESD_17,"7") = "most of the time"
+attr(ds$CESD_18,"1") = "never"
+attr(ds$CESD_18,"2") = "rarely"
+attr(ds$CESD_18,"3") = "occasionally"
+attr(ds$CESD_18,"4") = "sometimes"
+attr(ds$CESD_18,"5") = "often"
+attr(ds$CESD_18,"6") = "very often"
+attr(ds$CESD_18,"7") = "most of the time"
+attr(ds$CESD_19,"1") = "never"
+attr(ds$CESD_19,"2") = "rarely"
+attr(ds$CESD_19,"3") = "occasionally"
+attr(ds$CESD_19,"4") = "sometimes"
+attr(ds$CESD_19,"5") = "often"
+attr(ds$CESD_19,"6") = "very often"
+attr(ds$CESD_19,"7") = "most of the time"
+attr(ds$CESD_20,"1") = "never"
+attr(ds$CESD_20,"2") = "rarely"
+attr(ds$CESD_20,"3") = "occasionally"
+attr(ds$CESD_20,"4") = "sometimes"
+attr(ds$CESD_20,"5") = "often"
+attr(ds$CESD_20,"6") = "very often"
+attr(ds$CESD_20,"7") = "most of the time"
+attr(ds$HEXACO_01,"1") = "strongly disagree"
+attr(ds$HEXACO_01,"2") = "disagree"
+attr(ds$HEXACO_01,"3") = "slightly disagree"
+attr(ds$HEXACO_01,"4") = "neither agree nor disagree"
+attr(ds$HEXACO_01,"5") = "slightly agree"
+attr(ds$HEXACO_01,"6") = "agree"
+attr(ds$HEXACO_01,"7") = "strongly agree"
+attr(ds$HEXACO_02,"1") = "strongly disagree"
+attr(ds$HEXACO_02,"2") = "disagree"
+attr(ds$HEXACO_02,"3") = "slightly disagree"
+attr(ds$HEXACO_02,"4") = "neither agree nor disagree"
+attr(ds$HEXACO_02,"5") = "slightly agree"
+attr(ds$HEXACO_02,"6") = "agree"
+attr(ds$HEXACO_02,"7") = "strongly agree"
+attr(ds$HEXACO_03,"1") = "strongly disagree"
+attr(ds$HEXACO_03,"2") = "disagree"
+attr(ds$HEXACO_03,"3") = "slightly disagree"
+attr(ds$HEXACO_03,"4") = "neither agree nor disagree"
+attr(ds$HEXACO_03,"5") = "slightly agree"
+attr(ds$HEXACO_03,"6") = "agree"
+attr(ds$HEXACO_03,"7") = "strongly agree"
+attr(ds$HEXACO_04,"1") = "strongly disagree"
+attr(ds$HEXACO_04,"2") = "disagree"
+attr(ds$HEXACO_04,"3") = "slightly disagree"
+attr(ds$HEXACO_04,"4") = "neither agree nor disagree"
+attr(ds$HEXACO_04,"5") = "slightly agree"
+attr(ds$HEXACO_04,"6") = "agree"
+attr(ds$HEXACO_04,"7") = "strongly agree"
+attr(ds$HEXACO_05,"1") = "strongly disagree"
+attr(ds$HEXACO_05,"2") = "disagree"
+attr(ds$HEXACO_05,"3") = "slightly disagree"
+attr(ds$HEXACO_05,"4") = "neither agree nor disagree"
+attr(ds$HEXACO_05,"5") = "slightly agree"
+attr(ds$HEXACO_05,"6") = "agree"
+attr(ds$HEXACO_05,"7") = "strongly agree"
+attr(ds$HEXACO_06,"1") = "strongly disagree"
+attr(ds$HEXACO_06,"2") = "disagree"
+attr(ds$HEXACO_06,"3") = "slightly disagree"
+attr(ds$HEXACO_06,"4") = "neither agree nor disagree"
+attr(ds$HEXACO_06,"5") = "slightly agree"
+attr(ds$HEXACO_06,"6") = "agree"
+attr(ds$HEXACO_06,"7") = "strongly agree"
+attr(ds$HEXACO_07,"1") = "strongly disagree"
+attr(ds$HEXACO_07,"2") = "disagree"
+attr(ds$HEXACO_07,"3") = "slightly disagree"
+attr(ds$HEXACO_07,"4") = "neither agree nor disagree"
+attr(ds$HEXACO_07,"5") = "slightly agree"
+attr(ds$HEXACO_07,"6") = "agree"
+attr(ds$HEXACO_07,"7") = "strongly agree"
+attr(ds$HEXACO_08,"1") = "strongly disagree"
+attr(ds$HEXACO_08,"2") = "disagree"
+attr(ds$HEXACO_08,"3") = "slightly disagree"
+attr(ds$HEXACO_08,"4") = "neither agree nor disagree"
+attr(ds$HEXACO_08,"5") = "slightly agree"
+attr(ds$HEXACO_08,"6") = "agree"
+attr(ds$HEXACO_08,"7") = "strongly agree"
+attr(ds$HEXACO_09,"1") = "strongly disagree"
+attr(ds$HEXACO_09,"2") = "disagree"
+attr(ds$HEXACO_09,"3") = "slightly disagree"
+attr(ds$HEXACO_09,"4") = "neither agree nor disagree"
+attr(ds$HEXACO_09,"5") = "slightly agree"
+attr(ds$HEXACO_09,"6") = "agree"
+attr(ds$HEXACO_09,"7") = "strongly agree"
+attr(ds$HEXACO_10,"1") = "strongly disagree"
+attr(ds$HEXACO_10,"2") = "disagree"
+attr(ds$HEXACO_10,"3") = "slightly disagree"
+attr(ds$HEXACO_10,"4") = "neither agree nor disagree"
+attr(ds$HEXACO_10,"5") = "slightly agree"
+attr(ds$HEXACO_10,"6") = "agree"
+attr(ds$HEXACO_10,"7") = "strongly agree"
+attr(ds$HEXACO_11,"1") = "strongly disagree"
+attr(ds$HEXACO_11,"2") = "disagree"
+attr(ds$HEXACO_11,"3") = "slightly disagree"
+attr(ds$HEXACO_11,"4") = "neither agree nor disagree"
+attr(ds$HEXACO_11,"5") = "slightly agree"
+attr(ds$HEXACO_11,"6") = "agree"
+attr(ds$HEXACO_11,"7") = "strongly agree"
+attr(ds$HEXACO_12,"1") = "strongly disagree"
+attr(ds$HEXACO_12,"2") = "disagree"
+attr(ds$HEXACO_12,"3") = "slightly disagree"
+attr(ds$HEXACO_12,"4") = "neither agree nor disagree"
+attr(ds$HEXACO_12,"5") = "slightly agree"
+attr(ds$HEXACO_12,"6") = "agree"
+attr(ds$HEXACO_12,"7") = "strongly agree"
+attr(ds$HEXACO_13,"1") = "strongly disagree"
+attr(ds$HEXACO_13,"2") = "disagree"
+attr(ds$HEXACO_13,"3") = "slightly disagree"
+attr(ds$HEXACO_13,"4") = "neither agree nor disagree"
+attr(ds$HEXACO_13,"5") = "slightly agree"
+attr(ds$HEXACO_13,"6") = "agree"
+attr(ds$HEXACO_13,"7") = "strongly agree"
+attr(ds$HEXACO_14,"1") = "strongly disagree"
+attr(ds$HEXACO_14,"2") = "disagree"
+attr(ds$HEXACO_14,"3") = "slightly disagree"
+attr(ds$HEXACO_14,"4") = "neither agree nor disagree"
+attr(ds$HEXACO_14,"5") = "slightly agree"
+attr(ds$HEXACO_14,"6") = "agree"
+attr(ds$HEXACO_14,"7") = "strongly agree"
+attr(ds$HEXACO_15,"1") = "strongly disagree"
+attr(ds$HEXACO_15,"2") = "disagree"
+attr(ds$HEXACO_15,"3") = "slightly disagree"
+attr(ds$HEXACO_15,"4") = "neither agree nor disagree"
+attr(ds$HEXACO_15,"5") = "slightly agree"
+attr(ds$HEXACO_15,"6") = "agree"
+attr(ds$HEXACO_15,"7") = "strongly agree"
+attr(ds$HEXACO_16,"1") = "strongly disagree"
+attr(ds$HEXACO_16,"2") = "disagree"
+attr(ds$HEXACO_16,"3") = "slightly disagree"
+attr(ds$HEXACO_16,"4") = "neither agree nor disagree"
+attr(ds$HEXACO_16,"5") = "slightly agree"
+attr(ds$HEXACO_16,"6") = "agree"
+attr(ds$HEXACO_16,"7") = "strongly agree"
+attr(ds$HEXACO_17,"1") = "strongly disagree"
+attr(ds$HEXACO_17,"2") = "disagree"
+attr(ds$HEXACO_17,"3") = "slightly disagree"
+attr(ds$HEXACO_17,"4") = "neither agree nor disagree"
+attr(ds$HEXACO_17,"5") = "slightly agree"
+attr(ds$HEXACO_17,"6") = "agree"
+attr(ds$HEXACO_17,"7") = "strongly agree"
+attr(ds$HEXACO_18,"1") = "strongly disagree"
+attr(ds$HEXACO_18,"2") = "disagree"
+attr(ds$HEXACO_18,"3") = "slightly disagree"
+attr(ds$HEXACO_18,"4") = "neither agree nor disagree"
+attr(ds$HEXACO_18,"5") = "slightly agree"
+attr(ds$HEXACO_18,"6") = "agree"
+attr(ds$HEXACO_18,"7") = "strongly agree"
+attr(ds$HEXACO_19,"1") = "strongly disagree"
+attr(ds$HEXACO_19,"2") = "disagree"
+attr(ds$HEXACO_19,"3") = "slightly disagree"
+attr(ds$HEXACO_19,"4") = "neither agree nor disagree"
+attr(ds$HEXACO_19,"5") = "slightly agree"
+attr(ds$HEXACO_19,"6") = "agree"
+attr(ds$HEXACO_19,"7") = "strongly agree"
+attr(ds$HEXACO_20,"1") = "strongly disagree"
+attr(ds$HEXACO_20,"2") = "disagree"
+attr(ds$HEXACO_20,"3") = "slightly disagree"
+attr(ds$HEXACO_20,"4") = "neither agree nor disagree"
+attr(ds$HEXACO_20,"5") = "slightly agree"
+attr(ds$HEXACO_20,"6") = "agree"
+attr(ds$HEXACO_20,"7") = "strongly agree"
+attr(ds$HEXACO_21,"1") = "strongly disagree"
+attr(ds$HEXACO_21,"2") = "disagree"
+attr(ds$HEXACO_21,"3") = "slightly disagree"
+attr(ds$HEXACO_21,"4") = "neither agree nor disagree"
+attr(ds$HEXACO_21,"5") = "slightly agree"
+attr(ds$HEXACO_21,"6") = "agree"
+attr(ds$HEXACO_21,"7") = "strongly agree"
+attr(ds$HEXACO_22,"1") = "strongly disagree"
+attr(ds$HEXACO_22,"2") = "disagree"
+attr(ds$HEXACO_22,"3") = "slightly disagree"
+attr(ds$HEXACO_22,"4") = "neither agree nor disagree"
+attr(ds$HEXACO_22,"5") = "slightly agree"
+attr(ds$HEXACO_22,"6") = "agree"
+attr(ds$HEXACO_22,"7") = "strongly agree"
+attr(ds$HEXACO_23,"1") = "strongly disagree"
+attr(ds$HEXACO_23,"2") = "disagree"
+attr(ds$HEXACO_23,"3") = "slightly disagree"
+attr(ds$HEXACO_23,"4") = "neither agree nor disagree"
+attr(ds$HEXACO_23,"5") = "slightly agree"
+attr(ds$HEXACO_23,"6") = "agree"
+attr(ds$HEXACO_23,"7") = "strongly agree"
+attr(ds$HEXACO_24,"1") = "strongly disagree"
+attr(ds$HEXACO_24,"2") = "disagree"
+attr(ds$HEXACO_24,"3") = "slightly disagree"
+attr(ds$HEXACO_24,"4") = "neither agree nor disagree"
+attr(ds$HEXACO_24,"5") = "slightly agree"
+attr(ds$HEXACO_24,"6") = "agree"
+attr(ds$HEXACO_24,"7") = "strongly agree"
+attr(ds$HEXACO_25,"1") = "strongly disagree"
+attr(ds$HEXACO_25,"2") = "disagree"
+attr(ds$HEXACO_25,"3") = "slightly disagree"
+attr(ds$HEXACO_25,"4") = "neither agree nor disagree"
+attr(ds$HEXACO_25,"5") = "slightly agree"
+attr(ds$HEXACO_25,"6") = "agree"
+attr(ds$HEXACO_25,"7") = "strongly agree"
+attr(ds$HEXACO_26,"1") = "strongly disagree"
+attr(ds$HEXACO_26,"2") = "disagree"
+attr(ds$HEXACO_26,"3") = "slightly disagree"
+attr(ds$HEXACO_26,"4") = "neither agree nor disagree"
+attr(ds$HEXACO_26,"5") = "slightly agree"
+attr(ds$HEXACO_26,"6") = "agree"
+attr(ds$HEXACO_26,"7") = "strongly agree"
+attr(ds$HEXACO_27,"1") = "strongly disagree"
+attr(ds$HEXACO_27,"2") = "disagree"
+attr(ds$HEXACO_27,"3") = "slightly disagree"
+attr(ds$HEXACO_27,"4") = "neither agree nor disagree"
+attr(ds$HEXACO_27,"5") = "slightly agree"
+attr(ds$HEXACO_27,"6") = "agree"
+attr(ds$HEXACO_27,"7") = "strongly agree"
+attr(ds$HEXACO_28,"1") = "strongly disagree"
+attr(ds$HEXACO_28,"2") = "disagree"
+attr(ds$HEXACO_28,"3") = "slightly disagree"
+attr(ds$HEXACO_28,"4") = "neither agree nor disagree"
+attr(ds$HEXACO_28,"5") = "slightly agree"
+attr(ds$HEXACO_28,"6") = "agree"
+attr(ds$HEXACO_28,"7") = "strongly agree"
+attr(ds$HEXACO_29,"1") = "strongly disagree"
+attr(ds$HEXACO_29,"2") = "disagree"
+attr(ds$HEXACO_29,"3") = "slightly disagree"
+attr(ds$HEXACO_29,"4") = "neither agree nor disagree"
+attr(ds$HEXACO_29,"5") = "slightly agree"
+attr(ds$HEXACO_29,"6") = "agree"
+attr(ds$HEXACO_29,"7") = "strongly agree"
+attr(ds$HEXACO_30,"1") = "strongly disagree"
+attr(ds$HEXACO_30,"2") = "disagree"
+attr(ds$HEXACO_30,"3") = "slightly disagree"
+attr(ds$HEXACO_30,"4") = "neither agree nor disagree"
+attr(ds$HEXACO_30,"5") = "slightly agree"
+attr(ds$HEXACO_30,"6") = "agree"
+attr(ds$HEXACO_30,"7") = "strongly agree"
+attr(ds$IFI_02,"1") = "strongly disagree"
+attr(ds$IFI_02,"2") = "disagree"
+attr(ds$IFI_02,"3") = "slightly disagree"
+attr(ds$IFI_02,"4") = "neither agree nor disagree"
+attr(ds$IFI_02,"5") = "slightly agree"
+attr(ds$IFI_02,"6") = "agree"
+attr(ds$IFI_02,"7") = "strongly agree"
+attr(ds$OCIR_01,"1") = "strongly disagree"
+attr(ds$OCIR_01,"2") = "disagree"
+attr(ds$OCIR_01,"3") = "slightly disagree"
+attr(ds$OCIR_01,"4") = "neither agree nor disagree"
+attr(ds$OCIR_01,"5") = "slightly agree"
+attr(ds$OCIR_01,"6") = "agree"
+attr(ds$OCIR_01,"7") = "strongly agree"
+attr(ds$OCIR_02,"1") = "strongly disagree"
+attr(ds$OCIR_02,"2") = "disagree"
+attr(ds$OCIR_02,"3") = "slightly disagree"
+attr(ds$OCIR_02,"4") = "neither agree nor disagree"
+attr(ds$OCIR_02,"5") = "slightly agree"
+attr(ds$OCIR_02,"6") = "agree"
+attr(ds$OCIR_02,"7") = "strongly agree"
+attr(ds$OCIR_03,"1") = "strongly disagree"
+attr(ds$OCIR_03,"2") = "disagree"
+attr(ds$OCIR_03,"3") = "slightly disagree"
+attr(ds$OCIR_03,"4") = "neither agree nor disagree"
+attr(ds$OCIR_03,"5") = "slightly agree"
+attr(ds$OCIR_03,"6") = "agree"
+attr(ds$OCIR_03,"7") = "strongly agree"
+attr(ds$OCIR_04,"1") = "strongly disagree"
+attr(ds$OCIR_04,"2") = "disagree"
+attr(ds$OCIR_04,"3") = "slightly disagree"
+attr(ds$OCIR_04,"4") = "neither agree nor disagree"
+attr(ds$OCIR_04,"5") = "slightly agree"
+attr(ds$OCIR_04,"6") = "agree"
+attr(ds$OCIR_04,"7") = "strongly agree"
+attr(ds$OCIR_05,"1") = "strongly disagree"
+attr(ds$OCIR_05,"2") = "disagree"
+attr(ds$OCIR_05,"3") = "slightly disagree"
+attr(ds$OCIR_05,"4") = "neither agree nor disagree"
+attr(ds$OCIR_05,"5") = "slightly agree"
+attr(ds$OCIR_05,"6") = "agree"
+attr(ds$OCIR_05,"7") = "strongly agree"
+attr(ds$OCIR_06,"1") = "strongly disagree"
+attr(ds$OCIR_06,"2") = "disagree"
+attr(ds$OCIR_06,"3") = "slightly disagree"
+attr(ds$OCIR_06,"4") = "neither agree nor disagree"
+attr(ds$OCIR_06,"5") = "slightly agree"
+attr(ds$OCIR_06,"6") = "agree"
+attr(ds$OCIR_06,"7") = "strongly agree"
+attr(ds$OCIR_07,"1") = "strongly disagree"
+attr(ds$OCIR_07,"2") = "disagree"
+attr(ds$OCIR_07,"3") = "slightly disagree"
+attr(ds$OCIR_07,"4") = "neither agree nor disagree"
+attr(ds$OCIR_07,"5") = "slightly agree"
+attr(ds$OCIR_07,"6") = "agree"
+attr(ds$OCIR_07,"7") = "strongly agree"
+attr(ds$OCIR_08,"1") = "strongly disagree"
+attr(ds$OCIR_08,"2") = "disagree"
+attr(ds$OCIR_08,"3") = "slightly disagree"
+attr(ds$OCIR_08,"4") = "neither agree nor disagree"
+attr(ds$OCIR_08,"5") = "slightly agree"
+attr(ds$OCIR_08,"6") = "agree"
+attr(ds$OCIR_08,"7") = "strongly agree"
+attr(ds$OCIR_09,"1") = "strongly disagree"
+attr(ds$OCIR_09,"2") = "disagree"
+attr(ds$OCIR_09,"3") = "slightly disagree"
+attr(ds$OCIR_09,"4") = "neither agree nor disagree"
+attr(ds$OCIR_09,"5") = "slightly agree"
+attr(ds$OCIR_09,"6") = "agree"
+attr(ds$OCIR_09,"7") = "strongly agree"
+attr(ds$OCIR_10,"1") = "strongly disagree"
+attr(ds$OCIR_10,"2") = "disagree"
+attr(ds$OCIR_10,"3") = "slightly disagree"
+attr(ds$OCIR_10,"4") = "neither agree nor disagree"
+attr(ds$OCIR_10,"5") = "slightly agree"
+attr(ds$OCIR_10,"6") = "agree"
+attr(ds$OCIR_10,"7") = "strongly agree"
+attr(ds$OCIR_11,"1") = "strongly disagree"
+attr(ds$OCIR_11,"2") = "disagree"
+attr(ds$OCIR_11,"3") = "slightly disagree"
+attr(ds$OCIR_11,"4") = "neither agree nor disagree"
+attr(ds$OCIR_11,"5") = "slightly agree"
+attr(ds$OCIR_11,"6") = "agree"
+attr(ds$OCIR_11,"7") = "strongly agree"
+attr(ds$OCIR_12,"1") = "strongly disagree"
+attr(ds$OCIR_12,"2") = "disagree"
+attr(ds$OCIR_12,"3") = "slightly disagree"
+attr(ds$OCIR_12,"4") = "neither agree nor disagree"
+attr(ds$OCIR_12,"5") = "slightly agree"
+attr(ds$OCIR_12,"6") = "agree"
+attr(ds$OCIR_12,"7") = "strongly agree"
+attr(ds$OCIR_13,"1") = "strongly disagree"
+attr(ds$OCIR_13,"2") = "disagree"
+attr(ds$OCIR_13,"3") = "slightly disagree"
+attr(ds$OCIR_13,"4") = "neither agree nor disagree"
+attr(ds$OCIR_13,"5") = "slightly agree"
+attr(ds$OCIR_13,"6") = "agree"
+attr(ds$OCIR_13,"7") = "strongly agree"
+attr(ds$OCIR_14,"1") = "strongly disagree"
+attr(ds$OCIR_14,"2") = "disagree"
+attr(ds$OCIR_14,"3") = "slightly disagree"
+attr(ds$OCIR_14,"4") = "neither agree nor disagree"
+attr(ds$OCIR_14,"5") = "slightly agree"
+attr(ds$OCIR_14,"6") = "agree"
+attr(ds$OCIR_14,"7") = "strongly agree"
+attr(ds$OCIR_15,"1") = "strongly disagree"
+attr(ds$OCIR_15,"2") = "disagree"
+attr(ds$OCIR_15,"3") = "slightly disagree"
+attr(ds$OCIR_15,"4") = "neither agree nor disagree"
+attr(ds$OCIR_15,"5") = "slightly agree"
+attr(ds$OCIR_15,"6") = "agree"
+attr(ds$OCIR_15,"7") = "strongly agree"
+attr(ds$OCIR_16,"1") = "strongly disagree"
+attr(ds$OCIR_16,"2") = "disagree"
+attr(ds$OCIR_16,"3") = "slightly disagree"
+attr(ds$OCIR_16,"4") = "neither agree nor disagree"
+attr(ds$OCIR_16,"5") = "slightly agree"
+attr(ds$OCIR_16,"6") = "agree"
+attr(ds$OCIR_16,"7") = "strongly agree"
+attr(ds$OCIR_17,"1") = "strongly disagree"
+attr(ds$OCIR_17,"2") = "disagree"
+attr(ds$OCIR_17,"3") = "slightly disagree"
+attr(ds$OCIR_17,"4") = "neither agree nor disagree"
+attr(ds$OCIR_17,"5") = "slightly agree"
+attr(ds$OCIR_17,"6") = "agree"
+attr(ds$OCIR_17,"7") = "strongly agree"
+attr(ds$OCIR_18,"1") = "strongly disagree"
+attr(ds$OCIR_18,"2") = "disagree"
+attr(ds$OCIR_18,"3") = "slightly disagree"
+attr(ds$OCIR_18,"4") = "neither agree nor disagree"
+attr(ds$OCIR_18,"5") = "slightly agree"
+attr(ds$OCIR_18,"6") = "agree"
+attr(ds$OCIR_18,"7") = "strongly agree"
+attr(ds$PTQ_01,"1") = "strongly disagree"
+attr(ds$PTQ_01,"2") = "disagree"
+attr(ds$PTQ_01,"3") = "slightly disagree"
+attr(ds$PTQ_01,"4") = "neither agree nor disagree"
+attr(ds$PTQ_01,"5") = "slightly agree"
+attr(ds$PTQ_01,"6") = "agree"
+attr(ds$PTQ_01,"7") = "strongly agree"
+attr(ds$PTQ_02,"1") = "strongly disagree"
+attr(ds$PTQ_02,"2") = "disagree"
+attr(ds$PTQ_02,"3") = "slightly disagree"
+attr(ds$PTQ_02,"4") = "neither agree nor disagree"
+attr(ds$PTQ_02,"5") = "slightly agree"
+attr(ds$PTQ_02,"6") = "agree"
+attr(ds$PTQ_02,"7") = "strongly agree"
+attr(ds$PTQ_03,"1") = "strongly disagree"
+attr(ds$PTQ_03,"2") = "disagree"
+attr(ds$PTQ_03,"3") = "slightly disagree"
+attr(ds$PTQ_03,"4") = "neither agree nor disagree"
+attr(ds$PTQ_03,"5") = "slightly agree"
+attr(ds$PTQ_03,"6") = "agree"
+attr(ds$PTQ_03,"7") = "strongly agree"
+attr(ds$PTQ_04,"1") = "strongly disagree"
+attr(ds$PTQ_04,"2") = "disagree"
+attr(ds$PTQ_04,"3") = "slightly disagree"
+attr(ds$PTQ_04,"4") = "neither agree nor disagree"
+attr(ds$PTQ_04,"5") = "slightly agree"
+attr(ds$PTQ_04,"6") = "agree"
+attr(ds$PTQ_04,"7") = "strongly agree"
+attr(ds$PTQ_05,"1") = "strongly disagree"
+attr(ds$PTQ_05,"2") = "disagree"
+attr(ds$PTQ_05,"3") = "slightly disagree"
+attr(ds$PTQ_05,"4") = "neither agree nor disagree"
+attr(ds$PTQ_05,"5") = "slightly agree"
+attr(ds$PTQ_05,"6") = "agree"
+attr(ds$PTQ_05,"7") = "strongly agree"
+attr(ds$PTQ_06,"1") = "strongly disagree"
+attr(ds$PTQ_06,"2") = "disagree"
+attr(ds$PTQ_06,"3") = "slightly disagree"
+attr(ds$PTQ_06,"4") = "neither agree nor disagree"
+attr(ds$PTQ_06,"5") = "slightly agree"
+attr(ds$PTQ_06,"6") = "agree"
+attr(ds$PTQ_06,"7") = "strongly agree"
+attr(ds$PTQ_07,"1") = "strongly disagree"
+attr(ds$PTQ_07,"2") = "disagree"
+attr(ds$PTQ_07,"3") = "slightly disagree"
+attr(ds$PTQ_07,"4") = "neither agree nor disagree"
+attr(ds$PTQ_07,"5") = "slightly agree"
+attr(ds$PTQ_07,"6") = "agree"
+attr(ds$PTQ_07,"7") = "strongly agree"
+attr(ds$PTQ_08,"1") = "strongly disagree"
+attr(ds$PTQ_08,"2") = "disagree"
+attr(ds$PTQ_08,"3") = "slightly disagree"
+attr(ds$PTQ_08,"4") = "neither agree nor disagree"
+attr(ds$PTQ_08,"5") = "slightly agree"
+attr(ds$PTQ_08,"6") = "agree"
+attr(ds$PTQ_08,"7") = "strongly agree"
+attr(ds$PTQ_09,"1") = "strongly disagree"
+attr(ds$PTQ_09,"2") = "disagree"
+attr(ds$PTQ_09,"3") = "slightly disagree"
+attr(ds$PTQ_09,"4") = "neither agree nor disagree"
+attr(ds$PTQ_09,"5") = "slightly agree"
+attr(ds$PTQ_09,"6") = "agree"
+attr(ds$PTQ_09,"7") = "strongly agree"
+attr(ds$PTQ_10,"1") = "strongly disagree"
+attr(ds$PTQ_10,"2") = "disagree"
+attr(ds$PTQ_10,"3") = "slightly disagree"
+attr(ds$PTQ_10,"4") = "neither agree nor disagree"
+attr(ds$PTQ_10,"5") = "slightly agree"
+attr(ds$PTQ_10,"6") = "agree"
+attr(ds$PTQ_10,"7") = "strongly agree"
+attr(ds$PTQ_11,"1") = "strongly disagree"
+attr(ds$PTQ_11,"2") = "disagree"
+attr(ds$PTQ_11,"3") = "slightly disagree"
+attr(ds$PTQ_11,"4") = "neither agree nor disagree"
+attr(ds$PTQ_11,"5") = "slightly agree"
+attr(ds$PTQ_11,"6") = "agree"
+attr(ds$PTQ_11,"7") = "strongly agree"
+attr(ds$PTQ_12,"1") = "strongly disagree"
+attr(ds$PTQ_12,"2") = "disagree"
+attr(ds$PTQ_12,"3") = "slightly disagree"
+attr(ds$PTQ_12,"4") = "neither agree nor disagree"
+attr(ds$PTQ_12,"5") = "slightly agree"
+attr(ds$PTQ_12,"6") = "agree"
+attr(ds$PTQ_12,"7") = "strongly agree"
+attr(ds$PTQ_13,"1") = "strongly disagree"
+attr(ds$PTQ_13,"2") = "disagree"
+attr(ds$PTQ_13,"3") = "slightly disagree"
+attr(ds$PTQ_13,"4") = "neither agree nor disagree"
+attr(ds$PTQ_13,"5") = "slightly agree"
+attr(ds$PTQ_13,"6") = "agree"
+attr(ds$PTQ_13,"7") = "strongly agree"
+attr(ds$PTQ_14,"1") = "strongly disagree"
+attr(ds$PTQ_14,"2") = "disagree"
+attr(ds$PTQ_14,"3") = "slightly disagree"
+attr(ds$PTQ_14,"4") = "neither agree nor disagree"
+attr(ds$PTQ_14,"5") = "slightly agree"
+attr(ds$PTQ_14,"6") = "agree"
+attr(ds$PTQ_14,"7") = "strongly agree"
+attr(ds$PTQ_15,"1") = "strongly disagree"
+attr(ds$PTQ_15,"2") = "disagree"
+attr(ds$PTQ_15,"3") = "slightly disagree"
+attr(ds$PTQ_15,"4") = "neither agree nor disagree"
+attr(ds$PTQ_15,"5") = "slightly agree"
+attr(ds$PTQ_15,"6") = "agree"
+attr(ds$PTQ_15,"7") = "strongly agree"
+attr(ds$RAAS_01,"1") = "strongly disagree"
+attr(ds$RAAS_01,"2") = "disagree"
+attr(ds$RAAS_01,"3") = "slightly disagree"
+attr(ds$RAAS_01,"4") = "neither agree nor disagree"
+attr(ds$RAAS_01,"5") = "slightly agree"
+attr(ds$RAAS_01,"6") = "agree"
+attr(ds$RAAS_01,"7") = "strongly agree"
+attr(ds$RAAS_02,"1") = "strongly disagree"
+attr(ds$RAAS_02,"2") = "disagree"
+attr(ds$RAAS_02,"3") = "slightly disagree"
+attr(ds$RAAS_02,"4") = "neither agree nor disagree"
+attr(ds$RAAS_02,"5") = "slightly agree"
+attr(ds$RAAS_02,"6") = "agree"
+attr(ds$RAAS_02,"7") = "strongly agree"
+attr(ds$RAAS_05,"1") = "strongly disagree"
+attr(ds$RAAS_05,"2") = "disagree"
+attr(ds$RAAS_05,"3") = "slightly disagree"
+attr(ds$RAAS_05,"4") = "neither agree nor disagree"
+attr(ds$RAAS_05,"5") = "slightly agree"
+attr(ds$RAAS_05,"6") = "agree"
+attr(ds$RAAS_05,"7") = "strongly agree"
+attr(ds$RAAS_06,"1") = "strongly disagree"
+attr(ds$RAAS_06,"2") = "disagree"
+attr(ds$RAAS_06,"3") = "slightly disagree"
+attr(ds$RAAS_06,"4") = "neither agree nor disagree"
+attr(ds$RAAS_06,"5") = "slightly agree"
+attr(ds$RAAS_06,"6") = "agree"
+attr(ds$RAAS_06,"7") = "strongly agree"
+attr(ds$RAAS_07,"1") = "strongly disagree"
+attr(ds$RAAS_07,"2") = "disagree"
+attr(ds$RAAS_07,"3") = "slightly disagree"
+attr(ds$RAAS_07,"4") = "neither agree nor disagree"
+attr(ds$RAAS_07,"5") = "slightly agree"
+attr(ds$RAAS_07,"6") = "agree"
+attr(ds$RAAS_07,"7") = "strongly agree"
+attr(ds$RAAS_08,"1") = "strongly disagree"
+attr(ds$RAAS_08,"2") = "disagree"
+attr(ds$RAAS_08,"3") = "slightly disagree"
+attr(ds$RAAS_08,"4") = "neither agree nor disagree"
+attr(ds$RAAS_08,"5") = "slightly agree"
+attr(ds$RAAS_08,"6") = "agree"
+attr(ds$RAAS_08,"7") = "strongly agree"
+attr(ds$RAAS_12,"1") = "strongly disagree"
+attr(ds$RAAS_12,"2") = "disagree"
+attr(ds$RAAS_12,"3") = "slightly disagree"
+attr(ds$RAAS_12,"4") = "neither agree nor disagree"
+attr(ds$RAAS_12,"5") = "slightly agree"
+attr(ds$RAAS_12,"6") = "agree"
+attr(ds$RAAS_12,"7") = "strongly agree"
+attr(ds$RAAS_13,"1") = "strongly disagree"
+attr(ds$RAAS_13,"2") = "disagree"
+attr(ds$RAAS_13,"3") = "slightly disagree"
+attr(ds$RAAS_13,"4") = "neither agree nor disagree"
+attr(ds$RAAS_13,"5") = "slightly agree"
+attr(ds$RAAS_13,"6") = "agree"
+attr(ds$RAAS_13,"7") = "strongly agree"
+attr(ds$RAAS_14,"1") = "strongly disagree"
+attr(ds$RAAS_14,"2") = "disagree"
+attr(ds$RAAS_14,"3") = "slightly disagree"
+attr(ds$RAAS_14,"4") = "neither agree nor disagree"
+attr(ds$RAAS_14,"5") = "slightly agree"
+attr(ds$RAAS_14,"6") = "agree"
+attr(ds$RAAS_14,"7") = "strongly agree"
+attr(ds$RAAS_16,"1") = "strongly disagree"
+attr(ds$RAAS_16,"2") = "disagree"
+attr(ds$RAAS_16,"3") = "slightly disagree"
+attr(ds$RAAS_16,"4") = "neither agree nor disagree"
+attr(ds$RAAS_16,"5") = "slightly agree"
+attr(ds$RAAS_16,"6") = "agree"
+attr(ds$RAAS_16,"7") = "strongly agree"
+attr(ds$RAAS_17,"1") = "strongly disagree"
+attr(ds$RAAS_17,"2") = "disagree"
+attr(ds$RAAS_17,"3") = "slightly disagree"
+attr(ds$RAAS_17,"4") = "neither agree nor disagree"
+attr(ds$RAAS_17,"5") = "slightly agree"
+attr(ds$RAAS_17,"6") = "agree"
+attr(ds$RAAS_17,"7") = "strongly agree"
+attr(ds$KSA3_01,"1") = "strongly disagree"
+attr(ds$KSA3_01,"2") = "disagree"
+attr(ds$KSA3_01,"3") = "slightly disagree"
+attr(ds$KSA3_01,"4") = "neither agree nor disagree"
+attr(ds$KSA3_01,"5") = "slightly agree"
+attr(ds$KSA3_01,"6") = "agree"
+attr(ds$KSA3_01,"7") = "strongly agree"
+attr(ds$KSA3_02,"1") = "strongly disagree"
+attr(ds$KSA3_02,"2") = "disagree"
+attr(ds$KSA3_02,"3") = "slightly disagree"
+attr(ds$KSA3_02,"4") = "neither agree nor disagree"
+attr(ds$KSA3_02,"5") = "slightly agree"
+attr(ds$KSA3_02,"6") = "agree"
+attr(ds$KSA3_02,"7") = "strongly agree"
+attr(ds$KSA3_03,"1") = "strongly disagree"
+attr(ds$KSA3_03,"2") = "disagree"
+attr(ds$KSA3_03,"3") = "slightly disagree"
+attr(ds$KSA3_03,"4") = "neither agree nor disagree"
+attr(ds$KSA3_03,"5") = "slightly agree"
+attr(ds$KSA3_03,"6") = "agree"
+attr(ds$KSA3_03,"7") = "strongly agree"
+attr(ds$KSA3_04,"1") = "strongly disagree"
+attr(ds$KSA3_04,"2") = "disagree"
+attr(ds$KSA3_04,"3") = "slightly disagree"
+attr(ds$KSA3_04,"4") = "neither agree nor disagree"
+attr(ds$KSA3_04,"5") = "slightly agree"
+attr(ds$KSA3_04,"6") = "agree"
+attr(ds$KSA3_04,"7") = "strongly agree"
+attr(ds$KSA3_05,"1") = "strongly disagree"
+attr(ds$KSA3_05,"2") = "disagree"
+attr(ds$KSA3_05,"3") = "slightly disagree"
+attr(ds$KSA3_05,"4") = "neither agree nor disagree"
+attr(ds$KSA3_05,"5") = "slightly agree"
+attr(ds$KSA3_05,"6") = "agree"
+attr(ds$KSA3_05,"7") = "strongly agree"
+attr(ds$KSA3_06,"1") = "strongly disagree"
+attr(ds$KSA3_06,"2") = "disagree"
+attr(ds$KSA3_06,"3") = "slightly disagree"
+attr(ds$KSA3_06,"4") = "neither agree nor disagree"
+attr(ds$KSA3_06,"5") = "slightly agree"
+attr(ds$KSA3_06,"6") = "agree"
+attr(ds$KSA3_06,"7") = "strongly agree"
+attr(ds$KSA3_07,"1") = "strongly disagree"
+attr(ds$KSA3_07,"2") = "disagree"
+attr(ds$KSA3_07,"3") = "slightly disagree"
+attr(ds$KSA3_07,"4") = "neither agree nor disagree"
+attr(ds$KSA3_07,"5") = "slightly agree"
+attr(ds$KSA3_07,"6") = "agree"
+attr(ds$KSA3_07,"7") = "strongly agree"
+attr(ds$KSA3_08,"1") = "strongly disagree"
+attr(ds$KSA3_08,"2") = "disagree"
+attr(ds$KSA3_08,"3") = "slightly disagree"
+attr(ds$KSA3_08,"4") = "neither agree nor disagree"
+attr(ds$KSA3_08,"5") = "slightly agree"
+attr(ds$KSA3_08,"6") = "agree"
+attr(ds$KSA3_08,"7") = "strongly agree"
+attr(ds$KSA3_09,"1") = "strongly disagree"
+attr(ds$KSA3_09,"2") = "disagree"
+attr(ds$KSA3_09,"3") = "slightly disagree"
+attr(ds$KSA3_09,"4") = "neither agree nor disagree"
+attr(ds$KSA3_09,"5") = "slightly agree"
+attr(ds$KSA3_09,"6") = "agree"
+attr(ds$KSA3_09,"7") = "strongly agree"
+attr(ds$FRI_01,"1") = "strongly disagree"
+attr(ds$FRI_01,"2") = "disagree"
+attr(ds$FRI_01,"3") = "slightly disagree"
+attr(ds$FRI_01,"4") = "neither agree nor disagree"
+attr(ds$FRI_01,"5") = "slightly agree"
+attr(ds$FRI_01,"6") = "agree"
+attr(ds$FRI_01,"7") = "strongly agree"
+attr(ds$SAS_01,"1") = "strongly disagree"
+attr(ds$SAS_01,"2") = "disagree"
+attr(ds$SAS_01,"3") = "slightly disagree"
+attr(ds$SAS_01,"4") = "neither agree nor disagree"
+attr(ds$SAS_01,"5") = "slightly agree"
+attr(ds$SAS_01,"6") = "agree"
+attr(ds$SAS_01,"7") = "strongly agree"
+attr(ds$SAS_02,"1") = "strongly disagree"
+attr(ds$SAS_02,"2") = "disagree"
+attr(ds$SAS_02,"3") = "slightly disagree"
+attr(ds$SAS_02,"4") = "neither agree nor disagree"
+attr(ds$SAS_02,"5") = "slightly agree"
+attr(ds$SAS_02,"6") = "agree"
+attr(ds$SAS_02,"7") = "strongly agree"
+attr(ds$SAS_03,"1") = "strongly disagree"
+attr(ds$SAS_03,"2") = "disagree"
+attr(ds$SAS_03,"3") = "slightly disagree"
+attr(ds$SAS_03,"4") = "neither agree nor disagree"
+attr(ds$SAS_03,"5") = "slightly agree"
+attr(ds$SAS_03,"6") = "agree"
+attr(ds$SAS_03,"7") = "strongly agree"
+attr(ds$SAS_04,"1") = "strongly disagree"
+attr(ds$SAS_04,"2") = "disagree"
+attr(ds$SAS_04,"3") = "slightly disagree"
+attr(ds$SAS_04,"4") = "neither agree nor disagree"
+attr(ds$SAS_04,"5") = "slightly agree"
+attr(ds$SAS_04,"6") = "agree"
+attr(ds$SAS_04,"7") = "strongly agree"
+attr(ds$SAS_05,"1") = "strongly disagree"
+attr(ds$SAS_05,"2") = "disagree"
+attr(ds$SAS_05,"3") = "slightly disagree"
+attr(ds$SAS_05,"4") = "neither agree nor disagree"
+attr(ds$SAS_05,"5") = "slightly agree"
+attr(ds$SAS_05,"6") = "agree"
+attr(ds$SAS_05,"7") = "strongly agree"
+attr(ds$SAS_06,"1") = "strongly disagree"
+attr(ds$SAS_06,"2") = "disagree"
+attr(ds$SAS_06,"3") = "slightly disagree"
+attr(ds$SAS_06,"4") = "neither agree nor disagree"
+attr(ds$SAS_06,"5") = "slightly agree"
+attr(ds$SAS_06,"6") = "agree"
+attr(ds$SAS_06,"7") = "strongly agree"
+attr(ds$SAS_07,"1") = "strongly disagree"
+attr(ds$SAS_07,"2") = "disagree"
+attr(ds$SAS_07,"3") = "slightly disagree"
+attr(ds$SAS_07,"4") = "neither agree nor disagree"
+attr(ds$SAS_07,"5") = "slightly agree"
+attr(ds$SAS_07,"6") = "agree"
+attr(ds$SAS_07,"7") = "strongly agree"
+attr(ds$SAS_08,"1") = "strongly disagree"
+attr(ds$SAS_08,"2") = "disagree"
+attr(ds$SAS_08,"3") = "slightly disagree"
+attr(ds$SAS_08,"4") = "neither agree nor disagree"
+attr(ds$SAS_08,"5") = "slightly agree"
+attr(ds$SAS_08,"6") = "agree"
+attr(ds$SAS_08,"7") = "strongly agree"
+attr(ds$SAS_09,"1") = "strongly disagree"
+attr(ds$SAS_09,"2") = "disagree"
+attr(ds$SAS_09,"3") = "slightly disagree"
+attr(ds$SAS_09,"4") = "neither agree nor disagree"
+attr(ds$SAS_09,"5") = "slightly agree"
+attr(ds$SAS_09,"6") = "agree"
+attr(ds$SAS_09,"7") = "strongly agree"
+attr(ds$MFQ_01,"1") = "strongly disagree"
+attr(ds$MFQ_01,"2") = "disagree"
+attr(ds$MFQ_01,"3") = "slightly disagree"
+attr(ds$MFQ_01,"4") = "neither agree nor disagree"
+attr(ds$MFQ_01,"5") = "slightly agree"
+attr(ds$MFQ_01,"6") = "agree"
+attr(ds$MFQ_01,"7") = "strongly agree"
+attr(ds$MFQ_02,"1") = "strongly disagree"
+attr(ds$MFQ_02,"2") = "disagree"
+attr(ds$MFQ_02,"3") = "slightly disagree"
+attr(ds$MFQ_02,"4") = "neither agree nor disagree"
+attr(ds$MFQ_02,"5") = "slightly agree"
+attr(ds$MFQ_02,"6") = "agree"
+attr(ds$MFQ_02,"7") = "strongly agree"
+attr(ds$MFQ_03,"1") = "strongly disagree"
+attr(ds$MFQ_03,"2") = "disagree"
+attr(ds$MFQ_03,"3") = "slightly disagree"
+attr(ds$MFQ_03,"4") = "neither agree nor disagree"
+attr(ds$MFQ_03,"5") = "slightly agree"
+attr(ds$MFQ_03,"6") = "agree"
+attr(ds$MFQ_03,"7") = "strongly agree"
+attr(ds$MFQ_04,"1") = "strongly disagree"
+attr(ds$MFQ_04,"2") = "disagree"
+attr(ds$MFQ_04,"3") = "slightly disagree"
+attr(ds$MFQ_04,"4") = "neither agree nor disagree"
+attr(ds$MFQ_04,"5") = "slightly agree"
+attr(ds$MFQ_04,"6") = "agree"
+attr(ds$MFQ_04,"7") = "strongly agree"
+attr(ds$MFQ_05,"1") = "strongly disagree"
+attr(ds$MFQ_05,"2") = "disagree"
+attr(ds$MFQ_05,"3") = "slightly disagree"
+attr(ds$MFQ_05,"4") = "neither agree nor disagree"
+attr(ds$MFQ_05,"5") = "slightly agree"
+attr(ds$MFQ_05,"6") = "agree"
+attr(ds$MFQ_05,"7") = "strongly agree"
+attr(ds$MFQ_06,"1") = "strongly disagree"
+attr(ds$MFQ_06,"2") = "disagree"
+attr(ds$MFQ_06,"3") = "slightly disagree"
+attr(ds$MFQ_06,"4") = "neither agree nor disagree"
+attr(ds$MFQ_06,"5") = "slightly agree"
+attr(ds$MFQ_06,"6") = "agree"
+attr(ds$MFQ_06,"7") = "strongly agree"
+attr(ds$MFQ_07,"1") = "strongly disagree"
+attr(ds$MFQ_07,"2") = "disagree"
+attr(ds$MFQ_07,"3") = "slightly disagree"
+attr(ds$MFQ_07,"4") = "neither agree nor disagree"
+attr(ds$MFQ_07,"5") = "slightly agree"
+attr(ds$MFQ_07,"6") = "agree"
+attr(ds$MFQ_07,"7") = "strongly agree"
+attr(ds$MFQ_08,"1") = "strongly disagree"
+attr(ds$MFQ_08,"2") = "disagree"
+attr(ds$MFQ_08,"3") = "slightly disagree"
+attr(ds$MFQ_08,"4") = "neither agree nor disagree"
+attr(ds$MFQ_08,"5") = "slightly agree"
+attr(ds$MFQ_08,"6") = "agree"
+attr(ds$MFQ_08,"7") = "strongly agree"
+attr(ds$MFQ_09,"1") = "strongly disagree"
+attr(ds$MFQ_09,"2") = "disagree"
+attr(ds$MFQ_09,"3") = "slightly disagree"
+attr(ds$MFQ_09,"4") = "neither agree nor disagree"
+attr(ds$MFQ_09,"5") = "slightly agree"
+attr(ds$MFQ_09,"6") = "agree"
+attr(ds$MFQ_09,"7") = "strongly agree"
+attr(ds$MFQ_10,"1") = "strongly disagree"
+attr(ds$MFQ_10,"2") = "disagree"
+attr(ds$MFQ_10,"3") = "slightly disagree"
+attr(ds$MFQ_10,"4") = "neither agree nor disagree"
+attr(ds$MFQ_10,"5") = "slightly agree"
+attr(ds$MFQ_10,"6") = "agree"
+attr(ds$MFQ_10,"7") = "strongly agree"
+attr(ds$MFQ_11,"1") = "strongly disagree"
+attr(ds$MFQ_11,"2") = "disagree"
+attr(ds$MFQ_11,"3") = "slightly disagree"
+attr(ds$MFQ_11,"4") = "neither agree nor disagree"
+attr(ds$MFQ_11,"5") = "slightly agree"
+attr(ds$MFQ_11,"6") = "agree"
+attr(ds$MFQ_11,"7") = "strongly agree"
+attr(ds$FRI_02,"1") = "strongly disagree"
+attr(ds$FRI_02,"2") = "disagree"
+attr(ds$FRI_02,"3") = "slightly disagree"
+attr(ds$FRI_02,"4") = "neither agree nor disagree"
+attr(ds$FRI_02,"5") = "slightly agree"
+attr(ds$FRI_02,"6") = "agree"
+attr(ds$FRI_02,"7") = "strongly agree"
+attr(ds$CQ_01,"1") = "strongly disagree"
+attr(ds$CQ_01,"2") = "disagree"
+attr(ds$CQ_01,"3") = "slightly disagree"
+attr(ds$CQ_01,"4") = "neither agree nor disagree"
+attr(ds$CQ_01,"5") = "slightly agree"
+attr(ds$CQ_01,"6") = "agree"
+attr(ds$CQ_01,"7") = "strongly agree"
+attr(ds$CQ_02,"1") = "strongly disagree"
+attr(ds$CQ_02,"2") = "disagree"
+attr(ds$CQ_02,"3") = "slightly disagree"
+attr(ds$CQ_02,"4") = "neither agree nor disagree"
+attr(ds$CQ_02,"5") = "slightly agree"
+attr(ds$CQ_02,"6") = "agree"
+attr(ds$CQ_02,"7") = "strongly agree"
+attr(ds$CQ_03,"1") = "strongly disagree"
+attr(ds$CQ_03,"2") = "disagree"
+attr(ds$CQ_03,"3") = "slightly disagree"
+attr(ds$CQ_03,"4") = "neither agree nor disagree"
+attr(ds$CQ_03,"5") = "slightly agree"
+attr(ds$CQ_03,"6") = "agree"
+attr(ds$CQ_03,"7") = "strongly agree"
+attr(ds$CQ_04,"1") = "strongly disagree"
+attr(ds$CQ_04,"2") = "disagree"
+attr(ds$CQ_04,"3") = "slightly disagree"
+attr(ds$CQ_04,"4") = "neither agree nor disagree"
+attr(ds$CQ_04,"5") = "slightly agree"
+attr(ds$CQ_04,"6") = "agree"
+attr(ds$CQ_04,"7") = "strongly agree"
+attr(ds$CQ_05,"1") = "strongly disagree"
+attr(ds$CQ_05,"2") = "disagree"
+attr(ds$CQ_05,"3") = "slightly disagree"
+attr(ds$CQ_05,"4") = "neither agree nor disagree"
+attr(ds$CQ_05,"5") = "slightly agree"
+attr(ds$CQ_05,"6") = "agree"
+attr(ds$CQ_05,"7") = "strongly agree"
+attr(ds$CQ_06,"1") = "strongly disagree"
+attr(ds$CQ_06,"2") = "disagree"
+attr(ds$CQ_06,"3") = "slightly disagree"
+attr(ds$CQ_06,"4") = "neither agree nor disagree"
+attr(ds$CQ_06,"5") = "slightly agree"
+attr(ds$CQ_06,"6") = "agree"
+attr(ds$CQ_06,"7") = "strongly agree"
+attr(ds$CQ_07,"1") = "strongly disagree"
+attr(ds$CQ_07,"2") = "disagree"
+attr(ds$CQ_07,"3") = "slightly disagree"
+attr(ds$CQ_07,"4") = "neither agree nor disagree"
+attr(ds$CQ_07,"5") = "slightly agree"
+attr(ds$CQ_07,"6") = "agree"
+attr(ds$CQ_07,"7") = "strongly agree"
+attr(ds$CQ_08,"1") = "strongly disagree"
+attr(ds$CQ_08,"2") = "disagree"
+attr(ds$CQ_08,"3") = "slightly disagree"
+attr(ds$CQ_08,"4") = "neither agree nor disagree"
+attr(ds$CQ_08,"5") = "slightly agree"
+attr(ds$CQ_08,"6") = "agree"
+attr(ds$CQ_08,"7") = "strongly agree"
+attr(ds$CQ_09,"1") = "strongly disagree"
+attr(ds$CQ_09,"2") = "disagree"
+attr(ds$CQ_09,"3") = "slightly disagree"
+attr(ds$CQ_09,"4") = "neither agree nor disagree"
+attr(ds$CQ_09,"5") = "slightly agree"
+attr(ds$CQ_09,"6") = "agree"
+attr(ds$CQ_09,"7") = "strongly agree"
+attr(ds$CQ_10,"1") = "strongly disagree"
+attr(ds$CQ_10,"2") = "disagree"
+attr(ds$CQ_10,"3") = "slightly disagree"
+attr(ds$CQ_10,"4") = "neither agree nor disagree"
+attr(ds$CQ_10,"5") = "slightly agree"
+attr(ds$CQ_10,"6") = "agree"
+attr(ds$CQ_10,"7") = "strongly agree"
+attr(ds$CQ_11,"1") = "strongly disagree"
+attr(ds$CQ_11,"2") = "disagree"
+attr(ds$CQ_11,"3") = "slightly disagree"
+attr(ds$CQ_11,"4") = "neither agree nor disagree"
+attr(ds$CQ_11,"5") = "slightly agree"
+attr(ds$CQ_11,"6") = "agree"
+attr(ds$CQ_11,"7") = "strongly agree"
+attr(ds$CQ_12,"1") = "strongly disagree"
+attr(ds$CQ_12,"2") = "disagree"
+attr(ds$CQ_12,"3") = "slightly disagree"
+attr(ds$CQ_12,"4") = "neither agree nor disagree"
+attr(ds$CQ_12,"5") = "slightly agree"
+attr(ds$CQ_12,"6") = "agree"
+attr(ds$CQ_12,"7") = "strongly agree"
+attr(ds$CQ_13,"1") = "strongly disagree"
+attr(ds$CQ_13,"2") = "disagree"
+attr(ds$CQ_13,"3") = "slightly disagree"
+attr(ds$CQ_13,"4") = "neither agree nor disagree"
+attr(ds$CQ_13,"5") = "slightly agree"
+attr(ds$CQ_13,"6") = "agree"
+attr(ds$CQ_13,"7") = "strongly agree"
+attr(ds$CQ_14,"1") = "strongly disagree"
+attr(ds$CQ_14,"2") = "disagree"
+attr(ds$CQ_14,"3") = "slightly disagree"
+attr(ds$CQ_14,"4") = "neither agree nor disagree"
+attr(ds$CQ_14,"5") = "slightly agree"
+attr(ds$CQ_14,"6") = "agree"
+attr(ds$CQ_14,"7") = "strongly agree"
+attr(ds$CQ_15,"1") = "strongly disagree"
+attr(ds$CQ_15,"2") = "disagree"
+attr(ds$CQ_15,"3") = "slightly disagree"
+attr(ds$CQ_15,"4") = "neither agree nor disagree"
+attr(ds$CQ_15,"5") = "slightly agree"
+attr(ds$CQ_15,"6") = "agree"
+attr(ds$CQ_15,"7") = "strongly agree"
+attr(ds$CQ_16,"1") = "strongly disagree"
+attr(ds$CQ_16,"2") = "disagree"
+attr(ds$CQ_16,"3") = "slightly disagree"
+attr(ds$CQ_16,"4") = "neither agree nor disagree"
+attr(ds$CQ_16,"5") = "slightly agree"
+attr(ds$CQ_16,"6") = "agree"
+attr(ds$CQ_16,"7") = "strongly agree"
+attr(ds$BFI01,"1") = "strongly disagree"
+attr(ds$BFI01,"2") = "disagree"
+attr(ds$BFI01,"3") = "slightly disagree"
+attr(ds$BFI01,"4") = "neither agree nor disagree"
+attr(ds$BFI01,"5") = "slightly agree"
+attr(ds$BFI01,"6") = "agree"
+attr(ds$BFI01,"7") = "strongly agree"
+attr(ds$BFI02,"1") = "strongly disagree"
+attr(ds$BFI02,"2") = "disagree"
+attr(ds$BFI02,"3") = "slightly disagree"
+attr(ds$BFI02,"4") = "neither agree nor disagree"
+attr(ds$BFI02,"5") = "slightly agree"
+attr(ds$BFI02,"6") = "agree"
+attr(ds$BFI02,"7") = "strongly agree"
+attr(ds$BFI03,"1") = "strongly disagree"
+attr(ds$BFI03,"2") = "disagree"
+attr(ds$BFI03,"3") = "slightly disagree"
+attr(ds$BFI03,"4") = "neither agree nor disagree"
+attr(ds$BFI03,"5") = "slightly agree"
+attr(ds$BFI03,"6") = "agree"
+attr(ds$BFI03,"7") = "strongly agree"
+attr(ds$BFI04,"1") = "strongly disagree"
+attr(ds$BFI04,"2") = "disagree"
+attr(ds$BFI04,"3") = "slightly disagree"
+attr(ds$BFI04,"4") = "neither agree nor disagree"
+attr(ds$BFI04,"5") = "slightly agree"
+attr(ds$BFI04,"6") = "agree"
+attr(ds$BFI04,"7") = "strongly agree"
+attr(ds$BFI05,"1") = "strongly disagree"
+attr(ds$BFI05,"2") = "disagree"
+attr(ds$BFI05,"3") = "slightly disagree"
+attr(ds$BFI05,"4") = "neither agree nor disagree"
+attr(ds$BFI05,"5") = "slightly agree"
+attr(ds$BFI05,"6") = "agree"
+attr(ds$BFI05,"7") = "strongly agree"
+attr(ds$BFI06,"1") = "strongly disagree"
+attr(ds$BFI06,"2") = "disagree"
+attr(ds$BFI06,"3") = "slightly disagree"
+attr(ds$BFI06,"4") = "neither agree nor disagree"
+attr(ds$BFI06,"5") = "slightly agree"
+attr(ds$BFI06,"6") = "agree"
+attr(ds$BFI06,"7") = "strongly agree"
+attr(ds$BFI07,"1") = "strongly disagree"
+attr(ds$BFI07,"2") = "disagree"
+attr(ds$BFI07,"3") = "slightly disagree"
+attr(ds$BFI07,"4") = "neither agree nor disagree"
+attr(ds$BFI07,"5") = "slightly agree"
+attr(ds$BFI07,"6") = "agree"
+attr(ds$BFI07,"7") = "strongly agree"
+attr(ds$BFI08,"1") = "strongly disagree"
+attr(ds$BFI08,"2") = "disagree"
+attr(ds$BFI08,"3") = "slightly disagree"
+attr(ds$BFI08,"4") = "neither agree nor disagree"
+attr(ds$BFI08,"5") = "slightly agree"
+attr(ds$BFI08,"6") = "agree"
+attr(ds$BFI08,"7") = "strongly agree"
+attr(ds$BFI09,"1") = "strongly disagree"
+attr(ds$BFI09,"2") = "disagree"
+attr(ds$BFI09,"3") = "slightly disagree"
+attr(ds$BFI09,"4") = "neither agree nor disagree"
+attr(ds$BFI09,"5") = "slightly agree"
+attr(ds$BFI09,"6") = "agree"
+attr(ds$BFI09,"7") = "strongly agree"
+attr(ds$BFI10,"1") = "strongly disagree"
+attr(ds$BFI10,"2") = "disagree"
+attr(ds$BFI10,"3") = "slightly disagree"
+attr(ds$BFI10,"4") = "neither agree nor disagree"
+attr(ds$BFI10,"5") = "slightly agree"
+attr(ds$BFI10,"6") = "agree"
+attr(ds$BFI10,"7") = "strongly agree"
+attr(ds$PR01_01,"1") = "strongly disagree"
+attr(ds$PR01_01,"2") = "disagree"
+attr(ds$PR01_01,"3") = "slightly disagree"
+attr(ds$PR01_01,"4") = "neither agree nor disagree"
+attr(ds$PR01_01,"5") = "slightly agree"
+attr(ds$PR01_01,"6") = "agree"
+attr(ds$PR01_01,"7") = "strongly agree"
+attr(ds$PR01_02,"1") = "strongly disagree"
+attr(ds$PR01_02,"2") = "disagree"
+attr(ds$PR01_02,"3") = "slightly disagree"
+attr(ds$PR01_02,"4") = "neither agree nor disagree"
+attr(ds$PR01_02,"5") = "slightly agree"
+attr(ds$PR01_02,"6") = "agree"
+attr(ds$PR01_02,"7") = "strongly agree"
+attr(ds$PR02_01,"1") = "strongly disagree"
+attr(ds$PR02_01,"2") = "disagree"
+attr(ds$PR02_01,"3") = "slightly disagree"
+attr(ds$PR02_01,"4") = "neither agree nor disagree"
+attr(ds$PR02_01,"5") = "slightly agree"
+attr(ds$PR02_01,"6") = "agree"
+attr(ds$PR02_01,"7") = "strongly agree"
+attr(ds$PR02_02,"1") = "strongly disagree"
+attr(ds$PR02_02,"2") = "disagree"
+attr(ds$PR02_02,"3") = "slightly disagree"
+attr(ds$PR02_02,"4") = "neither agree nor disagree"
+attr(ds$PR02_02,"5") = "slightly agree"
+attr(ds$PR02_02,"6") = "agree"
+attr(ds$PR02_02,"7") = "strongly agree"
+attr(ds$PR02_03,"1") = "strongly disagree"
+attr(ds$PR02_03,"2") = "disagree"
+attr(ds$PR02_03,"3") = "slightly disagree"
+attr(ds$PR02_03,"4") = "neither agree nor disagree"
+attr(ds$PR02_03,"5") = "slightly agree"
+attr(ds$PR02_03,"6") = "agree"
+attr(ds$PR02_03,"7") = "strongly agree"
+attr(ds$PR02_04,"1") = "strongly disagree"
+attr(ds$PR02_04,"2") = "disagree"
+attr(ds$PR02_04,"3") = "slightly disagree"
+attr(ds$PR02_04,"4") = "neither agree nor disagree"
+attr(ds$PR02_04,"5") = "slightly agree"
+attr(ds$PR02_04,"6") = "agree"
+attr(ds$PR02_04,"7") = "strongly agree"
+attr(ds$RG01,"1") = "external PR measures"
+attr(ds$RG01,"2") = "no external PR measures (attention checks, bogus questions, and open question)"
+attr(ds$RG02,"1") = "1-4"
+attr(ds$RG02,"2") = "4-1"
+attr(ds$RG03,"1") = "1-5"
+attr(ds$RG03,"2") = "5-1"
+attr(ds$FINISHED,"F") = "Canceled"
+attr(ds$FINISHED,"T") = "Finished"
+attr(ds$Q_VIEWER,"F") = "Respondent"
+attr(ds$Q_VIEWER,"T") = "Spectator"
+var_label(ds$SERIAL) = "Serial number (if provided)"
+var_label(ds$REF) = "Reference (if provided in link)"
+var_label(ds$QUESTNNR) = "Questionnaire that has been used in the interview"
+var_label(ds$MODE) = "Interview mode"
+var_label(ds$STARTED) = "Time the interview has started (Europe/Berlin)"
+var_label(ds$AAID_01) = "Attitudes Toward AI in Defense Scale: The use of AI in Defense could be used to spy on us"
+var_label(ds$AAID_05) = "Attitudes Toward AI in Defense Scale: The use of AI in Defense could be used unethically by those in power"
+var_label(ds$AAID_07) = "Attitudes Toward AI in Defense Scale: The use of AI in Defense could be used to maintain peace"
+var_label(ds$AAID_09) = "Attitudes Toward AI in Defense Scale: The use of AI in Defense could lead to unforeseen consequences"
+var_label(ds$AAID_12) = "Attitudes Toward AI in Defense Scale: The use of AI in Defense could save lives"
+var_label(ds$AAID_14) = "Attitudes Toward AI in Defense Scale: The use of AI in Defense could protect critical national infrastructure"
+var_label(ds$PANAS_09) = "Positive and Negative Affect Schedule: During the last two weeks, I have felt enthusiastic"
+var_label(ds$PANAS_14) = "Positive and Negative Affect Schedule: During the last two weeks, I have felt inspired"
+var_label(ds$PANAS_10) = "Positive and Negative Affect Schedule: During the last two weeks, I have felt proud"
+var_label(ds$PANAS_05) = "Positive and Negative Affect Schedule: During the last two weeks, I have felt strong"
+var_label(ds$PANAS_08) = "Positive and Negative Affect Schedule: During the last two weeks, I have felt hostile"
+var_label(ds$PANAS_06) = "Positive and Negative Affect Schedule: During the last two weeks, I have felt guilty"
+var_label(ds$PANAS_04) = "Positive and Negative Affect Schedule: During the last two weeks, I have felt upset"
+var_label(ds$PANAS_18) = "Positive and Negative Affect Schedule: During the last two weeks, I have felt jittery"
+var_label(ds$OLBI_07) = "Oldenburg Burnout Inventory: I ﬁnd my work to be a positive challenge."
+var_label(ds$OLBI_08) = "Oldenburg Burnout Inventory: During my work, I often feel emotionally drained."
+var_label(ds$OLBI_09) = "Oldenburg Burnout Inventory: Over time, one can become disconnected from this type of work."
+var_label(ds$OLBI_10) = "Oldenburg Burnout Inventory: After working, I have enough energy for my leisure activities."
+var_label(ds$OLBI_11) = "Oldenburg Burnout Inventory: Sometimes I feel sickened by my work tasks."
+var_label(ds$OLBI_12) = "Oldenburg Burnout Inventory: After my work, I usually feel worn out and weary."
+var_label(ds$OLBI_15) = "Oldenburg Burnout Inventory: I feel more and more engaged in my work."
+var_label(ds$OLBI_16) = "Oldenburg Burnout Inventory: When I work, I usually feel energized."
+var_label(ds$UWES9_01) = "Utrecht Work Engagement Scale: At my work, I feel bursting with energy."
+var_label(ds$UWES9_02) = "Utrecht Work Engagement Scale: At my job, I feel strong and vigorous."
+var_label(ds$UWES9_03) = "Utrecht Work Engagement Scale: I am enthusiastic about my job."
+var_label(ds$UWES9_04) = "Utrecht Work Engagement Scale: My job inspires me."
+var_label(ds$UWES9_05) = "Utrecht Work Engagement Scale: When I get up in the morning, I feel like going to work."
+var_label(ds$UWES9_06) = "Utrecht Work Engagement Scale: I feel happy when I am working intensely."
+var_label(ds$UWES9_07) = "Utrecht Work Engagement Scale: I am proud of the work that I do."
+var_label(ds$UWES9_08) = "Utrecht Work Engagement Scale: I am immersed in my work."
+var_label(ds$UWES9_09) = "Utrecht Work Engagement Scale: I get carried away when I am working."
+var_label(ds$PAQ_08) = "Perth Alexithymia Questionnaire: When I\'m feeling bad, I can\'t make sense of those feelings."
+var_label(ds$PAQ_20) = "Perth Alexithymia Questionnaire: When I\'m feeling bad, I\'m puzzled by those feelings."
+var_label(ds$PAQ_05) = "Perth Alexithymia Questionnaire: When I\'m feeling good, I can\'t tell whether I\'m happy, excited, or amused."
+var_label(ds$PAQ_17) = "Perth Alexithymia Questionnaire: When I\'m feeling good, I get confused about what emotion it is."
+var_label(ds$PAQ_13) = "Perth Alexithymia Questionnaire: When something bad happens, it\'s hard for me to put into words how I\'m feeling."
+var_label(ds$PAQ_07) = "Perth Alexithymia Questionnaire: When I\'m feeling bad, I can\'t talk about those feelings in much depth or detail."
+var_label(ds$PAQ_10) = "Perth Alexithymia Questionnaire: When I\'m feeling good, I can\'t talk about those feelings in much depth or detail."
+var_label(ds$PAQ_16) = "Perth Alexithymia Questionnaire: When something good happens, it\'s hard for me to put into words how I\'m feeling."
+var_label(ds$PAQ_03) = "Perth Alexithymia Questionnaire: I tend to ignore how I feel."
+var_label(ds$PAQ_15) = "Perth Alexithymia Questionnaire: I prefer to focus on things I can actually see or touch, rather than my emotions."
+var_label(ds$IFI_01) = "Perth Alexithymia Questionnaire: I have never cried."
+var_label(ds$PSS_01) = "Perceived Stress Scale: In the last month, how often have you been upset because of something that happened unexpectedly?"
+var_label(ds$PSS_02) = "Perceived Stress Scale: In the last month, how often have you felt that you were unable to control the important things in your life?"
+var_label(ds$PSS_03) = "Perceived Stress Scale: In the last month, how often have you felt nervous and \"stressed\"?"
+var_label(ds$PSS_04) = "Perceived Stress Scale: In the last month, how often have you dealt successfully with irritating life hassles?"
+var_label(ds$PSS_05) = "Perceived Stress Scale: In the last month, how often have you felt that you were effectively coping with important changes that were occurring in your life?"
+var_label(ds$PSS_06) = "Perceived Stress Scale: In the last month, how often have you felt confident about your ability to handle your personal problems?"
+var_label(ds$PSS_07) = "Perceived Stress Scale: In the last month, how often have you felt that things were going your way?"
+var_label(ds$PSS_08) = "Perceived Stress Scale: In the last month, how often have you found that you could not cope with all the things that you had to do?"
+var_label(ds$PSS_09) = "Perceived Stress Scale: In the last month, how often have you been able to control irritations in your life?"
+var_label(ds$PSS_10) = "Perceived Stress Scale: In the last month, how often have you felt that you were on top of things?"
+var_label(ds$PSS_11) = "Perceived Stress Scale: In the last month, how often have you been angered because of things that happened that were outside of your control?"
+var_label(ds$PSS_12) = "Perceived Stress Scale: In the last month, how often have you found yourself thinking about things that you have to accomplish?"
+var_label(ds$PSS_13) = "Perceived Stress Scale: In the last month, how often have you been able to control the way you spend your time?"
+var_label(ds$PSS_14) = "Perceived Stress Scale: In the last month, how often have you felt difficulties were piling up so high that you could not overcome them?"
+var_label(ds$NEPS_01) = "New Ecological Paradigm Scale: We are approaching the limit of the number of people the earth can support"
+var_label(ds$NEPS_04) = "New Ecological Paradigm Scale: Human ingenuity will insure that we do NOT make the earth unlivable"
+var_label(ds$NEPS_05) = "New Ecological Paradigm Scale: Humans are severely abusing the environment"
+var_label(ds$NEPS_06) = "New Ecological Paradigm Scale: The earth has plenty of natural resources if we just learn how to develop them"
+var_label(ds$NEPS_07) = "New Ecological Paradigm Scale: Plants and animals have as much right as humans to exist"
+var_label(ds$NEPS_08) = "New Ecological Paradigm Scale: The balance of nature is strong enough to cope with the impacts of modern industrial nations"
+var_label(ds$NEPS_09) = "New Ecological Paradigm Scale: Despite our special abilities humans are still subject to the laws of nature"
+var_label(ds$NEPS_10) = "New Ecological Paradigm Scale: The so-called \"ecological crisis\" facing humankind has been greatly exaggerated"
+var_label(ds$NEPS_12) = "New Ecological Paradigm Scale: Humans were meant to rule over the rest of nature"
+var_label(ds$NEPS_13) = "New Ecological Paradigm Scale: The balance of nature is very delicate and easily upset"
+var_label(ds$HSQ_02) = "Humor Styles Questionnaire: If I am feeling depressed, I can usually cheer myself up with humor."
+var_label(ds$HSQ_03) = "Humor Styles Questionnaire: If someone makes a mistake, I will often tease them about it."
+var_label(ds$HSQ_04) = "Humor Styles Questionnaire: I let people laugh at me or make fun at my expense more than I should."
+var_label(ds$HSQ_06) = "Humor Styles Questionnaire: Even when I’m by myself, I’m often amused by the absurdities of life."
+var_label(ds$HSQ_07) = "Humor Styles Questionnaire: People are never offended or hurt by my sense of humor."
+var_label(ds$HSQ_08) = "Humor Styles Questionnaire: I will often get carried away in putting myself down if it makes my family or friends laugh."
+var_label(ds$HSQ_09) = "Humor Styles Questionnaire: I rarely make other people laugh by telling funny stories about myself."
+var_label(ds$HSQ_16) = "Humor Styles Questionnaire: I don’t often say funny things to put myself down."
+var_label(ds$HSQ_21) = "Humor Styles Questionnaire: I enjoy making people laugh."
+var_label(ds$HSQ_22) = "Humor Styles Questionnaire: If I am feeling sad or upset, I usually lose my sense of humor."
+var_label(ds$HSQ_23) = "Humor Styles Questionnaire: I never participate in laughing at others even if all my friends are doing it."
+var_label(ds$HSQ_29) = "Humor Styles Questionnaire: I usually can\'t think of witty things to say when I\'m with other people."
+var_label(ds$ULS8_01) = "UCLA Loneliness Scale: I lack companionship."
+var_label(ds$ULS8_02) = "UCLA Loneliness Scale: There is no one I can turn to."
+var_label(ds$ULS8_03) = "UCLA Loneliness Scale: I am an outgoing person."
+var_label(ds$ULS8_04) = "UCLA Loneliness Scale: I feel left out."
+var_label(ds$ULS8_05) = "UCLA Loneliness Scale: I feel isolated from others."
+var_label(ds$ULS8_06) = "UCLA Loneliness Scale: I can find companionship when I want it."
+var_label(ds$ULS8_07) = "UCLA Loneliness Scale: I am unhappy being so withdrawn."
+var_label(ds$ULS8_08) = "UCLA Loneliness Scale: People are around me but not with me."
+var_label(ds$ACH_01) = "UCLA Loneliness Scale: To ensure data quality, please choose strongly disagree for this item"
+var_label(ds$NGSE_01) = "General Self-Efficacy Scale: I will be able to achieve most of the goals that I have set for myself."
+var_label(ds$NGSE_02) = "General Self-Efficacy Scale: When facing difficult tasks, I am certain that I will accomplish them."
+var_label(ds$NGSE_03) = "General Self-Efficacy Scale: In general, I think that I can obtain outcomes that are important to me."
+var_label(ds$NGSE_04) = "General Self-Efficacy Scale: I believe I can succeed at most any endeavor to which I set my mind."
+var_label(ds$NGSE_05) = "General Self-Efficacy Scale: I will be able to successfully overcome many challenges."
+var_label(ds$NGSE_06) = "General Self-Efficacy Scale: I am confident that I can perform effectively on many different tasks."
+var_label(ds$NGSE_07) = "General Self-Efficacy Scale: Compared to other people, I can do most tasks very well."
+var_label(ds$NGSE_08) = "General Self-Efficacy Scale: Even when things are tough, I can perform quite well."
+var_label(ds$ATB_03) = "General Self-Efficacy Scale: I\'ve discovered a way to turn broccoli into gold."
+var_label(ds$FCV19S_01) = "Fear of COVID-19 Scale: I am most afraid of coronavirus-19"
+var_label(ds$FCV19S_02) = "Fear of COVID-19 Scale: It makes me uncomfortable to think about coronavirus-19."
+var_label(ds$FCV19S_03) = "Fear of COVID-19 Scale: My hands become clammy when I think about coronavirus-19."
+var_label(ds$FCV19S_04) = "Fear of COVID-19 Scale: I am afraid of losing my life because of coronavirus-19."
+var_label(ds$FCV19S_05) = "Fear of COVID-19 Scale: When watching news and stories about coronavirus-19 on social media, I become nervous or anxious."
+var_label(ds$FCV19S_06) = "Fear of COVID-19 Scale: I cannot sleep because I’m worrying about getting coronavirus-19."
+var_label(ds$FCV19S_07) = "Fear of COVID-19 Scale: My heart races or palpitates when I think about getting coronavirus-19."
+var_label(ds$DAQ_05) = "Disgust Avoidance Questionnaire: I try to avoid activities that could make me feel disgusted."
+var_label(ds$DAQ_07) = "Disgust Avoidance Questionnaire: I avoid actions that remind me of repulsive things."
+var_label(ds$DAQ_09) = "Disgust Avoidance Questionnaire: I try hard to avoid situations that might bring up feelings of repulsion in me."
+var_label(ds$DAQ_11) = "Disgust Avoidance Questionnaire: I avoid certain situations that make me pay attention to disgusting things."
+var_label(ds$DAQ_15) = "Disgust Avoidance Questionnaire: I avoid objects that can trigger feelings of disgust."
+var_label(ds$DAQ_19) = "Disgust Avoidance Questionnaire: I try not to think about gross situations."
+var_label(ds$DAQ_21) = "Disgust Avoidance Questionnaire: I try hard to avoid thinking about a repulsive past situation."
+var_label(ds$DAQ_23) = "Disgust Avoidance Questionnaire: I distract myself to avoid thinking about things that disgust me."
+var_label(ds$DAQ_25) = "Disgust Avoidance Questionnaire: To avoid thinking about things that revolt me, I force myself to think about something else."
+var_label(ds$DAQ_02) = "Disgust Avoidance Questionnaire: I am quick to stop any activity that makes me feel disgusted."
+var_label(ds$DAQ_06) = "Disgust Avoidance Questionnaire: If I start feeling strong disgust, I prefer to leave the situation."
+var_label(ds$DAQ_08) = "Disgust Avoidance Questionnaire: If I am in a situation in which I feel revolted, I leave the situation immediately."
+var_label(ds$DAQ_10) = "Disgust Avoidance Questionnaire: I am quick to leave any situation that makes me feel disgusted."
+var_label(ds$DAQ_12) = "Disgust Avoidance Questionnaire: When I think about something gross, I push those thoughts out of my mind."
+var_label(ds$DAQ_14) = "Disgust Avoidance Questionnaire: When thoughts about repulsive things come up, I try very hard to stop thinking about them."
+var_label(ds$DAQ_16) = "Disgust Avoidance Questionnaire: If thoughts about disgusting things cross my mind, I try to push them away as much as possible."
+var_label(ds$DAQ_24) = "Disgust Avoidance Questionnaire: When thoughts about revolting things come up, I try to fill my head with something else."
+var_label(ds$ACH_02) = "Disgust Avoidance Questionnaire: To ensure data quality, please choose strongly agree for this item"
+var_label(ds$WGS_01) = "Work Gratitude Scale: Right now, I have so much at work to be thankful for."
+var_label(ds$WGS_02) = "Work Gratitude Scale: At this present time, if I had to list everything that I felt grateful for at work, it would be a very long list."
+var_label(ds$WGS_03) = "Work Gratitude Scale: At the present time, life has been good to me at work."
+var_label(ds$WGS_04) = "Work Gratitude Scale: Currently, I couldn’t have gotten where I am today at work without the help of many people."
+var_label(ds$WGS_05) = "Work Gratitude Scale: Although I think it’s important to feel good about my current work accomplishments, I think that it’s also important to remember how others have contributed to my accomplishments."
+var_label(ds$WGS_06) = "Work Gratitude Scale: Although I’m basically in control of my work at the present time, I can’t help but think about all those who have supported me and helped me along the way."
+var_label(ds$WGS_07) = "Work Gratitude Scale: Right now, I feel deeply appreciative for the things others have done for me at work."
+var_label(ds$WGS_08) = "Work Gratitude Scale: Currently, I think that it’s important to \"Stop and smell the roses\" as it pertains to my work."
+var_label(ds$WGS_09) = "Work Gratitude Scale: Currently, I believe that it’s important to pause often to \"count my blessings\" at work."
+var_label(ds$WGS_10) = "Work Gratitude Scale: Right now, I think it’s important to enjoy the simple things that pertain to my work."
+var_label(ds$CESD_01) = "Center for Epidemiological Studies Depression Scale: I was bothered by things that usually don’t bother me."
+var_label(ds$CESD_02) = "Center for Epidemiological Studies Depression Scale: I did not feel like eating; my appetite was poor."
+var_label(ds$CESD_03) = "Center for Epidemiological Studies Depression Scale: I felt that I could not shake off the blues even with help from my family or friends."
+var_label(ds$CESD_04) = "Center for Epidemiological Studies Depression Scale: I felt that I was just as good as other people."
+var_label(ds$CESD_05) = "Center for Epidemiological Studies Depression Scale: I had trouble keeping my mind on what I was doing."
+var_label(ds$CESD_06) = "Center for Epidemiological Studies Depression Scale: I felt depressed."
+var_label(ds$CESD_07) = "Center for Epidemiological Studies Depression Scale: I felt that everything I did was an effort."
+var_label(ds$CESD_08) = "Center for Epidemiological Studies Depression Scale: I felt hopeful about the future."
+var_label(ds$CESD_09) = "Center for Epidemiological Studies Depression Scale: I thought my life had been a failure."
+var_label(ds$CESD_10) = "Center for Epidemiological Studies Depression Scale: I felt fearful."
+var_label(ds$CESD_11) = "Center for Epidemiological Studies Depression Scale: My sleep was restless."
+var_label(ds$CESD_12) = "Center for Epidemiological Studies Depression Scale: I was happy."
+var_label(ds$CESD_13) = "Center for Epidemiological Studies Depression Scale: I talked less than usual."
+var_label(ds$CESD_14) = "Center for Epidemiological Studies Depression Scale: I felt lonely."
+var_label(ds$CESD_15) = "Center for Epidemiological Studies Depression Scale: People were unfriendly."
+var_label(ds$CESD_16) = "Center for Epidemiological Studies Depression Scale: I enjoyed life."
+var_label(ds$CESD_17) = "Center for Epidemiological Studies Depression Scale: I had crying spells."
+var_label(ds$CESD_18) = "Center for Epidemiological Studies Depression Scale: I felt sad."
+var_label(ds$CESD_19) = "Center for Epidemiological Studies Depression Scale: I felt that people dislike me."
+var_label(ds$CESD_20) = "Center for Epidemiological Studies Depression Scale: I could not get \"going\"."
+var_label(ds$HEXACO_01) = "HEXACO-60: I rarely hold a grudge, even against people who have badly wronged me."
+var_label(ds$HEXACO_02) = "HEXACO-60: I wouldn\'t use flattery to get a raise or promotion at work, even if I thought it would succeed."
+var_label(ds$HEXACO_03) = "HEXACO-60: People sometimes tell me that I am too critical of others."
+var_label(ds$HEXACO_04) = "HEXACO-60: If I knew that I could never get caught, I would be willing to steal a million dollars."
+var_label(ds$HEXACO_05) = "HEXACO-60: People sometimes tell me that I\'m too stubborn."
+var_label(ds$HEXACO_06) = "HEXACO-60: Having a lot of money is not especially important to me."
+var_label(ds$HEXACO_07) = "HEXACO-60: People think of me as someone who has a quick temper."
+var_label(ds$HEXACO_08) = "HEXACO-60: I think that I am entitled to more respect than the average person is."
+var_label(ds$HEXACO_09) = "HEXACO-60: My attitude toward people who have treated me badly is “forgive and forget”."
+var_label(ds$HEXACO_10) = "HEXACO-60: If I want something from someone, I will laugh at that person\'s worst jokes."
+var_label(ds$HEXACO_11) = "HEXACO-60: I tend to be lenient in judging other people."
+var_label(ds$HEXACO_12) = "HEXACO-60: I would never accept a bribe, even if it were very large."
+var_label(ds$HEXACO_13) = "HEXACO-60: I am usually quite flexible in my opinions when people disagree with me."
+var_label(ds$HEXACO_14) = "HEXACO-60: I would get a lot of pleasure from owning expensive luxury goods."
+var_label(ds$HEXACO_15) = "HEXACO-60: Most people tend to get angry more quickly than I do."
+var_label(ds$HEXACO_16) = "HEXACO-60: I want people to know that I am an important person of high status."
+var_label(ds$HEXACO_17) = "HEXACO-60: Even when people make a lot of mistakes, I rarely say anything negative."
+var_label(ds$HEXACO_18) = "HEXACO-60: I wouldn\'t pretend to like someone just to get that person to do favors for me."
+var_label(ds$HEXACO_19) = "HEXACO-60: When people tell me that I\'m wrong, my first reaction is to argue with them."
+var_label(ds$HEXACO_20) = "HEXACO-60: I\'d be tempted to use counterfeit money, if I were sure I could get away with it."
+var_label(ds$HEXACO_21) = "HEXACO-60: I plan ahead and organize things, to avoid scrambling at the last minute."
+var_label(ds$HEXACO_22) = "HEXACO-60: I often push myself very hard when trying to achieve a goal."
+var_label(ds$HEXACO_23) = "HEXACO-60: When working on something, I don\'t pay much attention to small details."
+var_label(ds$HEXACO_24) = "HEXACO-60: I make decisions based on the feeling of the moment rather than on careful thought."
+var_label(ds$HEXACO_25) = "HEXACO-60: When working, I sometimes have difficulties due to being disorganized."
+var_label(ds$HEXACO_26) = "HEXACO-60: I do only the minimum amount of work needed to get by."
+var_label(ds$HEXACO_27) = "HEXACO-60: I always try to be accurate in my work, even at the expense of time."
+var_label(ds$HEXACO_28) = "HEXACO-60: I make a lot of mistakes because I don’t think before I act."
+var_label(ds$HEXACO_29) = "HEXACO-60: People often call me a perfectionist."
+var_label(ds$HEXACO_30) = "HEXACO-60: I prefer to do whatever comes to mind, rather than stick to a plan."
+var_label(ds$IFI_02) = "HEXACO-60: I can speak 30 languages fluently."
+var_label(ds$OCIR_01) = "Obsessive–Compulsive Inventory: I have saved up so many things that they get in the way."
+var_label(ds$OCIR_02) = "Obsessive–Compulsive Inventory: I check things more often than necessary."
+var_label(ds$OCIR_03) = "Obsessive–Compulsive Inventory: I get upset if objects are not arranged properly."
+var_label(ds$OCIR_04) = "Obsessive–Compulsive Inventory: I feel compelled to count while I am doing things."
+var_label(ds$OCIR_05) = "Obsessive–Compulsive Inventory: I find it difficult to touch an object when I know it has been touched by strangers or certain people."
+var_label(ds$OCIR_06) = "Obsessive–Compulsive Inventory: I find it difficult to control my own thoughts."
+var_label(ds$OCIR_07) = "Obsessive–Compulsive Inventory: I collect things I don’t need."
+var_label(ds$OCIR_08) = "Obsessive–Compulsive Inventory: I repeatedly check doors, windows, drawers, etc."
+var_label(ds$OCIR_09) = "Obsessive–Compulsive Inventory: I get upset if others change the way I have arranged things."
+var_label(ds$OCIR_10) = "Obsessive–Compulsive Inventory: I feel I have to repeat certain numbers."
+var_label(ds$OCIR_11) = "Obsessive–Compulsive Inventory: I sometimes have to wash or clean myself simply because I feel contaminated."
+var_label(ds$OCIR_12) = "Obsessive–Compulsive Inventory: I am upset by unpleasant thoughts that come into my mind against my will."
+var_label(ds$OCIR_13) = "Obsessive–Compulsive Inventory: I avoid throwing things away because I am afraid I might need them later."
+var_label(ds$OCIR_14) = "Obsessive–Compulsive Inventory: I repeatedly check gas and water taps and light switches after turning them off."
+var_label(ds$OCIR_15) = "Obsessive–Compulsive Inventory: I need things to be arranged in a particular order."
+var_label(ds$OCIR_16) = "Obsessive–Compulsive Inventory: I feel that there are good and bad numbers."
+var_label(ds$OCIR_17) = "Obsessive–Compulsive Inventory: I wash my hands more often and longer than necessary."
+var_label(ds$OCIR_18) = "Obsessive–Compulsive Inventory: I frequently get nasty thoughts and have difficulty in getting rid of them."
+var_label(ds$PTQ_01) = "Perseverative Thinking Questionnaire: The same thoughts keep going through my mind again and again."
+var_label(ds$PTQ_02) = "Perseverative Thinking Questionnaire: Thoughts intrude into my mind."
+var_label(ds$PTQ_03) = "Perseverative Thinking Questionnaire: I can’t stop dwelling on negative experiences or problems."
+var_label(ds$PTQ_04) = "Perseverative Thinking Questionnaire: I think about many problems without solving any of them."
+var_label(ds$PTQ_05) = "Perseverative Thinking Questionnaire: I can’t do anything else while thinking about my problems."
+var_label(ds$PTQ_06) = "Perseverative Thinking Questionnaire: My thoughts repeat themselves."
+var_label(ds$PTQ_07) = "Perseverative Thinking Questionnaire: Thoughts come to my mind without me wanting them to."
+var_label(ds$PTQ_08) = "Perseverative Thinking Questionnaire: I get stuck on certain issues and can’t move on."
+var_label(ds$PTQ_09) = "Perseverative Thinking Questionnaire: I keep asking myself questions without finding an answer."
+var_label(ds$PTQ_10) = "Perseverative Thinking Questionnaire: My thoughts prevent me from focusing on other things."
+var_label(ds$PTQ_11) = "Perseverative Thinking Questionnaire: I keep thinking about the same issue all the time."
+var_label(ds$PTQ_12) = "Perseverative Thinking Questionnaire: Thoughts just pop into my mind."
+var_label(ds$PTQ_13) = "Perseverative Thinking Questionnaire: I feel driven to continue dwelling on the same issue."
+var_label(ds$PTQ_14) = "Perseverative Thinking Questionnaire: My thoughts are not much help to me."
+var_label(ds$PTQ_15) = "Perseverative Thinking Questionnaire: My thoughts take up all my attention."
+var_label(ds$RAAS_01) = "Revised Adult Attachment Scale: I find it relatively easy to get close to people."
+var_label(ds$RAAS_02) = "Revised Adult Attachment Scale: I find it difficult to allow myself to depend on others."
+var_label(ds$RAAS_05) = "Revised Adult Attachment Scale: I am comfortable depending on others."
+var_label(ds$RAAS_06) = "Revised Adult Attachment Scale: I don’t worry about people getting too close to me."
+var_label(ds$RAAS_07) = "Revised Adult Attachment Scale: I find that people are never there when you need them."
+var_label(ds$RAAS_08) = "Revised Adult Attachment Scale: I am somewhat uncomfortable being close to others."
+var_label(ds$RAAS_12) = "Revised Adult Attachment Scale: I am comfortable developing close relationships with others."
+var_label(ds$RAAS_13) = "Revised Adult Attachment Scale: I am uncomfortable when anyone gets too emotionally close to me."
+var_label(ds$RAAS_14) = "Revised Adult Attachment Scale: I know that people will be there when I need them."
+var_label(ds$RAAS_16) = "Revised Adult Attachment Scale: I find it difficult to trust others completely."
+var_label(ds$RAAS_17) = "Revised Adult Attachment Scale: Romantic partners often want me to be emotionally closer than I feel comfortable being."
+var_label(ds$KSA3_01) = "Authoritarianism Short Scale: We should take strong action against misfits and slackers in society."
+var_label(ds$KSA3_02) = "Authoritarianism Short Scale: Troublemakers should be made to feel that they are not welcome in society."
+var_label(ds$KSA3_03) = "Authoritarianism Short Scale: Rules in society should be enforced without pity."
+var_label(ds$KSA3_04) = "Authoritarianism Short Scale: We need strong leaders so that we can live safely in society."
+var_label(ds$KSA3_05) = "Authoritarianism Short Scale: People should leave important decisions in society to their leaders."
+var_label(ds$KSA3_06) = "Authoritarianism Short Scale: We should be grateful for leaders telling us exactly what to do."
+var_label(ds$KSA3_07) = "Authoritarianism Short Scale: Traditions should definitely be carried on and kept alive."
+var_label(ds$KSA3_08) = "Authoritarianism Short Scale: Well-established behavior should not be questioned."
+var_label(ds$KSA3_09) = "Authoritarianism Short Scale: It\'s always best to do things in the usual way."
+var_label(ds$FRI_01) = "Authoritarianism Short Scale: Nuclear weapons would be dangerous if they got into the wrong hands."
+var_label(ds$SAS_01) = "Survey Attitude Scale: I really enjoy responding to questionnaires through the mail or Internet."
+var_label(ds$SAS_02) = "Survey Attitude Scale: I really enjoy being interviewed for a survey."
+var_label(ds$SAS_03) = "Survey Attitude Scale: Surveys are interesting in themselves."
+var_label(ds$SAS_04) = "Survey Attitude Scale: Surveys are important for society."
+var_label(ds$SAS_05) = "Survey Attitude Scale: A lot can be learned from information collected through surveys."
+var_label(ds$SAS_06) = "Survey Attitude Scale: Completing surveys is a waste of time."
+var_label(ds$SAS_07) = "Survey Attitude Scale: I receive far too many requests to participate in surveys."
+var_label(ds$SAS_08) = "Survey Attitude Scale: Opinion polls are an invasion of privacy."
+var_label(ds$SAS_09) = "Survey Attitude Scale: It is exhaustive to answer so many questions in a survey."
+var_label(ds$MFQ_01) = "Moral Foundations Questionnaire: Compassion for those who are suffering is the most crucial virtue."
+var_label(ds$MFQ_02) = "Moral Foundations Questionnaire: When the government makes laws, the number one principle should be ensuring that everyone is treated fairly."
+var_label(ds$MFQ_03) = "Moral Foundations Questionnaire: I am proud of my country’s history."
+var_label(ds$MFQ_04) = "Moral Foundations Questionnaire: Respect for authority is something all children need to learn."
+var_label(ds$MFQ_05) = "Moral Foundations Questionnaire: People should not do things that are disgusting, even if no one is harmed."
+var_label(ds$MFQ_06) = "Moral Foundations Questionnaire: It is better to do good than to do bad."
+var_label(ds$MFQ_07) = "Moral Foundations Questionnaire: One of the worst things a person could do is hurt a defenseless animal."
+var_label(ds$MFQ_08) = "Moral Foundations Questionnaire: Justice is the most important requirement for a society."
+var_label(ds$MFQ_09) = "Moral Foundations Questionnaire: People should be loyal to their family members, even when they have done something wrong."
+var_label(ds$MFQ_10) = "Moral Foundations Questionnaire: Men and women each have different roles to play in society."
+var_label(ds$MFQ_11) = "Moral Foundations Questionnaire: I would call some acts wrong on the grounds that they are unnatural."
+var_label(ds$FRI_02) = "Moral Foundations Questionnaire: It feels good to be appreciated."
+var_label(ds$CQ_01) = "Chronotype Questionnaire: I can work efficiently at any time of the day"
+var_label(ds$CQ_02) = "Chronotype Questionnaire: I feel I can think the best in the morning."
+var_label(ds$CQ_03) = "Chronotype Questionnaire: There are moments during the day where I would prefer to avoid any work."
+var_label(ds$CQ_04) = "Chronotype Questionnaire: I feel drowsy for a long time after awakening."
+var_label(ds$CQ_05) = "Chronotype Questionnaire: If I were to study anything by myself, I would rather do it in the evening."
+var_label(ds$CQ_06) = "Chronotype Questionnaire: My mood stays the same throughout the day."
+var_label(ds$CQ_07) = "Chronotype Questionnaire: I like to get up earlier then necessary, e.g. in order to prepare things for the whole day."
+var_label(ds$CQ_08) = "Chronotype Questionnaire: I can focus at any time of the day."
+var_label(ds$CQ_09) = "Chronotype Questionnaire: My work goes better in the afternoon than before noon."
+var_label(ds$CQ_10) = "Chronotype Questionnaire: At any time of the day, my motivation is the same."
+var_label(ds$CQ_11) = "Chronotype Questionnaire: I am usually in an excellent mood in the morning."
+var_label(ds$CQ_12) = "Chronotype Questionnaire: If I need it, I’m able to concentrate at any time of the day."
+var_label(ds$CQ_13) = "Chronotype Questionnaire: I am in my best form in the morning, in the course of the day my energy runs out."
+var_label(ds$CQ_14) = "Chronotype Questionnaire: There are moments during the day where I feel unable to do anything."
+var_label(ds$CQ_15) = "Chronotype Questionnaire: There are moments during the day when it is harder for me to think."
+var_label(ds$CQ_16) = "Chronotype Questionnaire: I feel sluggish in the morning and I warm up slowly during the day."
+var_label(ds$BFI01) = "Big Five Inventory (BFI-10): I see myself as someone who is reserved"
+var_label(ds$BFI02) = "Big Five Inventory (BFI-10): I see myself as someone who is generally trusting"
+var_label(ds$BFI03) = "Big Five Inventory (BFI-10): I see myself as someone who tends to be lazy"
+var_label(ds$BFI04) = "Big Five Inventory (BFI-10): I see myself as someone who is relaxed, handles stress well"
+var_label(ds$BFI05) = "Big Five Inventory (BFI-10): I see myself as someone who has few artistic interests"
+var_label(ds$BFI06) = "Big Five Inventory (BFI-10): I see myself as someone who is outgoing, sociable"
+var_label(ds$BFI07) = "Big Five Inventory (BFI-10): I see myself as someone who tends to find fault with others"
+var_label(ds$BFI08) = "Big Five Inventory (BFI-10): I see myself as someone who does a thorough job"
+var_label(ds$BFI09) = "Big Five Inventory (BFI-10): I see myself as someone who gets nervous easily"
+var_label(ds$BFI10) = "Big Five Inventory (BFI-10): I see myself as someone who has an active imagination"
+var_label(ds$BH02_01) = "OE-E01: I would"
+var_label(ds$BH03_01) = "OE-A01: I would"
+var_label(ds$BH04_01) = "OE-C01: I would"
+var_label(ds$BH05_01) = "OE-N01: I would"
+var_label(ds$BH06_01) = "OE-O01: I would"
+var_label(ds$BH07_01) = "OE-E02: I would"
+var_label(ds$BH08_01) = "OE-A02: I would"
+var_label(ds$BH09_01) = "OE-C02: I would"
+var_label(ds$BH10_01) = "OE-N02: I would"
+var_label(ds$BH11_01) = "OE-O02: I would"
+var_label(ds$MS01) = "Politics"
+var_label(ds$MS02_01) = "YOB: [01]"
+var_label(ds$MS03) = "Spanish"
+var_label(ds$MS04) = "Knowledge of Wordsum"
+var_label(ds$OC01) = "Automobiles"
+var_label(ds$OC02) = "Smoking"
+var_label(ds$OC03) = "Abortion"
+var_label(ds$OC04) = "Holocaust"
+var_label(ds$PR01_01) = "Attention checks (instructed response): To ensure data quality, please choose strongly disagree for this item"
+var_label(ds$PR01_02) = "Attention checks (instructed response): To ensure data quality, please choose strongly agree for this item"
+var_label(ds$PR02_01) = "Bogus items (frequency/infrequency): Nuclear weapons would be dangerous if they got into the wrong hands."
+var_label(ds$PR02_02) = "Bogus items (frequency/infrequency): It feels good to be appreciated."
+var_label(ds$PR02_03) = "Bogus items (frequency/infrequency): I can speak 30 languages fluently."
+var_label(ds$PR02_04) = "Bogus items (frequency/infrequency): I have never cried."
+var_label(ds$PR03_01) = "Open question: [01]"
+var_label(ds$RG01_CP) = "External measures vs. no: Complete clearances of the ballot, yet"
+var_label(ds$RG01) = "External measures vs. no: Code drawn"
+var_label(ds$RG02_CP) = "1-4 vs. 4-1 sequence on abortion q: Complete clearances of the ballot, yet"
+var_label(ds$RG02) = "1-4 vs. 4-1 sequence on abortion q: Code drawn"
+var_label(ds$RG03_CP) = "1-5 vs. 5-1 sequence on holocaust q: Complete clearances of the ballot, yet"
+var_label(ds$RG03) = "1-5 vs. 5-1 sequence on holocaust q: Code drawn"
+var_label(ds$gender) = "Sex"
+var_label(ds$SD13) = "Gender"
+var_label(ds$SD13_02) = "Gender: Other, please specify"
+var_label(ds$SD02_01) = "Age: [01]"
+var_label(ds$SD03) = "Race"
+var_label(ds$SD04) = "Hispan"
+var_label(ds$SD05) = "BPL- state"
+var_label(ds$SD12) = "BPL- country"
+var_label(ds$SD06) = "State"
+var_label(ds$SD07) = "Marst"
+var_label(ds$SD08) = "Educ"
+var_label(ds$SD09) = "Degfield"
+var_label(ds$SD10) = "OCC"
+var_label(ds$SD11_01) = "Inctot: [01]"
+var_label(ds$WS01) = "Wordsum 1"
+var_label(ds$WS02) = "Wordsum 2"
+var_label(ds$WS03) = "Wordsum 3"
+var_label(ds$WS04) = "Wordsum 4"
+var_label(ds$WS05) = "Wordsum 5"
+var_label(ds$WS06) = "Wordsum 6"
+var_label(ds$WS07) = "Wordsum 7"
+var_label(ds$WS08) = "Wordsum 8"
+var_label(ds$WS09) = "Wordsum 9"
+var_label(ds$WS10) = "Wordsum 10"
+var_label(ds$ZY01_01) = "Prolific ID: Prolific ID"
+var_label(ds$ZY02) = "Truthfulness"
+var_label(ds$ZY03_01) = "Feedback: Did you experience any problems while participating in this survey?"
+var_label(ds$ZY03_02) = "Feedback: Do you have recommendations for how we can improve the survey?"
+var_label(ds$ZY04_01) = "Question shuffle sequence: sequence"
+var_label(ds$ZY05_01) = "Prolific ID (GET): prolific_id"
+var_label(ds$TIME001) = "Time spent on page 1"
+var_label(ds$TIME002) = "Time spent on page 2"
+var_label(ds$TIME003) = "Time spent on page 3"
+var_label(ds$TIME004) = "Time spent on page 4"
+var_label(ds$TIME005) = "Time spent on page 5"
+var_label(ds$TIME006) = "Time spent on page 6"
+var_label(ds$TIME007) = "Time spent on page 7"
+var_label(ds$TIME008) = "Time spent on page 8"
+var_label(ds$TIME009) = "Time spent on page 9"
+var_label(ds$TIME010) = "Time spent on page 10"
+var_label(ds$TIME_SUM) = "Time spent overall (except outliers)"
+var_label(ds$MAILSENT) = "Time when the invitation mailing was sent (personally identifiable recipients, only)"
+var_label(ds$LASTDATA) = "Time when the data was most recently updated"
+var_label(ds$FINISHED) = "Has the interview been finished (reached last page)?"
+var_label(ds$Q_VIEWER) = "Did the respondent only view the questionnaire, omitting mandatory questions?"
+var_label(ds$LASTPAGE) = "Last page that the participant has handled in the questionnaire"
+var_label(ds$MAXPAGE) = "Hindmost page handled by the participant"
+var_label(ds$MISSING) = "Missing answers in percent"
+var_label(ds$MISSREL) = "Missing answers (weighted by relevance)"
+var_label(ds$TIME_RSI) = "Completion Speed (relative)"
+
+sort(colSums(is.na(ds))/nrow(ds))
+```
+
+
+## Removing testers
+```{r}
+# ds %>% select(CASE, MODE, STARTED) %>% head(40)
+# filter out testers
+ds <- ds %>% filter(STARTED > as.POSIXct("2024-11-01 18:30:00")) %>% 
+	as_tibble()
+```
+
+## Remove items that we deactivated
+```{r}
+vars <- colSums(is.na(ds))
+names(vars[vars == nrow(ds)]) # disabled
+keep_vars <- names(vars[vars < nrow(ds)])
+ds <- ds %>% select(all_of(keep_vars))
+```
+
+
+## Fetch item metadata
+```{r}
+items <- rio::import("https://docs.google.com/spreadsheets/d/16QcRLP5BUn1Cmtr0e_XRdjr1Wg-EHSMSGmgZO1M3tNM/edit?gid=0#gid=0", which = 2) %>% select(item = id, scale, subscale, reversed, in_survey)
+
+items %>% filter(! item %in% names(ds)) %>% filter(in_survey)
+items %>% filter(item %in% names(ds)) %>% filter(!in_survey)
+items <- items %>% filter(in_survey)
+items <- items %>% 
+	mutate(subscale = if_else(subscale == "#N/A", "", subscale)) %>% 
+	filter(item %in% names(ds))
+```
+
+
+## Add value labels
+```{r}
+add_likert_labels <- function(x) {
+	labels <- c()
+	for(i in 1:7) {
+		labels <- c(labels, i)
+		names(labels)[i] <- attr(x, as.character(i))
+		attr(x, as.character(i)) <- NULL
+	}
+  val_labels(x) <- labels
+  x
+}
+likert_items <- items %>% pull(item)
+ds <- ds %>% mutate_at(likert_items,  add_likert_labels)
+```
+
+
+## Invert items
+```{r}
+inv_items <- items %>%
+  filter(reversed) %>%
+  pull(item) %>%
+  intersect(names(ds))
+
+# Reverse code items based on "reversed" column in "inv_items"
+ds <- ds %>%
+  mutate(across(c(all_of(inv_items), ULS8_03, ULS8_06), list(R = ~reverse_labelled_values(.))))
+```
+
+## Create scales
+```{r}
+scales <- items %>% select(scale, subscale) %>% distinct() 
+scales <- scales %>% filter(scale!="good")
+for(i in seq_along(1:nrow(scales))) {
+	scale <- str_replace_all(str_trim(str_c(scales[i, "scale"], " ", scales[i, "subscale"])), " ", "_")
+	scale_items <- items %>% filter(scale == scales[i, "scale"], subscale == scales[i, "subscale"]) %>% 
+		mutate(item = if_else(reversed, str_c(item, "_R"), item)) %>% pull(item)
+	ds[[scale]] <- aggregate_and_document_scale(ds %>% select(all_of(scale_items)), stem = scale)
+}
+
+scales <- items %>% filter(subscale != "") %>% select(scale) %>% distinct() 
+for(i in seq_along(1:nrow(scales))) {
+	scale <- str_replace_all(str_trim(str_c(scales[i, "scale"])), " ", "_")
+	scale_items <- items %>% filter(scale == scales[i, "scale"]) %>% 
+		mutate(item = if_else(reversed, str_c(item, "_R"), item)) %>% pull(item)
+	ds[[scale]] <- aggregate_and_document_scale(ds %>% select(all_of(scale_items)), stem = scale)
+}
+```
+
+## Merge Prolific demographic/info
+```{r}
+ds <- ds %>% 
+  mutate(prolific_id = coalesce(as.character(ZY05_01), as.character(ZY01_01)))
+
+prolific <- read_csv("data/raw/prolific_export_6724e8b7c251d7b4bea2ca25.csv") %>% 
+  rename(prolific_id = "Participant id")
+```
+
+Some participants clicked our link containing YOURID in a direct message.
+
+```{r}
+ds %>% filter(prolific_id == "YOURID") %>% nrow()
+```
+
+
+### filter to approved on the main prolific study only and merge survey data
+
+```{r}
+prolific %>% group_by(Status) %>% summarise(n())
+
+ds <- prolific %>% right_join(ds, by = "prolific_id")
+```
+
+
+### manually modify falsified educ cases
+those who mentioned problems with demog questions
+
+```{r}
+ds %>% filter(str_sub(prolific_id, -10, -1) %in% c(
+  "95fb6586d0", # fixed it themselves
+  "0017b10010", # to be fixed
+  "fa3955b996", # to be fixed, i messaged them on prolific to get actual response
+  "18489df9a5", # fixed it themselves
+  "0b93f756e9", # retiree who doesn't identify as unemployed (change to unemployed)
+  "d57907579e" # he entered it right, not sure what they're talking about
+)) %>% 
+	select(SD08, SD10, ZY03_01, ZY03_02) %>% 
+	kableExtra::kable()
+```
+
+manually modify values
+
+```{r}
+ds <- ds %>%
+  mutate(
+    SD10 = case_when(
+      str_sub(prolific_id, -10, -1)  == "0b93f756e9" ~ "N/A: Unemployed",
+      TRUE ~ SD10 
+    ),
+    SD08 = case_when(
+      str_sub(prolific_id, -10, -1)  == "0017b10010" ~ "2 years of college", 
+      str_sub(prolific_id, -10, -1)  == "fa3955b996" ~ "2 years of college",
+      TRUE ~ SD08
+    ))
+```
+
+## Save processed data with sensitive info
+```{r}
+saveRDS(ds, "data/processed/sensitive_sosci_labelled.rds")
+```
+
+## Remove sensitive info
+```{r}
+ds <- ds %>% select(-c(prolific_id, ZY01_01, ZY03_01, ZY03_02, ZY05_01, PR03_01, `Completion code`, starts_with("BH"), SD13_02))
+```
+
+## Save processed data
+```{r}
+saveRDS(ds, "data/processed/sosci_labelled.rds")
+```
+
